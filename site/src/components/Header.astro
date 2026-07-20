@@ -1,0 +1,363 @@
+---
+import { SITE_NAME } from "../data/site";
+
+const services = [
+  { label: "Accounting", href: "/services/accounting" },
+  { label: "Bookkeeping", href: "/services/bookkeeping" },
+];
+const taxServices = [
+  { label: "VAT", href: "/services/tax/vat" },
+  { label: "Corporate Tax", href: "/services/tax/corporate-tax" },
+];
+---
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo-link" aria-label={`${SITE_NAME} — home`}>
+      <img src="/brand/tbt-horizontal-white.png" alt={SITE_NAME} width="150" height="38" />
+    </a>
+
+    <nav class="nav-desktop" aria-label="Main">
+      <a href="/">Home</a>
+
+      <div class="nav-drop" id="services-drop">
+        <button
+          type="button"
+          class="nav-drop-btn"
+          aria-expanded="false"
+          aria-controls="services-menu"
+        >
+          Services
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </button>
+        <div class="nav-drop-panel" id="services-menu">
+          {services.map((s) => <a href={s.href}>{s.label}</a>)}
+          <p class="drop-group">Tax Services</p>
+          {taxServices.map((s) => <a class="drop-sub" href={s.href}>{s.label}</a>)}
+          <a class="drop-all" href="/services">All services →</a>
+        </div>
+      </div>
+
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact" class="btn btn-gold header-cta">Discuss Your Requirements</a>
+    </nav>
+
+    <button
+      type="button"
+      class="burger"
+      id="burger"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Open menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <nav aria-label="Mobile">
+      <a href="/">Home</a>
+      <button type="button" class="mob-services-btn" aria-expanded="false">
+        Services
+        <svg width="12" height="7" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+          <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </button>
+      <div class="mob-services" hidden>
+        {services.map((s) => <a href={s.href}>{s.label}</a>)}
+        <p class="drop-group">Tax Services</p>
+        {taxServices.map((s) => <a class="drop-sub" href={s.href}>{s.label}</a>)}
+        <a href="/services">All services →</a>
+      </div>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="/contact" class="btn btn-gold">Discuss Your Requirements</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 100;
+    background: rgba(3, 3, 4, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--charcoal-2);
+    transition: border-color 0.4s var(--ease-out);
+  }
+
+  .site-header.scrolled {
+    border-bottom-color: var(--gold-30);
+  }
+
+  .header-inner {
+    height: var(--header-h);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .logo-link img {
+    height: 2.35rem;
+    width: auto;
+  }
+
+  .nav-desktop {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  .nav-desktop > a:not(.header-cta),
+  .nav-drop-btn {
+    color: var(--silver);
+    position: relative;
+    padding-block: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    letter-spacing: 0.02em;
+    transition: color 0.3s var(--ease-out);
+  }
+
+  .nav-desktop > a:not(.header-cta)::after,
+  .nav-drop-btn::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nav-desktop > a:not(.header-cta):hover,
+  .nav-drop-btn:hover,
+  .nav-drop-btn[aria-expanded="true"] {
+    color: var(--gold-hi);
+  }
+
+  .nav-desktop > a:not(.header-cta):hover::after,
+  .nav-drop-btn:hover::after {
+    transform: scaleX(1);
+  }
+
+  .header-cta {
+    padding: 0.6rem 1.25rem;
+  }
+
+  /* dropdown */
+  .nav-drop {
+    position: relative;
+  }
+
+  .nav-drop-panel {
+    position: absolute;
+    top: calc(100% + 0.9rem);
+    left: 50%;
+    translate: -50% 0;
+    min-width: 13.5rem;
+    background: var(--charcoal);
+    border: 1px solid var(--charcoal-3);
+    border-top: 2px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 0.6rem 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition:
+      opacity 0.28s var(--ease-out),
+      transform 0.28s var(--ease-out),
+      visibility 0.28s;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
+  }
+
+  .nav-drop:hover .nav-drop-panel,
+  .nav-drop:focus-within .nav-drop-panel,
+  .nav-drop.open .nav-drop-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .nav-drop-panel a {
+    padding: 0.55rem 1.2rem;
+    color: var(--silver);
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-drop-panel a:hover {
+    color: var(--gold-hi);
+    background: var(--gold-08);
+  }
+
+  .drop-group {
+    padding: 0.7rem 1.2rem 0.2rem;
+    font-size: var(--text-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .drop-sub {
+    padding-left: 1.9rem !important;
+  }
+
+  .drop-all {
+    margin-top: 0.4rem;
+    border-top: 1px solid var(--charcoal-3);
+    color: var(--gold) !important;
+    font-size: var(--text-micro);
+    letter-spacing: 0.06em;
+  }
+
+  /* burger + mobile */
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 0.5rem;
+  }
+
+  .burger span {
+    width: 22px;
+    height: 1.5px;
+    background: var(--silver);
+    transition: transform 0.3s var(--ease-out), opacity 0.3s;
+  }
+
+  .burger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .burger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .burger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: fixed;
+    inset: var(--header-h) 0 0 0;
+    background: rgba(3, 3, 4, 0.97);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+  }
+
+  .mobile-menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .mobile-menu nav > a,
+  .mob-services-btn {
+    padding: 0.9rem 0.2rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--silver);
+    border-bottom: 1px solid var(--charcoal-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .mobile-menu nav > a.btn {
+    justify-content: center;
+    margin-top: 1.4rem;
+    border-bottom: none;
+    color: #171004;
+  }
+
+  .mob-services-btn svg {
+    transition: rotate 0.3s var(--ease-out);
+  }
+
+  .mob-services-btn[aria-expanded="true"] svg {
+    rotate: 180deg;
+  }
+
+  .mob-services {
+    display: flex;
+    flex-direction: column;
+    padding: 0.4rem 0 0.6rem 1rem;
+  }
+
+  .mob-services a {
+    padding: 0.55rem 0.2rem;
+    color: var(--grey);
+  }
+
+  .mob-services a:hover {
+    color: var(--gold-hi);
+  }
+
+  @media (max-width: 900px) {
+    .nav-desktop {
+      display: none;
+    }
+    .burger {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const header = document.getElementById("site-header")!;
+  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 8);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Services dropdown: click toggles (touch/keyboard), hover handled by CSS
+  const drop = document.getElementById("services-drop")!;
+  const dropBtn = drop.querySelector<HTMLButtonElement>(".nav-drop-btn")!;
+  dropBtn.addEventListener("click", () => {
+    const open = drop.classList.toggle("open");
+    dropBtn.setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("click", (e) => {
+    if (!drop.contains(e.target as Node)) {
+      drop.classList.remove("open");
+      dropBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      drop.classList.remove("open");
+      dropBtn.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Mobile menu
+  const burger = document.getElementById("burger")!;
+  const mobileMenu = document.getElementById("mobile-menu")!;
+  burger.addEventListener("click", () => {
+    const open = burger.getAttribute("aria-expanded") === "true";
+    burger.setAttribute("aria-expanded", String(!open));
+    mobileMenu.hidden = open;
+    document.body.style.overflow = open ? "" : "hidden";
+  });
+
+  const mobBtn = mobileMenu.querySelector<HTMLButtonElement>(".mob-services-btn")!;
+  const mobPanel = mobileMenu.querySelector<HTMLElement>(".mob-services")!;
+  mobBtn.addEventListener("click", () => {
+    const open = mobBtn.getAttribute("aria-expanded") === "true";
+    mobBtn.setAttribute("aria-expanded", String(!open));
+    mobPanel.hidden = open;
+  });
+</script>

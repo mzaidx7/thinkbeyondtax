@@ -1,0 +1,140 @@
+---
+import {
+  SITE_NAME,
+  EMAIL,
+  PHONE_DISPLAY,
+  WHATSAPP_URL,
+  TRADEMARK_DISCLAIMER,
+  COLLECTIVE_DISCLAIMER,
+  GENERAL_INFO_DISCLAIMER,
+} from "../data/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/brand/tbt-full-white.png" alt={SITE_NAME} width="150" height="150" />
+        <p>
+          Independent UAE accounting, bookkeeping and tax professionals — working
+          inside the systems your business already uses.
+        </p>
+      </div>
+
+      <nav aria-label="Footer — navigate">
+        <p class="footer-head">Navigate</p>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+
+      <nav aria-label="Footer — services">
+        <p class="footer-head">Services</p>
+        <a href="/services/accounting">Accounting</a>
+        <a href="/services/bookkeeping">Bookkeeping</a>
+        <a href="/services/tax/vat">VAT</a>
+        <a href="/services/tax/corporate-tax">Corporate Tax</a>
+      </nav>
+
+      <div>
+        <p class="footer-head">Contact</p>
+        <a href={WHATSAPP_URL} target="_blank" rel="noopener">WhatsApp — {PHONE_DISPLAY}</a>
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+        <p class="footer-loc">United Arab Emirates</p>
+      </div>
+    </div>
+
+    <hr class="gold-rule" />
+
+    <div class="footer-legal">
+      <p>{COLLECTIVE_DISCLAIMER}</p>
+      <p>{GENERAL_INFO_DISCLAIMER}</p>
+      <p>{TRADEMARK_DISCLAIMER}</p>
+    </div>
+
+    <p class="footer-copy">© {year} {SITE_NAME}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--charcoal-2);
+    background: var(--charcoal);
+    padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+    font-size: var(--text-small);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.4fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-brand img {
+    height: 8.5rem;
+    width: auto;
+    margin-bottom: 1rem;
+    margin-left: -0.5rem;
+  }
+
+  .footer-brand p {
+    color: var(--grey);
+    max-width: 26rem;
+  }
+
+  .footer-head {
+    font-size: var(--text-micro);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .footer-grid nav,
+  .footer-grid div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .footer-grid a {
+    color: var(--silver);
+    transition: color 0.25s;
+  }
+
+  .footer-grid a:hover {
+    color: var(--gold-hi);
+  }
+
+  .footer-loc {
+    color: var(--grey);
+  }
+
+  .footer-legal {
+    display: grid;
+    gap: 0.7rem;
+    padding-block: 1.8rem;
+    color: var(--grey);
+    font-size: var(--text-micro);
+    line-height: 1.7;
+    max-width: 60rem;
+  }
+
+  .footer-copy {
+    color: var(--grey);
+    font-size: var(--text-micro);
+  }
+
+  @media (max-width: 800px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

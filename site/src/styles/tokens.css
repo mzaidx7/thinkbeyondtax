@@ -1,0 +1,37 @@
+:root {
+  /* Brand palette — Think Beyond Tax Quick Brand Spec */
+  --ink: #030304;
+  --charcoal: #0b0b0b;
+  --charcoal-2: #141414;
+  --charcoal-3: #1d1d1d;
+  --gold: #cf982f;
+  --gold-hi: #efc451;
+  --gold-lo: #a06a0f;
+  --silver: #dcdcd9;
+  --grey: #8d8d8d;
+
+  --gold-08: rgba(207, 152, 47, 0.08);
+  --gold-15: rgba(207, 152, 47, 0.15);
+  --gold-30: rgba(207, 152, 47, 0.3);
+
+  /* Type */
+  --font-display: "Lato", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-hero: clamp(2.1rem, 4.2vw, 3.4rem);
+  --text-h2: clamp(1.7rem, 3vw, 2.4rem);
+  --text-h3: clamp(1.15rem, 1.6vw, 1.4rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-micro: 0.75rem;
+
+  /* Layout */
+  --container: 76rem;
+  --header-h: 4.5rem;
+  --radius: 6px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur: 0.4s;
+}

@@ -1,0 +1,65 @@
+---
+import { WHATSAPP_URL, EMAIL } from "../data/site";
+
+interface Props {
+  heading?: string;
+  sub?: string;
+}
+
+const {
+  heading = "Tell us how your business runs. We'll meet you there.",
+  sub = "An initial discussion is free and without obligation — we'll listen to how your records are kept today and suggest a practical way forward.",
+} = Astro.props;
+---
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div>
+      <h2>{heading}</h2>
+      <p>{sub}</p>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-gold" href={WHATSAPP_URL} target="_blank" rel="noopener">
+        Discuss Your Requirements
+      </a>
+      <a class="btn btn-ghost" href={`mailto:${EMAIL}`}>Email {EMAIL}</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    border-top: 1px solid var(--gold-15);
+    border-bottom: 1px solid var(--gold-15);
+    background:
+      radial-gradient(ellipse 60% 90% at 50% 110%, var(--gold-08), transparent 70%),
+      var(--charcoal);
+    padding-block: clamp(3rem, 6vw, 5rem);
+  }
+
+  .cta-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cta-inner h2 {
+    font-size: var(--text-h2);
+    max-width: 30ch;
+  }
+
+  .cta-inner p {
+    color: var(--grey);
+    margin-top: 0.9rem;
+    max-width: 46ch;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+  }
+</style>

@@ -1,0 +1,423 @@
+---
+import Chrome from "./Chrome.astro";
+
+const topNav = [
+  { label: "Dashboard", active: true },
+  { label: "Business" },
+  { label: "Accounting" },
+  { label: "Payroll" },
+  { label: "Projects" },
+  { label: "Contacts" },
+];
+---
+
+<div class="screen screen-xero" data-screen="xero">
+  <Chrome variant="browser" title="Xero | Dashboard" url="go.xero.com/app/dashboard" accent="#13b5ea" />
+
+  <div class="x-topnav" data-depth="1.1">
+    <span class="x-org">Al Sarh Trading <i>▾</i></span>
+    <nav>
+      {topNav.map((n) => <span class:list={["x-link", { active: n.active }]}>{n.label}</span>)}
+    </nav>
+    <div class="x-topicons">
+      <span>+</span>
+      <span class="x-circle"></span>
+      <span class="x-circle x-avatar">A</span>
+    </div>
+  </div>
+
+  <div class="screen-body x-body">
+    <div class="x-col-l">
+      <div class="x-card" data-depth="1.5">
+        <div class="x-card-head">
+          <p class="x-card-title">Bank accounts</p>
+          <span class="x-link-sm">Manage ▾</span>
+        </div>
+        <div class="x-bank">
+          <div class="x-bank-top">
+            <p class="x-bank-name">Emirates NBD Business</p>
+            <button class="x-reconcile" type="button" tabindex="-1">
+              Reconcile <b id="xero-rec-count">12</b> items
+            </button>
+          </div>
+          <svg class="x-spark" viewBox="0 0 300 44" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 34 C30 30 45 36 70 28 S120 14 150 20 S220 8 250 14 S290 4 300 8" fill="none" stroke="#13b5ea" stroke-width="2" />
+            <path d="M0 34 C30 30 45 36 70 28 S120 14 150 20 S220 8 250 14 S290 4 300 8 L300 44 L0 44 Z" fill="rgba(19,181,234,0.10)" />
+          </svg>
+          <div class="x-bal">
+            <p>Balance in Xero <b>AED 84,210.45</b></p>
+            <p>Statement balance <b>AED 85,975.20</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="x-card" data-depth="1.35">
+        <div class="x-card-head">
+          <p class="x-card-title">Account watchlist</p>
+        </div>
+        <table class="x-watch">
+          <thead>
+            <tr><th>Account</th><th>This month</th><th>YTD</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Sales</td><td>58,900</td><td>402,350</td></tr>
+            <tr><td>Office Expenses</td><td>7,420</td><td>48,660</td></tr>
+            <tr><td>VAT</td><td>4,320</td><td>26,180</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="x-col-r">
+      <div class="x-card" data-depth="1.45">
+        <div class="x-card-head">
+          <p class="x-card-title">Invoices owed to you</p>
+          <span class="x-link-sm">New sales invoice</span>
+        </div>
+        <p class="x-total">AED 63,450</p>
+        <div class="x-owed">
+          <div class="x-owed-row">
+            <span>3 Draft</span>
+            <div class="x-owed-bar"><i style="width:12%;background:#c3ccd6"></i></div>
+            <b>4,200</b>
+          </div>
+          <div class="x-owed-row">
+            <span>14 Awaiting payment</span>
+            <div class="x-owed-bar"><i style="width:72%;background:#13b5ea"></i></div>
+            <b>43,130</b>
+          </div>
+          <div class="x-owed-row">
+            <span>6 Overdue</span>
+            <div class="x-owed-bar"><i style="width:30%;background:#d9534f"></i></div>
+            <b>16,120</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="x-card" data-depth="1.3">
+        <div class="x-card-head">
+          <p class="x-card-title">Bills you need to pay</p>
+        </div>
+        <div class="x-owed">
+          <div class="x-owed-row">
+            <span>7 Awaiting payment</span>
+            <div class="x-owed-bar"><i style="width:52%;background:#7a8aa0"></i></div>
+            <b>21,340</b>
+          </div>
+          <div class="x-owed-row">
+            <span>2 Overdue</span>
+            <div class="x-owed-bar"><i style="width:14%;background:#d9534f"></i></div>
+            <b>3,980</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="x-card" data-depth="1.4">
+        <div class="x-card-head">
+          <p class="x-card-title">Total cash in and out</p>
+        </div>
+        <svg class="x-cash" viewBox="0 0 300 90" aria-hidden="true">
+          {
+            [0, 1, 2, 3, 4, 5].map((i) => {
+              const ins = [42, 55, 38, 62, 50, 70][i];
+              const outs = [30, 36, 28, 40, 34, 44][i];
+              const x = 14 + i * 48;
+              return (
+                <>
+                  <rect x={x} y={82 - ins} width="14" height={ins} rx="2" fill="#13b5ea" />
+                  <rect x={x + 17} y={82 - outs} width="14" height={outs} rx="2" fill="#c3ccd6" />
+                </>
+              );
+            })
+          }
+          <line x1="0" y1="82" x2="300" y2="82" stroke="#e3e6ec" />
+        </svg>
+      </div>
+    </div>
+
+    <span class="g-cursor x-cursor"></span>
+  </div>
+</div>
+
+<style>
+  .screen-xero {
+    background: #f2f3f6;
+  }
+
+  .x-topnav {
+    height: 46px;
+    background: #10233f;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 20px;
+    color: #c8d2e0;
+    flex: none;
+  }
+
+  .x-org {
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 14px;
+    border-right: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .x-org i {
+    font-style: normal;
+    font-size: 9px;
+    color: #8fa3bd;
+  }
+
+  .x-topnav nav {
+    display: flex;
+    gap: 22px;
+    font-size: 12.5px;
+  }
+
+  .x-link {
+    padding: 14px 0 12px;
+    border-bottom: 2px solid transparent;
+  }
+
+  .x-link.active {
+    color: #fff;
+    border-bottom-color: #13b5ea;
+  }
+
+  .x-topicons {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 16px;
+  }
+
+  .x-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .x-avatar {
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #10233f;
+    background: #13b5ea;
+  }
+
+  .x-body {
+    padding: 16px 22px;
+    gap: 14px;
+    position: relative;
+  }
+
+  .x-col-l {
+    flex: 1.15;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .x-col-r {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .x-card {
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(16, 35, 63, 0.1);
+    padding: 13px 16px;
+    color: #33383f;
+  }
+
+  .x-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+
+  .x-card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1f2733;
+  }
+
+  .x-link-sm {
+    font-size: 11px;
+    color: #0078c8;
+  }
+
+  .x-bank-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .x-bank-name {
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .x-reconcile {
+    background: #0078c8;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: default;
+    animation: x-btn 8s infinite;
+  }
+
+  @keyframes x-btn {
+    0%, 48%, 100% {
+      box-shadow: 0 0 0 0 rgba(0, 120, 200, 0);
+      transform: scale(1);
+    }
+    58% {
+      box-shadow: 0 0 0 7px rgba(0, 120, 200, 0.18);
+      transform: scale(1);
+    }
+    63% {
+      transform: scale(0.96);
+    }
+    68% {
+      box-shadow: 0 0 0 0 rgba(0, 120, 200, 0);
+      transform: scale(1);
+    }
+  }
+
+  .x-spark {
+    width: 100%;
+    height: 44px;
+    margin-top: 10px;
+  }
+
+  .x-bal {
+    display: flex;
+    gap: 26px;
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 8px;
+  }
+
+  .x-bal b {
+    display: block;
+    color: #1f2733;
+    font-size: 12.5px;
+  }
+
+  .x-watch {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+
+  .x-watch th {
+    text-align: left;
+    color: #8b93a0;
+    font-weight: 500;
+    padding: 4px 0;
+    border-bottom: 1px solid #eceff3;
+  }
+
+  .x-watch th:not(:first-child),
+  .x-watch td:not(:first-child) {
+    text-align: right;
+  }
+
+  .x-watch td {
+    padding: 6.5px 0;
+    border-bottom: 1px solid #f4f6f9;
+    color: #33383f;
+  }
+
+  .x-total {
+    font-size: 19px;
+    font-weight: 700;
+    color: #1f2733;
+    margin-bottom: 8px;
+  }
+
+  .x-owed {
+    display: grid;
+    gap: 8px;
+  }
+
+  .x-owed-row {
+    display: grid;
+    grid-template-columns: 118px 1fr 48px;
+    align-items: center;
+    gap: 8px;
+    font-size: 10.5px;
+    color: #6b7280;
+  }
+
+  .x-owed-row b {
+    text-align: right;
+    color: #1f2733;
+    font-size: 11px;
+  }
+
+  .x-owed-bar {
+    height: 9px;
+    background: #eef1f5;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .x-owed-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .x-cash {
+    width: 100%;
+    height: 90px;
+  }
+
+  /* ghost cursor drifts to the Reconcile button and clicks */
+  .x-cursor {
+    top: 30%;
+    left: 60%;
+    animation: x-cursor-path 8s infinite;
+  }
+
+  @keyframes x-cursor-path {
+    0%, 20% {
+      top: 30%;
+      left: 60%;
+      transform: scale(1);
+    }
+    45%, 60% {
+      top: 14.5%;
+      left: 40.5%;
+      transform: scale(1);
+    }
+    63% {
+      transform: scale(0.78);
+    }
+    66%, 78% {
+      top: 14.5%;
+      left: 40.5%;
+      transform: scale(1);
+    }
+    100% {
+      top: 30%;
+      left: 60%;
+      transform: scale(1);
+    }
+  }
+</style>

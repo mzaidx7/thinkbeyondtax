@@ -1,0 +1,431 @@
+---
+import Chrome from "./Chrome.astro";
+
+const sideItems = [
+  { label: "Home", active: true },
+  { label: "My Correspondence" },
+  { label: "My Payments" },
+  { label: "My Requests" },
+  { label: "User Authorisations" },
+];
+---
+
+<div class="screen screen-emara" data-screen="emaratax">
+  <Chrome
+    variant="browser"
+    title="EmaraTax"
+    url="eservices.tax.gov.ae/dashboard"
+    accent="#b68a35"
+  />
+
+  <div class="e-header" data-depth="1.1">
+    <div class="e-lockup">
+      <div class="e-fta">
+        <span class="e-fta-ar">الهيئة الاتحادية للضرائب</span>
+        <span class="e-fta-en">FEDERAL TAX AUTHORITY</span>
+      </div>
+      <span class="e-divider"></span>
+      <span class="e-brand">Emara<b>Tax</b></span>
+    </div>
+    <div class="e-header-right">
+      <span class="e-lang"><b>EN</b> | عربي</span>
+      <span class="e-bell"></span>
+      <span class="e-user">Al Sarh Trading LLC ▾</span>
+    </div>
+  </div>
+
+  <div class="screen-body">
+    <aside class="e-side" data-depth="1.15">
+      {
+        sideItems.map((item) => (
+          <span class:list={["e-side-item", { active: item.active }]}>
+            <i />
+            {item.label}
+          </span>
+        ))
+      }
+    </aside>
+
+    <div class="e-main">
+      <p class="e-welcome" data-depth="1.1">Taxable Person Dashboard</p>
+      <p class="e-sub" data-depth="1.1">Al Sarh Trading LLC · United Arab Emirates</p>
+
+      <div class="e-cards">
+        <div class="e-card e-vat" data-depth="1.5">
+          <div class="e-card-head">
+            <p>Value Added Tax (VAT)</p>
+            <span class="e-badge e-badge-active">Active</span>
+          </div>
+          <div class="e-row"><span>TRN</span><b>100 0000 0000 001</b></div>
+          <div class="e-row"><span>Next Return Period</span><b>1 Apr – 30 Jun 2026</b></div>
+          <div class="e-row">
+            <span>Return Due</span>
+            <b class="e-due">28 Jul 2026</b>
+          </div>
+          <div class="e-actions">
+            <button class="e-btn-gold" type="button" tabindex="-1">File Return</button>
+            <button class="e-btn-line" type="button" tabindex="-1">View Details</button>
+          </div>
+        </div>
+
+        <div class="e-card" data-depth="1.4">
+          <div class="e-card-head">
+            <p>Corporate Tax</p>
+            <span class="e-badge e-badge-active">Registered</span>
+          </div>
+          <div class="e-row"><span>TRN</span><b>100 0000 0000 002</b></div>
+          <div class="e-row"><span>Tax Period</span><b>1 Jan – 31 Dec 2025</b></div>
+          <div class="e-row"><span>Return Due</span><b>30 Sep 2026</b></div>
+          <div class="e-actions">
+            <button class="e-btn-line" type="button" tabindex="-1">View Details</button>
+          </div>
+        </div>
+
+        <div class="e-card e-dim" data-depth="1.3">
+          <div class="e-card-head">
+            <p>Excise Tax</p>
+            <span class="e-badge e-badge-grey">Not registered</span>
+          </div>
+          <p class="e-dim-copy">
+            Register for Excise Tax if your business imports, produces or stockpiles
+            excise goods in the UAE.
+          </p>
+          <div class="e-actions">
+            <button class="e-btn-line" type="button" tabindex="-1">Register</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="e-bottom">
+        <div class="e-card e-pay" data-depth="1.35">
+          <div class="e-card-head"><p>My Payments</p></div>
+          <p class="e-pay-ok">✓ No outstanding liabilities — AED 0.00</p>
+          <div class="e-row"><span>Last payment</span><b>AED 4,180.00 · 26 Apr 2026</b></div>
+        </div>
+        <div class="e-card" data-depth="1.35">
+          <div class="e-card-head"><p>Recent Correspondence</p></div>
+          <div class="e-row"><span>VAT Return Acknowledgement</span><b>28 Apr 2026</b></div>
+          <div class="e-row"><span>Corporate Tax Registration Certificate</span><b>02 Feb 2026</b></div>
+        </div>
+      </div>
+
+      <span class="g-cursor e-cursor"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .screen-emara {
+    background: #f6f5f2;
+  }
+
+  .e-header {
+    height: 56px;
+    background: #fff;
+    border-bottom: 2px solid #b68a35;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    flex: none;
+  }
+
+  .e-lockup {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .e-fta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+  }
+
+  .e-fta-ar {
+    font-size: 11px;
+    color: #4a4a45;
+  }
+
+  .e-fta-en {
+    font-size: 8.5px;
+    letter-spacing: 0.14em;
+    color: #8a8a82;
+  }
+
+  .e-divider {
+    width: 1px;
+    height: 26px;
+    background: #ddd8cc;
+  }
+
+  .e-brand {
+    font-size: 17px;
+    color: #35342f;
+    font-weight: 400;
+  }
+
+  .e-brand b {
+    color: #b68a35;
+    font-weight: 700;
+  }
+
+  .e-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 11.5px;
+    color: #6b6b64;
+  }
+
+  .e-lang b {
+    color: #35342f;
+  }
+
+  .e-bell {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f0ede6;
+  }
+
+  .e-user {
+    background: #f0ede6;
+    border-radius: 999px;
+    padding: 6px 13px;
+    font-weight: 600;
+    color: #35342f;
+  }
+
+  .e-side {
+    width: 188px;
+    background: #23262b;
+    color: #b9bcc2;
+    padding: 14px 0;
+    display: flex;
+    flex-direction: column;
+    flex: none;
+  }
+
+  .e-side-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 12px;
+    border-left: 3px solid transparent;
+  }
+
+  .e-side-item.active {
+    color: #fff;
+    background: rgba(182, 138, 53, 0.14);
+    border-left-color: #b68a35;
+  }
+
+  .e-side-item i {
+    width: 12px;
+    height: 12px;
+    border: 1.4px solid currentColor;
+    border-radius: 3px;
+    opacity: 0.7;
+  }
+
+  .e-main {
+    flex: 1;
+    padding: 18px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .e-welcome {
+    font-size: 17px;
+    font-weight: 700;
+    color: #2c2b27;
+  }
+
+  .e-sub {
+    font-size: 11.5px;
+    color: #8a8a82;
+    margin: 3px 0 16px;
+  }
+
+  .e-cards {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .e-card {
+    background: #fff;
+    border: 1px solid #e7e3d8;
+    border-radius: 8px;
+    padding: 14px 16px;
+    color: #2c2b27;
+  }
+
+  /* the VAT card breathes gently — the micro-scene focal point */
+  .e-vat {
+    border-top: 3px solid #b68a35;
+    animation: e-focus 8s infinite;
+  }
+
+  @keyframes e-focus {
+    0%, 30%, 100% {
+      transform: scale(1);
+      box-shadow: 0 1px 2px rgba(60, 50, 20, 0.05);
+    }
+    52%, 74% {
+      transform: scale(1.02);
+      box-shadow: 0 10px 28px -8px rgba(140, 105, 40, 0.3);
+    }
+  }
+
+  .e-card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .e-card-head p {
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .e-badge {
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+
+  .e-badge-active {
+    background: #e5f2e5;
+    color: #2e7d32;
+  }
+
+  .e-badge-grey {
+    background: #eeece6;
+    color: #8a8a82;
+  }
+
+  .e-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11px;
+    color: #8a8a82;
+    padding: 5.5px 0;
+    border-bottom: 1px solid #f4f2ec;
+  }
+
+  .e-row b {
+    color: #2c2b27;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .e-due {
+    background: #f7ecd4;
+    color: #8c6414 !important;
+    border-radius: 4px;
+    padding: 1px 8px;
+    animation: e-due-pulse 8s infinite;
+  }
+
+  @keyframes e-due-pulse {
+    0%, 45%, 100% {
+      box-shadow: 0 0 0 0 rgba(182, 138, 53, 0);
+    }
+    58% {
+      box-shadow: 0 0 0 5px rgba(182, 138, 53, 0.18);
+    }
+    70% {
+      box-shadow: 0 0 0 0 rgba(182, 138, 53, 0);
+    }
+  }
+
+  .e-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .e-btn-gold {
+    background: #b68a35;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 7px 14px;
+    cursor: default;
+  }
+
+  .e-btn-line {
+    border: 1px solid #cbc4b2;
+    color: #6b6b64;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 5px;
+    padding: 7px 14px;
+    cursor: default;
+    background: #fff;
+  }
+
+  .e-dim {
+    opacity: 0.75;
+  }
+
+  .e-dim-copy {
+    font-size: 11px;
+    color: #8a8a82;
+    line-height: 1.5;
+  }
+
+  .e-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 14px;
+    margin-top: 14px;
+  }
+
+  .e-pay-ok {
+    font-size: 12px;
+    color: #2e7d32;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  /* ghost cursor drifts to File Return */
+  .e-cursor {
+    top: 62%;
+    left: 55%;
+    animation: e-cursor-path 8s infinite;
+  }
+
+  @keyframes e-cursor-path {
+    0%, 28% {
+      top: 62%;
+      left: 55%;
+      transform: scale(1);
+    }
+    50%, 66% {
+      top: 47%;
+      left: 8%;
+      transform: scale(1);
+    }
+    69% {
+      transform: scale(0.78);
+    }
+    72%, 84% {
+      top: 47%;
+      left: 8%;
+      transform: scale(1);
+    }
+    100% {
+      top: 62%;
+      left: 55%;
+      transform: scale(1);
+    }
+  }
+</style>

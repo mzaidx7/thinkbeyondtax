@@ -1,0 +1,352 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/hero/Hero.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { platformStates } from "../data/platforms";
+
+const services = [
+  {
+    title: "Accounting",
+    href: "/services/accounting",
+    desc: "Accurate records, month-end closing and management reporting you can actually rely on.",
+    icon: "ledger",
+  },
+  {
+    title: "Bookkeeping",
+    href: "/services/bookkeeping",
+    desc: "Day-to-day entries, reconciliations and clean books — in the software you already run.",
+    icon: "book",
+  },
+  {
+    title: "VAT",
+    href: "/services/tax/vat",
+    desc: "Registration support, VAT-ready records and return preparation aligned with FTA requirements.",
+    icon: "percent",
+  },
+  {
+    title: "Corporate Tax",
+    href: "/services/tax/corporate-tax",
+    desc: "UAE Corporate Tax registration, readiness and return support for your first periods and beyond.",
+    icon: "hex",
+  },
+];
+
+const values = [
+  {
+    title: "Senior attention",
+    desc: "Your work is handled by the experienced professional you speak with — not passed down a chain of juniors.",
+  },
+  {
+    title: "Named accountability",
+    desc: "Before any engagement begins, the responsible professional is identified by name and stays responsible for the work.",
+  },
+  {
+    title: "Right-sized fees",
+    desc: "Independent professionals carry no corporate overhead, so fees stay proportionate to the actual work involved.",
+  },
+  {
+    title: "Shared standards",
+    desc: "One collective identity, common working standards and consistent quality across every member of the group.",
+  },
+];
+---
+
+<Base>
+  <Hero />
+
+  <!-- platform strip -->
+  <section class="strip">
+    <div class="container strip-inner">
+      {platformStates.map((p) => <span class="strip-chip">{p.dockLabel}</span>)}
+      <span class="strip-more">…and the systems around them</span>
+    </div>
+  </section>
+
+  <!-- services overview -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <p class="overline">Services</p>
+        <h2>Practical support, end to end</h2>
+        <p>
+          From the first voucher entry to the final tax return — support that fits
+          how your business already operates.
+        </p>
+      </div>
+      <div class="svc-grid">
+        {
+          services.map((s) => (
+            <a class="svc-card" href={s.href}>
+              <span class="svc-icon" aria-hidden="true">
+                {s.icon === "ledger" && (
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="6" y="4" width="20" height="24" rx="2" />
+                    <path d="M11 11h10M11 16h10M11 21h6" />
+                  </svg>
+                )}
+                {s.icon === "book" && (
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M16 7c-2.5-2-6.5-2-10-1v19c3.5-1 7.5-1 10 1 2.5-2 6.5-2 10-1V6c-3.5-1-7.5-1-10 1Z" />
+                    <path d="M16 7v19" />
+                  </svg>
+                )}
+                {s.icon === "percent" && (
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="10" cy="10" r="3.5" />
+                    <circle cx="22" cy="22" r="3.5" />
+                    <path d="M24 8 8 24" />
+                  </svg>
+                )}
+                {s.icon === "hex" && (
+                  <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M16 3l11 6.5v13L16 29 5 22.5v-13L16 3Z" />
+                    <path d="M12 14h8M16 10v8" />
+                  </svg>
+                )}
+              </span>
+              <h3>{s.title}</h3>
+              <p>{s.desc}</p>
+              <span class="svc-more">Learn more →</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- about -->
+  <section class="section about hex-bg" id="about">
+    <div class="container about-grid">
+      <div>
+        <p class="overline">About Think Beyond Tax</p>
+        <h2>A collective, not a corporation</h2>
+        <p class="about-copy">
+          Think Beyond Tax is a shared professional identity for a small group of
+          independent, UAE-based accounting, bookkeeping and tax professionals.
+          More organised and consistent than a lone freelancer — more personal
+          and accessible than a large firm.
+        </p>
+        <p class="about-copy">
+          We deliberately stay transparent about how this works: the brand
+          coordinates, but every engagement is led and delivered by a named,
+          appropriately authorised professional who remains responsible for the
+          work from start to finish.
+        </p>
+        <a class="btn btn-ghost about-btn" href="/about">More about how we work</a>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num">01</span>
+          <h3>Discuss your requirements</h3>
+          <p>Tell us how your records are kept, what software you use and where you need support.</p>
+        </li>
+        <li>
+          <span class="step-num">02</span>
+          <h3>Meet the right professional</h3>
+          <p>We connect you with the member of the collective whose experience fits your situation.</p>
+        </li>
+        <li>
+          <span class="step-num">03</span>
+          <h3>A named provider leads your engagement</h3>
+          <p>The responsible professional is named in your proposal and stays accountable throughout.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- why independent professionals -->
+  <section class="section why">
+    <div class="container">
+      <div class="section-head">
+        <p class="overline">Why independent professionals</p>
+        <h2>Big-firm discipline, without the big-firm distance</h2>
+      </div>
+      <div class="why-grid">
+        {
+          values.map((v) => (
+            <div class="why-card">
+              <h3>{v.title}</h3>
+              <p>{v.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .strip {
+    border-block: 1px solid var(--charcoal-2);
+    background: var(--charcoal);
+    padding-block: 1.1rem;
+    margin-top: 2rem;
+  }
+
+  .strip-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem 2rem;
+  }
+
+  .strip-chip {
+    font-size: var(--text-micro);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .strip-more {
+    font-size: var(--text-micro);
+    color: var(--gold-lo);
+    font-style: italic;
+    margin-left: auto;
+  }
+
+  /* services */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+  }
+
+  .svc-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    background: var(--charcoal);
+    border: 1px solid var(--charcoal-2);
+    border-radius: var(--radius);
+    padding: 1.7rem 1.5rem;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out),
+      background var(--dur) var(--ease-out);
+  }
+
+  .svc-card:hover {
+    border-color: var(--gold-30);
+    transform: translateY(-4px);
+    background: linear-gradient(180deg, var(--charcoal-2), var(--charcoal));
+  }
+
+  .svc-icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--gold);
+  }
+
+  .svc-card h3 {
+    font-size: var(--text-h3);
+  }
+
+  .svc-card p {
+    color: var(--grey);
+    font-size: var(--text-small);
+    flex: 1;
+  }
+
+  .svc-more {
+    font-size: var(--text-micro);
+    letter-spacing: 0.08em;
+    color: var(--gold);
+  }
+
+  /* about */
+  .about {
+    background: var(--charcoal);
+    border-block: 1px solid var(--charcoal-2);
+  }
+
+  .about-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .about-grid h2 {
+    font-size: var(--text-h2);
+    margin-block: 0.9rem 1.2rem;
+  }
+
+  .about-copy {
+    color: var(--grey);
+    margin-bottom: 1rem;
+    max-width: 34rem;
+  }
+
+  .about-btn {
+    margin-top: 0.8rem;
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 1.4rem;
+  }
+
+  .steps li {
+    border-left: 1px solid var(--gold-30);
+    padding-left: 1.4rem;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: var(--font-display);
+    font-weight: 900;
+    color: var(--gold);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+  }
+
+  .steps h3 {
+    font-size: 1.05rem;
+    margin-block: 0.3rem 0.35rem;
+  }
+
+  .steps p {
+    color: var(--grey);
+    font-size: var(--text-small);
+    max-width: 30rem;
+  }
+
+  /* why */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+  }
+
+  .why-card {
+    border: 1px solid var(--charcoal-2);
+    border-top: 2px solid var(--gold-30);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.4rem;
+    background: linear-gradient(180deg, rgba(207, 152, 47, 0.04), transparent 40%);
+  }
+
+  .why-card h3 {
+    font-size: 1.02rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-card p {
+    color: var(--grey);
+    font-size: var(--text-small);
+  }
+
+  @media (max-width: 860px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .strip-more {
+      margin-left: 0;
+    }
+  }
+</style>

@@ -1,0 +1,317 @@
+---
+import Chrome from "./Chrome.astro";
+
+const menuRow = [
+  "File", "Edit", "View", "Lists", "Favorites", "Company",
+  "Customers", "Vendors", "Employees", "Banking", "Reports", "Window", "Help",
+];
+const sideItems = [
+  { label: "Home", active: true },
+  { label: "Income Tracker" },
+  { label: "Bill Tracker" },
+  { label: "Calendar" },
+  { label: "Snapshots" },
+  { label: "Customers" },
+  { label: "Vendors" },
+  { label: "Employees" },
+];
+---
+
+<div class="screen screen-qbd" data-screen="qbd">
+  <Chrome variant="windows" title="QuickBooks Desktop — Al Sarh Trading LLC" accent="#5588a3" />
+
+  <div class="d-menubar" data-depth="1.05">
+    {menuRow.map((m) => <span>{m}</span>)}
+  </div>
+
+  <div class="screen-body">
+    <aside class="d-side" data-depth="1.15">
+      {
+        sideItems.map((item) => (
+          <span class:list={["d-side-item", { active: item.active }]}>
+            <i />
+            {item.label}
+          </span>
+        ))
+      }
+    </aside>
+
+    <div class="d-main">
+      <div class="d-home-head" data-depth="1.1">
+        <span class="d-home-title">Home Page</span>
+        <span class="d-home-tabs"><b>Home</b> · Insights</span>
+      </div>
+
+      <div class="d-flow">
+        <div class="d-zone d-vendors" data-depth="1.4">
+          <p class="d-zone-title">Vendors</p>
+          <div class="d-row">
+            <div class="d-step"><span class="d-icon i-po"></span>Purchase<br />Orders</div>
+            <svg class="d-arrow a1" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-ri"></span>Receive<br />Inventory</div>
+            <svg class="d-arrow a2" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-eb"></span>Enter Bills<br />Against Inventory</div>
+            <svg class="d-arrow a3" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-pb"></span>Pay<br />Bills</div>
+          </div>
+        </div>
+
+        <div class="d-zone d-customers" data-depth="1.5">
+          <p class="d-zone-title">Customers</p>
+          <div class="d-row">
+            <div class="d-step"><span class="d-icon i-es"></span>Estimates</div>
+            <svg class="d-arrow" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-ci"></span>Create<br />Invoices</div>
+            <svg class="d-arrow" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-rp"></span>Receive<br />Payments</div>
+            <svg class="d-arrow" viewBox="0 0 44 12"><path d="M2 6h34" /><path d="m32 1 8 5-8 5" class="d-arr-head" /></svg>
+            <div class="d-step"><span class="d-icon i-rd"></span>Record<br />Deposits</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-right" data-depth="1.3">
+        <div class="d-zone">
+          <p class="d-zone-title">Company</p>
+          <div class="d-col">
+            <div class="d-step d-step-sm"><span class="d-icon i-coa"></span>Chart of<br />Accounts</div>
+            <div class="d-step d-step-sm"><span class="d-icon i-items"></span>Items &amp;<br />Services</div>
+          </div>
+        </div>
+        <div class="d-zone">
+          <p class="d-zone-title">Banking</p>
+          <div class="d-col">
+            <div class="d-step d-step-sm"><span class="d-icon i-wc"></span>Write<br />Checks</div>
+            <div class="d-step d-step-sm d-reconcile"><span class="d-icon i-rec"></span>Reconcile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .screen-qbd {
+    background: #dfe7ee;
+  }
+
+  .d-menubar {
+    height: 27px;
+    background: #f2f4f6;
+    border-bottom: 1px solid #c9d3dc;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 16px;
+    font-size: 11.5px;
+    color: #3b4a58;
+  }
+
+  .d-side {
+    width: 122px;
+    background: #3a4652;
+    color: #cfd8e0;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    flex: none;
+  }
+
+  .d-side-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+
+  .d-side-item.active {
+    background: #2c3742;
+    color: #fff;
+    border-left: 3px solid #5fa8d3;
+    padding-left: 9px;
+  }
+
+  .d-side-item i {
+    width: 11px;
+    height: 11px;
+    border: 1.4px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.7;
+  }
+
+  .d-main {
+    flex: 1;
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: 1fr 210px;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
+    position: relative;
+  }
+
+  .d-home-head {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #33475b;
+  }
+
+  .d-home-title {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .d-home-tabs {
+    font-size: 11.5px;
+    color: #7b8894;
+  }
+
+  .d-home-tabs b {
+    color: #33475b;
+  }
+
+  .d-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .d-zone {
+    background: #eef3f7;
+    border: 1px solid #c8d6e2;
+    border-radius: 5px;
+    padding: 10px 14px 14px;
+  }
+
+  .d-zone-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #34546e;
+    margin-bottom: 10px;
+  }
+
+  .d-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .d-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    line-height: 1.25;
+    text-align: center;
+    color: #33475b;
+    min-width: 74px;
+  }
+
+  .d-icon {
+    width: 40px;
+    height: 34px;
+    border-radius: 6px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(30, 50, 70, 0.25);
+  }
+
+  .d-icon::after {
+    content: "";
+    position: absolute;
+    inset: 8px 10px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.85);
+  }
+
+  .i-po { background: #7b68ae; }
+  .i-ri { background: #b98a55; }
+  .i-eb { background: #4d8bc9; }
+  .i-pb { background: #4a9a58; }
+  .i-es { background: #8898a8; }
+  .i-ci { background: #4d8bc9; }
+  .i-rp { background: #4a9a58; }
+  .i-rd { background: #b98a55; }
+  .i-coa { background: #34546e; }
+  .i-items { background: #7b68ae; }
+  .i-wc { background: #4d8bc9; }
+  .i-rec { background: #4a9a58; }
+
+  .d-arrow {
+    width: 40px;
+    height: 12px;
+    flex: none;
+    margin-top: -16px;
+  }
+
+  .d-arrow path {
+    stroke: #7d94a8;
+    stroke-width: 1.8;
+    fill: none;
+  }
+
+  .d-arr-head {
+    fill: #7d94a8;
+    stroke: none !important;
+  }
+
+  /* vendor arrows draw themselves in sequence */
+  .a1 path:first-child,
+  .a2 path:first-child,
+  .a3 path:first-child {
+    stroke-dasharray: 34;
+    stroke-dashoffset: 34;
+    animation: d-draw 6s infinite;
+  }
+
+  .a2 path:first-child {
+    animation-delay: 0.5s;
+  }
+
+  .a3 path:first-child {
+    animation-delay: 1s;
+  }
+
+  @keyframes d-draw {
+    0% { stroke-dashoffset: 34; }
+    18%, 82% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 34; }
+  }
+
+  .d-right {
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .d-col {
+    display: flex;
+    gap: 10px;
+  }
+
+  .d-step-sm {
+    min-width: 64px;
+  }
+
+  .d-reconcile .d-icon {
+    animation: d-pulse 6s infinite;
+  }
+
+  @keyframes d-pulse {
+    0%, 55%, 100% {
+      box-shadow: 0 1px 2px rgba(30, 50, 70, 0.25);
+    }
+    72% {
+      box-shadow: 0 0 0 6px rgba(74, 154, 88, 0.25);
+    }
+    88% {
+      box-shadow: 0 1px 2px rgba(30, 50, 70, 0.25);
+    }
+  }
+</style>

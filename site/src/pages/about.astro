@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import CtaBand from "../components/CtaBand.astro";
+import { COLLECTIVE_DISCLAIMER } from "../data/site";
+---
+
+<Base title="About — Think Beyond Tax">
+  <section class="svc-hero hex-bg">
+    <div class="container">
+      <p class="overline">About</p>
+      <h1>Independent professionals, one shared standard</h1>
+      <p class="svc-intro">
+        Think Beyond Tax is a collaborative identity for a small group of
+        independent, UAE-based accounting, bookkeeping and tax professionals.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container about-cols">
+      <div>
+        <h2>Why a collective?</h2>
+        <p>
+          Small and medium businesses in the UAE often face an awkward choice:
+          large firms that feel distant and expensive, or individual freelancers
+          whose availability and consistency can vary. Think Beyond Tax exists in
+          the space between — experienced independent professionals working under
+          one shared brand, with common working standards and a consistent way of
+          engaging.
+        </p>
+        <h2>How engagements work</h2>
+        <p>
+          The brand coordinates enquiries and connects you with the right member
+          of the collective. Before any paid engagement begins, the responsible
+          professional or licensed provider is identified by name — in your
+          proposal, your engagement letter and your invoices. That person remains
+          accountable for the work throughout.
+        </p>
+        <h2>What we value</h2>
+        <p>
+          Clear records over clever shortcuts. Practical explanations over
+          jargon. Transparency about who does the work and what it costs. And
+          software-first delivery — we work inside the systems your business
+          already uses rather than forcing you into ours.
+        </p>
+      </div>
+      <aside class="trust-box">
+        <p class="overline">Transparency</p>
+        <p>{COLLECTIVE_DISCLAIMER}</p>
+      </aside>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .svc-hero {
+    padding: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--charcoal-2);
+    background: var(--charcoal);
+  }
+
+  .svc-hero h1 {
+    font-size: var(--text-h2);
+    margin-top: 0.9rem;
+    max-width: 26ch;
+    position: relative;
+  }
+
+  .svc-intro {
+    color: var(--grey);
+    max-width: 44rem;
+    margin-top: 1rem;
+    position: relative;
+  }
+
+  .about-cols {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .about-cols h2 {
+    font-size: var(--text-h3);
+    margin: 1.8rem 0 0.7rem;
+  }
+
+  .about-cols h2:first-child {
+    margin-top: 0;
+  }
+
+  .about-cols p {
+    color: var(--grey);
+    max-width: 38rem;
+  }
+
+  .trust-box {
+    border: 1px solid var(--gold-15);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--gold-08), transparent 60%);
+    padding: 1.6rem 1.5rem;
+  }
+
+  .trust-box p:last-child {
+    margin-top: 0.9rem;
+    color: var(--grey);
+    font-size: var(--text-small);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 800px) {
+    .about-cols {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

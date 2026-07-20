@@ -1,0 +1,150 @@
+---
+/**
+ * State 0 — the "desk" mosaic: six mini window-cards, one per platform,
+ * floating in a loose scatter. GSAP scatters them apart when the story
+ * dives into the first platform.
+ */
+const cards = [
+  { id: "tally", name: "TallyPrime", accent: "#0f6cbd", light: true, x: 6, y: 10, r: -4, depth: 1.6 },
+  { id: "qbo", name: "QuickBooks Online", accent: "#2ca01c", light: false, x: 40, y: 4, r: 3, depth: 2.1 },
+  { id: "qbd", name: "QuickBooks Desktop", accent: "#5588a3", light: true, x: 72, y: 14, r: -2, depth: 1.4 },
+  { id: "zoho", name: "Zoho Books", accent: "#408dfb", light: false, x: 10, y: 52, r: 3, depth: 1.9 },
+  { id: "xero", name: "Xero", accent: "#13b5ea", light: false, x: 44, y: 46, r: -3, depth: 2.4 },
+  { id: "emaratax", name: "EmaraTax", accent: "#b68a35", light: true, x: 74, y: 56, r: 4, depth: 1.7 },
+];
+---
+
+<div class="screen screen-intro" data-screen="intro">
+  <div class="m-field">
+    {
+      cards.map((c) => (
+        <div
+          class:list={["m-card", { "m-light": c.light }]}
+          style={`--x:${c.x}%;--y:${c.y}%;--r:${c.r}deg;--accent:${c.accent}`}
+          data-depth={c.depth}
+        >
+          <div class="m-titlebar">
+            <span class="m-dot" />
+            <span class="m-name">{c.name}</span>
+          </div>
+          <div class="m-skeleton">
+            <i style="width:72%" />
+            <i style="width:52%" />
+            <div class="m-blocks">
+              <b />
+              <b />
+              <b />
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <p class="m-caption">The systems your business already runs on</p>
+</div>
+
+<style>
+  .screen-intro {
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 40%, rgba(207, 152, 47, 0.07), transparent 70%),
+      #0b0b0b;
+  }
+
+  .m-field {
+    position: absolute;
+    inset: 0;
+  }
+
+  .m-card {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: 246px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a1a1e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 22px 44px -16px rgba(0, 0, 0, 0.7);
+    rotate: var(--r);
+  }
+
+  .m-light {
+    background: #f4f4f2;
+    border-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .m-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .m-light .m-titlebar {
+    background: rgba(0, 0, 0, 0.045);
+    border-bottom-color: rgba(0, 0, 0, 0.07);
+  }
+
+  .m-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex: none;
+  }
+
+  .m-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #d6d6d2;
+    white-space: nowrap;
+  }
+
+  .m-light .m-name {
+    color: #3a3a36;
+  }
+
+  .m-skeleton {
+    padding: 12px 12px 14px;
+  }
+
+  .m-skeleton i {
+    display: block;
+    height: 7px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 7px;
+  }
+
+  .m-light .m-skeleton i {
+    background: rgba(0, 0, 0, 0.09);
+  }
+
+  .m-blocks {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+  }
+
+  .m-blocks b {
+    flex: 1;
+    height: 34px;
+    border-radius: 5px;
+    background: color-mix(in srgb, var(--accent) 26%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  }
+
+  .m-caption {
+    position: absolute;
+    left: 50%;
+    bottom: 34px;
+    translate: -50% 0;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(220, 220, 217, 0.45);
+    white-space: nowrap;
+  }
+</style>

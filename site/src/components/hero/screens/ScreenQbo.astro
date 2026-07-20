@@ -1,0 +1,548 @@
+---
+import Chrome from "./Chrome.astro";
+
+const navItems = [
+  { label: "Dashboard", active: true },
+  { label: "Transactions" },
+  { label: "Sales" },
+  { label: "Expenses" },
+  { label: "Customers" },
+  { label: "Reports" },
+  { label: "Taxes" },
+  { label: "Accounting" },
+];
+---
+
+<div class="screen screen-qbo" data-screen="qbo">
+  <Chrome
+    variant="browser"
+    title="QuickBooks Online"
+    url="app.qbo.intuit.com/app/homepage"
+    accent="#2ca01c"
+  />
+
+  <div class="screen-body">
+    <aside class="q-nav" data-depth="1.15">
+      <div class="q-brand">
+        <span class="q-logo">qb</span>
+        <span class="q-co">Al Sarh Trading LLC</span>
+      </div>
+      <button class="q-new" type="button" tabindex="-1">+ New</button>
+      <nav>
+        {
+          navItems.map((item) => (
+            <span class:list={["q-nav-item", { active: item.active }]}>
+              <i class="q-ico" />
+              {item.label}
+            </span>
+          ))
+        }
+      </nav>
+    </aside>
+
+    <div class="q-main">
+      <div class="q-head" data-depth="1.1">
+        <h3>Business overview</h3>
+        <div class="q-head-icons">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="q-grid">
+        <div class="q-card" data-depth="1.4">
+          <p class="q-card-title">PROFIT &amp; LOSS</p>
+          <p class="q-sub">Net profit for June</p>
+          <p class="q-big">AED 38,540</p>
+          <div class="q-pl-bars">
+            <div class="q-pl-row">
+              <span>Income</span>
+              <div class="q-bar"><i class="q-bar-income"></i></div>
+              <b>60,400</b>
+            </div>
+            <div class="q-pl-row">
+              <span>Expenses</span>
+              <div class="q-bar"><i class="q-bar-exp"></i></div>
+              <b>21,860</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-card" data-depth="1.5">
+          <p class="q-card-title">EXPENSES</p>
+          <p class="q-sub">Total spending — June</p>
+          <div class="q-donut-wrap">
+            <svg viewBox="0 0 42 42" class="q-donut" aria-hidden="true">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#e3e5e8" stroke-width="6"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#2ca01c" stroke-width="6" stroke-dasharray="38 62" stroke-dashoffset="25"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#0077c5" stroke-width="6" stroke-dasharray="26 74" stroke-dashoffset="-13"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f95700" stroke-width="6" stroke-dasharray="14 86" stroke-dashoffset="-39"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#b3b6bb" stroke-width="6" stroke-dasharray="22 78" stroke-dashoffset="-53"></circle>
+            </svg>
+            <div class="q-donut-center">
+              <b>AED 21,860</b>
+            </div>
+            <ul class="q-legend">
+              <li><i style="background:#2ca01c"></i>Salaries</li>
+              <li><i style="background:#0077c5"></i>Rent</li>
+              <li><i style="background:#f95700"></i>Utilities</li>
+              <li><i style="background:#b3b6bb"></i>Other</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="q-card" data-depth="1.35">
+          <p class="q-card-title">INVOICES</p>
+          <p class="q-sub">AED 38,550 unpaid — last 365 days</p>
+          <div class="q-inv-bar">
+            <i class="q-inv-overdue"></i>
+            <i class="q-inv-open"></i>
+          </div>
+          <div class="q-inv-legend">
+            <p><b>AED 12,400</b> Overdue</p>
+            <p><b>AED 26,150</b> Not due yet</p>
+          </div>
+          <hr />
+          <p class="q-sub">AED 8,900 paid — last 30 days</p>
+          <div class="q-inv-bar q-inv-paidbar"><i class="q-inv-paid"></i></div>
+        </div>
+
+        <div class="q-card q-bank-card" data-depth="1.55">
+          <p class="q-card-title">BANK ACCOUNTS</p>
+          <div class="q-bank-row">
+            <div>
+              <p class="q-bank-name">Emirates NBD Current</p>
+              <p class="q-bank-sub">Bank balance · AED 84,210.45</p>
+            </div>
+            <span class="q-review" id="qbo-review">34 to review</span>
+          </div>
+          <div class="q-bank-row">
+            <div>
+              <p class="q-bank-name">WIO Business</p>
+              <p class="q-bank-sub">Bank balance · AED 12,904.10</p>
+            </div>
+            <span class="q-review q-review-2">6 to review</span>
+          </div>
+          <p class="q-connected">✓ Connected · feeds up to date</p>
+        </div>
+
+        <div class="q-card q-sales" data-depth="1.45">
+          <div class="q-sales-head">
+            <div>
+              <p class="q-card-title">SALES</p>
+              <p class="q-sub">Last 3 months</p>
+            </div>
+            <p class="q-big">AED 182,300</p>
+          </div>
+          <svg class="q-sales-chart" viewBox="0 0 560 120" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 95 C60 88 90 70 140 74 S240 40 300 46 S420 20 470 26 S540 12 560 16" fill="none" stroke="#2ca01c" stroke-width="3" />
+            <path d="M0 95 C60 88 90 70 140 74 S240 40 300 46 S420 20 470 26 S540 12 560 16 L560 120 L0 120 Z" fill="rgba(44,160,28,0.09)" />
+          </svg>
+          <div class="q-sales-labels"><span>May</span><span>Jun</span><span>Jul</span></div>
+        </div>
+      </div>
+
+      <span class="g-cursor q-cursor"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .screen-qbo {
+    background: #f4f5f8;
+  }
+
+  /* ---- left nav ---- */
+  .q-nav {
+    width: 205px;
+    background: #282a2e;
+    color: #9b9ea4;
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+    flex: none;
+  }
+
+  .q-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 16px 14px;
+  }
+
+  .q-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #2ca01c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    display: grid;
+    place-items: center;
+    flex: none;
+  }
+
+  .q-co {
+    color: #e8e8e8;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .q-new {
+    margin: 0 16px 16px;
+    background: #2ca01c;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 8px 0;
+    text-align: center;
+    cursor: default;
+  }
+
+  .q-nav nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .q-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    font-size: 13px;
+    border-left: 3px solid transparent;
+  }
+
+  .q-nav-item.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    border-left-color: #2ca01c;
+  }
+
+  .q-ico {
+    width: 13px;
+    height: 13px;
+    border: 1.5px solid currentColor;
+    border-radius: 3px;
+    opacity: 0.75;
+  }
+
+  .q-nav-item.active .q-ico {
+    border-radius: 50%;
+  }
+
+  /* ---- main ---- */
+  .q-main {
+    flex: 1;
+    padding: 18px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .q-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .q-head h3 {
+    font-family: var(--font-body);
+    font-size: 19px;
+    font-weight: 700;
+    color: #393a3d;
+  }
+
+  .q-head-icons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .q-head-icons span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #e3e5e8;
+  }
+
+  .q-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .q-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 3px rgba(20, 24, 30, 0.08);
+    color: #393a3d;
+  }
+
+  .q-card-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #6b6c72;
+  }
+
+  .q-sub {
+    font-size: 11.5px;
+    color: #8d9096;
+    margin-top: 3px;
+  }
+
+  .q-big {
+    font-size: 21px;
+    font-weight: 700;
+    color: #26282b;
+    margin-top: 4px;
+  }
+
+  .q-pl-bars {
+    margin-top: 14px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .q-pl-row {
+    display: grid;
+    grid-template-columns: 58px 1fr 46px;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: #6b6c72;
+  }
+
+  .q-pl-row b {
+    text-align: right;
+    color: #393a3d;
+  }
+
+  .q-bar {
+    height: 10px;
+    background: #eef0f2;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .q-bar i {
+    display: block;
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .q-bar-income {
+    width: 88%;
+    background: #2ca01c;
+  }
+
+  .q-bar-exp {
+    width: 34%;
+    background: #393a3d;
+  }
+
+  /* donut */
+  .q-donut-wrap {
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+  }
+
+  .q-donut {
+    width: 104px;
+    height: 104px;
+    transform: rotate(-90deg);
+  }
+
+  .q-donut-center {
+    position: absolute;
+    left: 0;
+    width: 104px;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  .q-legend {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 5px;
+    font-size: 11px;
+    color: #6b6c72;
+  }
+
+  .q-legend i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+
+  /* invoices */
+  .q-inv-bar {
+    height: 14px;
+    border-radius: 7px;
+    background: #eef0f2;
+    overflow: hidden;
+    display: flex;
+    margin-top: 12px;
+  }
+
+  .q-inv-overdue {
+    width: 32%;
+    background: #ff6a14;
+  }
+
+  .q-inv-open {
+    width: 55%;
+    background: #c4c8cc;
+  }
+
+  .q-inv-legend {
+    display: flex;
+    gap: 18px;
+    font-size: 11px;
+    color: #8d9096;
+    margin-top: 8px;
+  }
+
+  .q-inv-legend b {
+    color: #393a3d;
+    display: block;
+    font-size: 12.5px;
+  }
+
+  .q-card hr {
+    border: none;
+    border-top: 1px solid #eef0f2;
+    margin: 12px 0 8px;
+  }
+
+  .q-inv-paidbar {
+    margin-top: 8px;
+  }
+
+  .q-inv-paid {
+    width: 42%;
+    background: #2ca01c;
+  }
+
+  /* bank */
+  .q-bank-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 0;
+    border-bottom: 1px solid #eef0f2;
+  }
+
+  .q-bank-name {
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .q-bank-sub {
+    font-size: 11px;
+    color: #8d9096;
+    margin-top: 2px;
+  }
+
+  .q-review {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0077c5;
+    background: #eaf4fb;
+    border-radius: 999px;
+    padding: 4px 10px;
+    animation: q-badge 5s infinite;
+  }
+
+  .q-review-2 {
+    animation: none;
+  }
+
+  @keyframes q-badge {
+    0%, 55%, 100% {
+      box-shadow: 0 0 0 0 rgba(0, 119, 197, 0);
+    }
+    70% {
+      box-shadow: 0 0 0 6px rgba(0, 119, 197, 0.15);
+    }
+    85% {
+      box-shadow: 0 0 0 0 rgba(0, 119, 197, 0);
+    }
+  }
+
+  .q-connected {
+    font-size: 11px;
+    color: #2ca01c;
+    margin-top: 10px;
+  }
+
+  /* sales */
+  .q-sales {
+    grid-column: span 2;
+  }
+
+  .q-sales-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .q-sales-chart {
+    width: 100%;
+    height: 96px;
+    margin-top: 8px;
+  }
+
+  .q-sales-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: #8d9096;
+    padding: 2px 6px 0;
+  }
+
+  /* ghost cursor: drifts to the bank card and "clicks" */
+  .q-cursor {
+    top: 44%;
+    left: 38%;
+    animation: q-cursor-path 9s infinite;
+  }
+
+  @keyframes q-cursor-path {
+    0%, 18% {
+      top: 44%;
+      left: 38%;
+      transform: scale(1);
+    }
+    38%, 60% {
+      top: 68%;
+      left: 24%;
+      transform: scale(1);
+    }
+    64% {
+      top: 68%;
+      left: 24%;
+      transform: scale(0.8);
+    }
+    68%, 80% {
+      top: 68%;
+      left: 24%;
+      transform: scale(1);
+    }
+    100% {
+      top: 44%;
+      left: 38%;
+      transform: scale(1);
+    }
+  }
+</style>

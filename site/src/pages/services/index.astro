@@ -1,0 +1,141 @@
+---
+import Base from "../../layouts/Base.astro";
+import CtaBand from "../../components/CtaBand.astro";
+
+const groups = [
+  {
+    label: "Core",
+    items: [
+      {
+        title: "Accounting",
+        href: "/services/accounting",
+        desc: "Accurate records, closings and management reporting.",
+      },
+      {
+        title: "Bookkeeping",
+        href: "/services/bookkeeping",
+        desc: "Day-to-day entries, reconciliations and clean books.",
+      },
+    ],
+  },
+  {
+    label: "Tax Services",
+    items: [
+      {
+        title: "VAT",
+        href: "/services/tax/vat",
+        desc: "Registration, VAT-ready records and return support.",
+      },
+      {
+        title: "Corporate Tax",
+        href: "/services/tax/corporate-tax",
+        desc: "Registration, readiness and return preparation support.",
+      },
+    ],
+  },
+];
+---
+
+<Base title="Services — Think Beyond Tax">
+  <section class="svc-hero hex-bg">
+    <div class="container">
+      <p class="overline">Services</p>
+      <h1>Support that fits how your business already operates</h1>
+      <p class="svc-intro">
+        Independent UAE professionals supporting businesses with bookkeeping,
+        accounting, financial reporting, VAT and Corporate Tax — inside
+        TallyPrime, QuickBooks, Zoho Books, Xero and EmaraTax.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        groups.map((g) => (
+          <div class="group">
+            <p class="overline">{g.label}</p>
+            <div class="group-grid">
+              {g.items.map((s) => (
+                <a class="g-card" href={s.href}>
+                  <h2>{s.title}</h2>
+                  <p>{s.desc}</p>
+                  <span>Learn more →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .svc-hero {
+    padding: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+    border-bottom: 1px solid var(--charcoal-2);
+    background: var(--charcoal);
+  }
+
+  .svc-hero h1 {
+    font-size: var(--text-h2);
+    margin-top: 0.9rem;
+    max-width: 24ch;
+    position: relative;
+  }
+
+  .svc-intro {
+    color: var(--grey);
+    max-width: 46rem;
+    margin-top: 1rem;
+    position: relative;
+  }
+
+  .group {
+    margin-bottom: 2.8rem;
+  }
+
+  .group-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .g-card {
+    border: 1px solid var(--charcoal-2);
+    border-radius: var(--radius);
+    background: var(--charcoal);
+    padding: 1.6rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition:
+      border-color var(--dur) var(--ease-out),
+      transform var(--dur) var(--ease-out);
+  }
+
+  .g-card:hover {
+    border-color: var(--gold-30);
+    transform: translateY(-3px);
+  }
+
+  .g-card h2 {
+    font-size: var(--text-h3);
+  }
+
+  .g-card p {
+    color: var(--grey);
+    font-size: var(--text-small);
+    flex: 1;
+  }
+
+  .g-card span {
+    color: var(--gold);
+    font-size: var(--text-micro);
+    letter-spacing: 0.08em;
+  }
+</style>

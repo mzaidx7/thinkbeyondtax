@@ -1,0 +1,375 @@
+---
+import Chrome from "./Chrome.astro";
+
+const navItems = [
+  { label: "Home", active: true },
+  { label: "Items" },
+  { label: "Banking" },
+  { label: "Sales" },
+  { label: "Purchases" },
+  { label: "Time Tracking" },
+  { label: "Accountant" },
+  { label: "Reports" },
+  { label: "Documents" },
+];
+---
+
+<div class="screen screen-zoho" data-screen="zoho">
+  <Chrome
+    variant="browser"
+    title="Zoho Books"
+    url="books.zoho.com/app/dashboard"
+    accent="#408dfb"
+  />
+
+  <div class="screen-body">
+    <aside class="z-nav" data-depth="1.15">
+      <div class="z-org">Al Sarh Trading LLC <span>▾</span></div>
+      <nav>
+        {
+          navItems.map((item) => (
+            <span class:list={["z-nav-item", { active: item.active }]}>
+              <i class="z-ico" />
+              {item.label}
+            </span>
+          ))
+        }
+      </nav>
+    </aside>
+
+    <div class="z-main">
+      <div class="z-head" data-depth="1.1">
+        <h3>Dashboard</h3>
+        <span class="z-org-chip">🇦🇪 UAE Edition · VAT enabled</span>
+      </div>
+
+      <div class="z-grid">
+        <div class="z-card" data-depth="1.45">
+          <p class="z-title">Total Receivables</p>
+          <p class="z-amount">AED 96,320.00</p>
+          <div class="z-split">
+            <i class="z-cur" style="width:64%"></i>
+            <i class="z-over" style="width:36%"></i>
+          </div>
+          <div class="z-split-legend">
+            <p><span class="z-dot" style="background:#408dfb"></span>Current<br /><b>AED 61,200</b></p>
+            <p><span class="z-dot" style="background:#e54643"></span>Overdue<br /><b>AED 35,120</b></p>
+          </div>
+        </div>
+
+        <div class="z-card" data-depth="1.35">
+          <p class="z-title">Total Payables</p>
+          <p class="z-amount">AED 42,780.00</p>
+          <div class="z-split">
+            <i class="z-cur" style="width:78%"></i>
+            <i class="z-over" style="width:22%"></i>
+          </div>
+          <div class="z-split-legend">
+            <p><span class="z-dot" style="background:#408dfb"></span>Current<br /><b>AED 33,400</b></p>
+            <p><span class="z-dot" style="background:#e54643"></span>Overdue<br /><b>AED 9,380</b></p>
+          </div>
+        </div>
+
+        <div class="z-card z-tax" data-depth="1.55">
+          <p class="z-title">Tax Summary</p>
+          <div class="z-tax-row">
+            <span>VAT Payable</span>
+            <b>AED 4,320.00</b>
+          </div>
+          <div class="z-tax-row">
+            <span>Next VAT Return</span>
+            <b class="z-due">Due 28 Jul 2026</b>
+          </div>
+          <div class="z-tax-row">
+            <span>Filing Period</span>
+            <b>Apr – Jun 2026</b>
+          </div>
+        </div>
+
+        <div class="z-card z-cash" data-depth="1.4">
+          <div class="z-cash-head">
+            <p class="z-title">Cash Flow</p>
+            <p class="z-cash-total">Closing balance · <b>AED 97,114</b></p>
+          </div>
+          <svg viewBox="0 0 620 130" preserveAspectRatio="none" class="z-chart" aria-hidden="true">
+            <line x1="0" y1="118" x2="620" y2="118" stroke="#e8e8ee" />
+            <line x1="0" y1="78" x2="620" y2="78" stroke="#f0f0f4" />
+            <line x1="0" y1="38" x2="620" y2="38" stroke="#f0f0f4" />
+            <path
+              class="z-line"
+              d="M8 96 C70 90 100 100 160 84 S260 52 320 60 S420 30 480 40 S580 18 612 24"
+              fill="none"
+              stroke="#53af50"
+              stroke-width="2.5"
+            />
+          </svg>
+          <div class="z-months">
+            <span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+          </div>
+        </div>
+
+        <div class="z-card" data-depth="1.5">
+          <p class="z-title">Top Expenses</p>
+          <div class="z-donut-wrap">
+            <svg viewBox="0 0 42 42" class="z-donut" aria-hidden="true">
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#eef0f4" stroke-width="7"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#408dfb" stroke-width="7" stroke-dasharray="34 66" stroke-dashoffset="25"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#53af50" stroke-width="7" stroke-dasharray="24 76" stroke-dashoffset="-9"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#f7b32b" stroke-width="7" stroke-dasharray="18 82" stroke-dashoffset="-33"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="none" stroke="#c9cdd6" stroke-width="7" stroke-dasharray="24 76" stroke-dashoffset="-51"></circle>
+            </svg>
+            <ul class="z-legend">
+              <li><span class="z-dot" style="background:#408dfb"></span>Salaries</li>
+              <li><span class="z-dot" style="background:#53af50"></span>Rent</li>
+              <li><span class="z-dot" style="background:#f7b32b"></span>Marketing</li>
+              <li><span class="z-dot" style="background:#c9cdd6"></span>Other</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .screen-zoho {
+    background: #f7f7fa;
+  }
+
+  .z-nav {
+    width: 200px;
+    background: #21263c;
+    color: #a9aec4;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .z-org {
+    padding: 14px 16px;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .z-org span {
+    color: #a9aec4;
+    font-size: 10px;
+  }
+
+  .z-nav nav {
+    padding-top: 8px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .z-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8.5px 16px;
+    font-size: 12.5px;
+  }
+
+  .z-nav-item.active {
+    background: #408dfb;
+    color: #fff;
+  }
+
+  .z-ico {
+    width: 12px;
+    height: 12px;
+    border: 1.4px solid currentColor;
+    border-radius: 3px;
+    opacity: 0.7;
+  }
+
+  .z-main {
+    flex: 1;
+    padding: 16px 22px;
+    overflow: hidden;
+  }
+
+  .z-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .z-head h3 {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    color: #2f3138;
+  }
+
+  .z-org-chip {
+    font-size: 11px;
+    color: #6a6e7a;
+    background: #fff;
+    border: 1px solid #e3e5ec;
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+
+  .z-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 13px;
+  }
+
+  .z-card {
+    background: #fff;
+    border: 1px solid #e8e8ee;
+    border-radius: 6px;
+    padding: 13px 16px;
+    color: #2f3138;
+  }
+
+  .z-title {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #40434c;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f4;
+    margin-bottom: 10px;
+  }
+
+  .z-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #232530;
+  }
+
+  .z-split {
+    display: flex;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .z-cur {
+    background: #408dfb;
+  }
+
+  .z-over {
+    background: #e54643;
+  }
+
+  .z-split-legend {
+    display: flex;
+    gap: 24px;
+    font-size: 10.5px;
+    color: #6a6e7a;
+    margin-top: 9px;
+    line-height: 1.4;
+  }
+
+  .z-split-legend b {
+    color: #2f3138;
+    font-size: 11.5px;
+  }
+
+  .z-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  .z-tax-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: #6a6e7a;
+    padding: 6.5px 0;
+    border-bottom: 1px solid #f7f7fa;
+  }
+
+  .z-tax-row b {
+    color: #2f3138;
+  }
+
+  .z-due {
+    color: #b3760e !important;
+    background: #fdf3dd;
+    border-radius: 4px;
+    padding: 1px 8px;
+  }
+
+  .z-cash {
+    grid-column: span 2;
+  }
+
+  .z-cash-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .z-cash-total {
+    font-size: 11px;
+    color: #6a6e7a;
+  }
+
+  .z-cash-total b {
+    color: #2f3138;
+  }
+
+  .z-chart {
+    width: 100%;
+    height: 108px;
+    margin-top: 6px;
+  }
+
+  /* cash-flow line draws itself */
+  .z-line {
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: z-draw 8s infinite;
+  }
+
+  @keyframes z-draw {
+    0% { stroke-dashoffset: 700; }
+    30%, 85% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 700; }
+  }
+
+  .z-months {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: #9aa0ad;
+    padding: 0 6px;
+  }
+
+  .z-donut-wrap {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .z-donut {
+    width: 96px;
+    height: 96px;
+    transform: rotate(-90deg);
+  }
+
+  .z-legend {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 5px;
+    font-size: 11px;
+    color: #6a6e7a;
+  }
+</style>

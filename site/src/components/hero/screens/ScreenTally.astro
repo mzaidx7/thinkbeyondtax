@@ -1,0 +1,316 @@
+---
+import Chrome from "./Chrome.astro";
+---
+
+<div class="screen screen-tally" data-screen="tally">
+  <Chrome variant="windows" title="TallyPrime — Al Sarh Trading LLC" accent="#0f6cbd" />
+
+  <div class="t-topbar" data-depth="1.1">
+    {
+      [
+        ["K", "Company"],
+        ["Y", "Data"],
+        ["Z", "Exchange"],
+        ["G", "Go To"],
+        ["O", "Import"],
+        ["E", "Export"],
+        ["M", "E-mail"],
+        ["P", "Print"],
+        ["F1", "Help"],
+      ].map(([k, label]) => (
+        <span class="t-menu-item">
+          <span class="t-key">{k}</span>: {label}
+        </span>
+      ))
+    }
+  </div>
+
+  <div class="screen-body t-body">
+    <div class="t-main" data-depth="1.2">
+      <div class="t-band">
+        <div class="t-band-head">
+          <span>CURRENT PERIOD</span>
+          <span>CURRENT DATE</span>
+        </div>
+        <div class="t-band-vals">
+          <span>1-Jan-2026 to 31-Dec-2026</span>
+          <span>Sunday, 20-Jul-2026</span>
+        </div>
+      </div>
+
+      <div class="t-band">
+        <div class="t-band-head">
+          <span>NAME OF COMPANY</span>
+          <span>DATE OF LAST ENTRY</span>
+        </div>
+        <div class="t-band-vals">
+          <span class="t-co">Al Sarh Trading LLC</span>
+          <span>19-Jul-2026</span>
+        </div>
+      </div>
+
+      <div class="t-watermark" data-depth="1.05">TallyPrime</div>
+    </div>
+
+    <div class="t-gateway" data-depth="1.5">
+      <div class="t-gw-title">Gateway of Tally</div>
+      <div class="t-gw-menu">
+        <div class="t-hl"></div>
+        <p class="t-gw-label">Masters</p>
+        <span class="t-gw-item"><i>C</i>reate</span>
+        <span class="t-gw-item"><i>A</i>lter</span>
+        <span class="t-gw-item">C<i>h</i>art of Accounts</span>
+        <p class="t-gw-label">Transactions</p>
+        <span class="t-gw-item"><i>V</i>ouchers</span>
+        <span class="t-gw-item"><i>D</i>ay Book</span>
+        <p class="t-gw-label">Utilities</p>
+        <span class="t-gw-item"><i>B</i>anking</span>
+        <p class="t-gw-label">Reports</p>
+        <span class="t-gw-item"><i>B</i>alance Sheet</span>
+        <span class="t-gw-item"><i>P</i>rofit &amp; Loss A/c</span>
+        <span class="t-gw-item"><i>S</i>tock Summary</span>
+        <span class="t-gw-item"><i>R</i>atio Analysis</span>
+        <span class="t-gw-item">Displa<i>y</i> More Reports</span>
+        <span class="t-gw-item t-quit"><i>Q</i>uit</span>
+      </div>
+    </div>
+
+    <div class="t-sidebar" data-depth="1.3">
+      <span class="t-side-btn"><b>F2</b>: Date</span>
+      <span class="t-side-btn"><b>F3</b>: Company</span>
+      <hr />
+      <span class="t-side-btn t-dim"><b>F4</b></span>
+      <span class="t-side-btn t-dim"><b>F5</b></span>
+      <span class="t-side-btn t-dim"><b>F6</b></span>
+      <span class="t-side-btn t-dim"><b>F7</b></span>
+    </div>
+  </div>
+
+  <div class="t-statusbar" data-depth="1.1">
+    <span><b>Q</b>: Quit</span>
+    <span><b>Enter</b>: Select</span>
+    <span><b>Esc</b>: Exit</span>
+    <span class="t-status-right">Al Sarh Trading LLC — Sun, 20-Jul-2026</span>
+  </div>
+</div>
+
+<style>
+  .screen-tally {
+    background: #fbfbf9;
+    color: #1c1c1c;
+  }
+
+  .t-topbar {
+    height: 34px;
+    background: #f1f1ee;
+    border-bottom: 1px solid #d8d8d3;
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding: 0 22px;
+    font-size: 12px;
+    color: #3c3c3c;
+  }
+
+  .t-key {
+    color: #c22a21;
+    font-weight: 600;
+  }
+
+  .t-body {
+    background: #fbfbf9;
+  }
+
+  .t-main {
+    flex: 1;
+    padding: 18px 20px;
+    position: relative;
+  }
+
+  .t-band {
+    border: 1px solid #c9d4e4;
+    margin-bottom: 14px;
+    background: #fff;
+  }
+
+  .t-band-head {
+    display: flex;
+    justify-content: space-between;
+    background: #d9e4f3;
+    color: #23477e;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+  }
+
+  .t-band-vals {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 14px;
+    font-size: 13.5px;
+    color: #222;
+  }
+
+  .t-co {
+    font-weight: 600;
+    color: #17335c;
+  }
+
+  .t-watermark {
+    position: absolute;
+    left: 50%;
+    top: 61%;
+    translate: -50% -50%;
+    font-size: 64px;
+    font-weight: 700;
+    color: rgba(30, 60, 110, 0.06);
+    letter-spacing: 0.02em;
+    pointer-events: none;
+  }
+
+  .t-gateway {
+    width: 390px;
+    margin: 18px 0;
+    border: 1px solid #b9c6da;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 10px rgba(30, 60, 110, 0.08);
+  }
+
+  .t-gw-title {
+    background: #3a63a8;
+    color: #fff;
+    text-align: center;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 8px 0;
+    letter-spacing: 0.02em;
+  }
+
+  .t-gw-menu {
+    position: relative;
+    padding: 10px 0 12px;
+    flex: 1;
+  }
+
+  .t-gw-label {
+    height: 26px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8a94a4;
+    padding-bottom: 4px;
+  }
+
+  .t-gw-item {
+    position: relative;
+    z-index: 1;
+    height: 29px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13.5px;
+    color: #24292f;
+  }
+
+  .t-gw-item i {
+    font-style: normal;
+    color: #c22a21;
+  }
+
+  .t-quit {
+    margin-top: 6px;
+  }
+
+  /* signature warm-yellow selection bar stepping through the menu */
+  .t-hl {
+    position: absolute;
+    z-index: 0;
+    left: 8px;
+    right: 8px;
+    height: 29px;
+    top: 36px;
+    background: linear-gradient(180deg, #ffdf74, #f8c93e);
+    border-radius: 2px;
+    animation: tally-step 9s infinite;
+  }
+
+  @keyframes tally-step {
+    0%,
+    26% {
+      top: 36px;
+    }
+    33%,
+    59% {
+      top: 149px;
+    }
+    66%,
+    92% {
+      top: 288px;
+    }
+    100% {
+      top: 36px;
+    }
+  }
+
+  .t-sidebar {
+    width: 128px;
+    background: #f1f1ee;
+    border-left: 1px solid #d8d8d3;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 12px;
+  }
+
+  .t-side-btn {
+    padding: 6px 8px;
+    border-radius: 3px;
+    color: #333;
+  }
+
+  .t-side-btn b {
+    color: #c22a21;
+    font-weight: 600;
+  }
+
+  .t-sidebar hr {
+    border: none;
+    border-top: 1px solid #d8d8d3;
+    margin: 8px 0;
+  }
+
+  .t-dim,
+  .t-dim b {
+    color: #b3b3ad;
+  }
+
+  .t-statusbar {
+    height: 28px;
+    background: #e7e7e2;
+    border-top: 1px solid #d0d0ca;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 22px;
+    font-size: 11px;
+    color: #555;
+  }
+
+  .t-statusbar b {
+    color: #c22a21;
+    font-weight: 600;
+  }
+
+  .t-status-right {
+    margin-left: auto;
+    color: #888;
+  }
+</style>
