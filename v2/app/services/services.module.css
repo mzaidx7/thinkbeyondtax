@@ -1,0 +1,64 @@
+.hero {
+  padding: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--charcoal-2);
+  background: var(--charcoal);
+}
+
+.h1 {
+  font-size: var(--text-h2);
+  margin-top: 0.9rem;
+  max-width: 24ch;
+  position: relative;
+}
+
+.intro {
+  color: var(--grey);
+  max-width: 46rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.group {
+  margin-bottom: 2.8rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.card {
+  border: 1px solid var(--charcoal-2);
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  padding: 1.6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.card:hover {
+  border-color: var(--gold-30);
+  transform: translateY(-3px);
+}
+
+.card h2 {
+  font-size: var(--text-h3);
+}
+
+.card p {
+  color: var(--grey);
+  font-size: var(--text-small);
+  flex: 1;
+}
+
+.card span {
+  color: var(--gold);
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+}

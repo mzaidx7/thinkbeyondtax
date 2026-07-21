@@ -1,0 +1,165 @@
+.strip {
+  border-block: 1px solid var(--charcoal-2);
+  background: var(--charcoal);
+  padding-block: 1.1rem;
+}
+
+.stripInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 2rem;
+}
+
+.stripChip {
+  font-size: var(--text-micro);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.stripMore {
+  font-size: var(--text-micro);
+  color: var(--gold-lo);
+  font-style: italic;
+  margin-left: auto;
+}
+
+/* services */
+.svcGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+}
+
+.svcCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: var(--charcoal);
+  border: 1px solid var(--charcoal-2);
+  border-radius: var(--radius);
+  padding: 1.7rem 1.5rem;
+  transition:
+    border-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out),
+    background var(--dur) var(--ease-out);
+}
+
+.svcCard:hover {
+  border-color: var(--gold-30);
+  transform: translateY(-4px);
+  background: linear-gradient(180deg, var(--charcoal-2), var(--charcoal));
+}
+
+.svcIcon {
+  width: 2.4rem;
+  height: 2.4rem;
+  color: var(--gold);
+}
+
+.svcCard h3 {
+  font-size: var(--text-h3);
+}
+
+.svcCard p {
+  color: var(--grey);
+  font-size: var(--text-small);
+  flex: 1;
+}
+
+.svcMore {
+  font-size: var(--text-micro);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+/* about */
+.aboutGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.aboutH2 {
+  font-size: var(--text-h2);
+  margin-block: 0.9rem 1.2rem;
+}
+
+.aboutCopy {
+  color: var(--grey);
+  margin-bottom: 1rem;
+  max-width: 34rem;
+}
+
+.aboutBtn {
+  margin-top: 0.8rem;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 1.4rem;
+}
+
+.steps li {
+  border-left: 1px solid var(--gold-30);
+  padding-left: 1.4rem;
+  position: relative;
+}
+
+.stepNum {
+  font-family: var(--font-display);
+  font-weight: 900;
+  color: var(--gold);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+.steps h3 {
+  font-size: 1.05rem;
+  margin-block: 0.3rem 0.35rem;
+}
+
+.steps p {
+  color: var(--grey);
+  font-size: var(--text-small);
+  max-width: 30rem;
+}
+
+/* why */
+.whyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+}
+
+.whyCard {
+  border: 1px solid var(--charcoal-2);
+  border-top: 2px solid var(--gold-30);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.4rem;
+  background: linear-gradient(180deg, rgba(207, 152, 47, 0.04), transparent 40%);
+}
+
+.whyCard h3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.5rem;
+}
+
+.whyCard p {
+  color: var(--grey);
+  font-size: var(--text-small);
+}
+
+@media (max-width: 860px) {
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+  .stripMore {
+    margin-left: 0;
+  }
+}

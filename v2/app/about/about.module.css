@@ -1,0 +1,60 @@
+.hero {
+  padding: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--charcoal-2);
+  background: var(--charcoal);
+}
+
+.h1 {
+  font-size: var(--text-h2);
+  margin-top: 0.9rem;
+  max-width: 26ch;
+  position: relative;
+}
+
+.intro {
+  color: var(--grey);
+  max-width: 44rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.cols {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.h2 {
+  font-size: var(--text-h3);
+  margin: 1.8rem 0 0.7rem;
+}
+
+.h2:first-child {
+  margin-top: 0;
+}
+
+.copy {
+  color: var(--grey);
+  max-width: 38rem;
+}
+
+.trustBox {
+  border: 1px solid var(--gold-15);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--gold-08), transparent 60%);
+  padding: 1.6rem 1.5rem;
+}
+
+.trustBox p:last-child {
+  margin-top: 0.9rem;
+  color: var(--grey);
+  font-size: var(--text-small);
+  line-height: 1.7;
+}
+
+@media (max-width: 800px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
+}

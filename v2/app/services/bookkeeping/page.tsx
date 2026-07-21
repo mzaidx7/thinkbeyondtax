@@ -1,0 +1,25 @@
+import type { Metadata } from "next";
+import ServicePage from "@/components/ServicePage";
+
+export const metadata: Metadata = {
+  title: "Bookkeeping",
+  description:
+    "Day-to-day bookkeeping that keeps your records current, reconciled and ready — inside your own accounting system.",
+};
+
+export default function BookkeepingPage() {
+  return (
+    <ServicePage
+      title="Bookkeeping"
+      intro="Day-to-day bookkeeping that keeps your records current, reconciled and ready — handled inside your own accounting system, not a parallel one."
+      covers={[
+        "Voucher and transaction entry, kept up to date",
+        "Bank and credit card reconciliations",
+        "Accounts receivable and payable tracking",
+        "Supplier bill and customer invoice processing",
+        "Payroll record support and expense management",
+        "Tidy, VAT-ready records that make filing straightforward",
+      ]}
+    />
+  );
+}

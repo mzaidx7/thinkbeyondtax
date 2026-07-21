@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "tbt-site",
+      "name": "tbt-v2",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "site", "run", "dev"],
-      "port": 4321
+      "runtimeArgs": ["--prefix", "v2", "run", "dev"],
+      "port": 3000
     }
   ]
 }

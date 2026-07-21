@@ -1,0 +1,67 @@
+.hero {
+  padding: calc(var(--header-h) + clamp(3rem, 7vw, 5.5rem)) 0 clamp(2.5rem, 5vw, 4rem);
+  border-bottom: 1px solid var(--charcoal-2);
+  background: var(--charcoal);
+}
+
+.h1 {
+  font-size: var(--text-h2);
+  margin-top: 0.9rem;
+  position: relative;
+}
+
+.intro {
+  color: var(--grey);
+  max-width: 44rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.channels {
+  display: grid;
+  gap: 1rem;
+}
+
+.channel {
+  display: block;
+  border: 1px solid var(--charcoal-2);
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  padding: 1.4rem 1.5rem;
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+a.channel:hover {
+  border-color: var(--gold-30);
+}
+
+.label {
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.value {
+  font-weight: 600;
+  margin-top: 0.4rem;
+}
+
+.note {
+  color: var(--grey);
+  font-size: var(--text-small);
+  margin-top: 0.2rem;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,350 @@
+.root {
+  background: #f7f8fa;
+}
+
+/* ---- black top bar ---- */
+.topbar {
+  height: 46px;
+  background: #1c1c1e;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 18px;
+  flex: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.logoMark {
+  width: 22px;
+  height: 20px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #2f7af5, #53af50);
+}
+
+.search {
+  flex: 1;
+  max-width: 420px;
+  margin: 0 auto;
+  background: #2c2c2f;
+  border-radius: 6px;
+  padding: 7px 14px;
+  font-size: 12px;
+  color: #9a9c9f;
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.plusTile {
+  font-style: normal;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  background: #2c2c2f;
+  color: #cfd0d2;
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+}
+
+.bell {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid #6a6c6f;
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #6b7280;
+  color: #fff;
+  font-size: 12px;
+  display: grid;
+  place-items: center;
+}
+
+/* ---- light sidebar ---- */
+.side {
+  width: 196px;
+  background: #f4f6f8;
+  border-right: 1px solid #e4e7ec;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  flex: none;
+  overflow: hidden;
+}
+
+.org {
+  padding: 6px 10px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #33475b;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  color: #3f4a56;
+  border-radius: 6px;
+}
+
+.navActive {
+  background: #fff;
+  border: 1px solid #e0e4e9;
+  font-weight: 600;
+  color: #1c1c1e;
+}
+
+.navIco {
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+  opacity: 0.6;
+}
+
+.subList {
+  display: flex;
+  flex-direction: column;
+  padding: 2px 0 6px 34px;
+}
+
+.subList span {
+  padding: 4.5px 0;
+  font-size: 11.5px;
+  color: #6a7684;
+}
+
+/* ---- main ---- */
+.main {
+  flex: 1;
+  padding: 14px 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.topCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e8eaef;
+  border-radius: 6px;
+  padding: 13px 16px;
+}
+
+.cardTitle {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #8a909c;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f1f4;
+  margin-bottom: 12px;
+}
+
+.unpaid {
+  font-size: 13px;
+  color: #5a6474;
+}
+
+.unpaid b {
+  color: #23272f;
+  font-weight: 700;
+}
+
+.splitBar {
+  display: flex;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 12px 0 10px;
+}
+
+.current {
+  background: #2f7af5;
+}
+
+.overdue {
+  background: #f5b622;
+}
+
+.splitLegend {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.curLabel {
+  color: #2f7af5;
+}
+
+.overLabel {
+  color: #d9982a;
+}
+
+.splitVals {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-top: 2px;
+}
+
+.splitVals b {
+  color: #23272f;
+  font-weight: 700;
+}
+
+/* cash flow */
+.cashLayout {
+  display: grid;
+  grid-template-columns: 1fr 168px;
+  gap: 16px;
+}
+
+.chartWrap {
+  min-width: 0;
+}
+
+.chart {
+  width: 100%;
+  height: 128px;
+}
+
+.cashLine {
+  stroke-dasharray: 720;
+  stroke-dashoffset: 720;
+  animation: z-draw 8s infinite;
+}
+
+@keyframes z-draw {
+  0% { stroke-dashoffset: 720; }
+  30%, 85% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 720; }
+}
+
+.months {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: #9aa0ad;
+  padding: 4px 4px 0;
+}
+
+.cashRail {
+  border-left: 1px solid #eef0f3;
+  padding-left: 16px;
+}
+
+.railTop {
+  font-size: 10.5px;
+  color: #9aa0ad;
+  margin-top: 8px;
+}
+
+.railTop:first-child {
+  margin-top: 0;
+}
+
+.railVal {
+  font-size: 14px;
+  font-weight: 700;
+  color: #23272f;
+}
+
+.railIn {
+  font-size: 14px;
+  font-weight: 700;
+  color: #53af50;
+}
+
+.railOut {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e2574c;
+}
+
+/* bottom cards */
+.bottomCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.barsMini {
+  display: flex;
+  align-items: flex-end;
+  gap: 14px;
+  height: 60px;
+}
+
+.barsMini i {
+  width: 26px;
+  border-radius: 3px 3px 0 0;
+}
+
+.barIn {
+  background: #53af50;
+}
+
+.barEx {
+  background: #e2574c;
+}
+
+.donutRow {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.donut {
+  width: 76px;
+  height: 76px;
+  transform: rotate(-90deg);
+}
+
+.legend {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 5px;
+  font-size: 11px;
+  color: #6a7280;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.legend span {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}

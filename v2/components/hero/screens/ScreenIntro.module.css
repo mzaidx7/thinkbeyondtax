@@ -1,0 +1,122 @@
+.root {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 40%, rgba(207, 152, 47, 0.07), transparent 70%),
+    #0b0b0b;
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+}
+
+.card {
+  position: absolute;
+  width: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1a1a1e;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 22px 44px -16px rgba(0, 0, 0, 0.7);
+  transition:
+    translate 0.6s var(--ease-out),
+    opacity 0.5s var(--ease-out),
+    scale 0.6s var(--ease-out);
+}
+
+/* cards fly apart when the story dives out of the intro state */
+.root:not(:global(.is-active)) .card {
+  opacity: 0;
+  scale: 1.08;
+}
+
+.root:not(:global(.is-active)) .card:nth-child(odd) {
+  translate: -180px -60px;
+}
+
+.root:not(:global(.is-active)) .card:nth-child(even) {
+  translate: 200px 80px;
+}
+
+.root:not(:global(.is-active)) .card:nth-child(3n) {
+  translate: 60px -160px;
+}
+
+.light {
+  background: #f4f4f2;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.light .titlebar {
+  background: rgba(0, 0, 0, 0.045);
+  border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+.name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d6d6d2;
+  white-space: nowrap;
+}
+
+.light .name {
+  color: #3a3a36;
+}
+
+.skeleton {
+  padding: 12px 12px 14px;
+}
+
+.skeleton i {
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 7px;
+}
+
+.light .skeleton i {
+  background: rgba(0, 0, 0, 0.09);
+}
+
+.blocks {
+  display: flex;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.blocks b {
+  flex: 1;
+  height: 34px;
+  border-radius: 5px;
+  background: color-mix(in srgb, var(--accent) 26%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.caption {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  translate: -50% 0;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(220, 220, 217, 0.45);
+  white-space: nowrap;
+}

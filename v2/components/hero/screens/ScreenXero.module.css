@@ -1,0 +1,343 @@
+.root {
+  background: #f0f1f3;
+}
+
+/* ---- blue header ---- */
+.topnav {
+  height: 46px;
+  background: #1c99d5;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 0 18px;
+  color: #d6eefa;
+  flex: none;
+}
+
+.org {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hamburger {
+  width: 15px;
+  height: 11px;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  position: relative;
+}
+
+.hamburger::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 15px;
+  height: 1.5px;
+  background: #fff;
+}
+
+.org b {
+  font-size: 9px;
+}
+
+.topnav nav {
+  display: flex;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.link,
+.linkActive {
+  padding: 14px 12px;
+}
+
+.linkActive {
+  background: #fff;
+  color: #1c99d5;
+  font-weight: 600;
+}
+
+.topIcons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #d6eefa;
+}
+
+.topIcons i {
+  font-style: normal;
+  position: relative;
+}
+
+.mail b {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #e8683f;
+  color: #fff;
+  font-size: 8px;
+  border-radius: 50%;
+  width: 13px;
+  height: 13px;
+  display: grid;
+  place-items: center;
+}
+
+/* ---- body ---- */
+.body {
+  padding: 16px 18px;
+  gap: 14px;
+  position: relative;
+}
+
+.colL {
+  flex: 1.05;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.colR {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e2e5ea;
+  border-radius: 4px;
+  padding: 14px 16px;
+  color: #4a5563;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2b8fc4;
+  margin-bottom: 10px;
+}
+
+.bankHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.acctName {
+  font-size: 14px;
+  font-weight: 700;
+  color: #2b8fc4;
+}
+
+.acctNo {
+  font-size: 11px;
+  color: #9aa2ad;
+  margin-top: 2px;
+}
+
+.manage {
+  font-size: 11.5px;
+  color: #6b7580;
+  border: 1px solid #d5dae1;
+  border-radius: 3px;
+  padding: 3px 10px;
+}
+
+.reconcile {
+  background: #2196ce;
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 8px 16px;
+  margin: 12px 0;
+  cursor: default;
+  animation: x-btn 8s infinite;
+}
+
+@keyframes x-btn {
+  0%, 48%, 100% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 206, 0);
+    transform: scale(1);
+  }
+  58% {
+    box-shadow: 0 0 0 7px rgba(33, 150, 206, 0.18);
+  }
+  63% {
+    transform: scale(0.96);
+  }
+  68% {
+    box-shadow: 0 0 0 0 rgba(33, 150, 206, 0);
+    transform: scale(1);
+  }
+}
+
+.bankBal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: #6b7580;
+}
+
+.bankBal b {
+  color: #2b3138;
+  font-weight: 600;
+}
+
+.neg {
+  color: #d9534f !important;
+}
+
+.spark {
+  width: 100%;
+  height: 54px;
+  margin-top: 10px;
+}
+
+.sparkLabels,
+.cashLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9.5px;
+  color: #9aa2ad;
+  padding: 3px 4px 0;
+}
+
+.acctNoSm {
+  font-size: 11px;
+  color: #9aa2ad;
+  margin-top: -6px;
+  margin-bottom: 10px;
+}
+
+.noTx {
+  font-size: 12px;
+  color: #6b7580;
+}
+
+.importLink {
+  font-size: 12px;
+  color: #2b8fc4;
+  margin-top: 3px;
+}
+
+.cashChart {
+  width: 100%;
+  height: 90px;
+}
+
+/* watchlist */
+.watch {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+
+.watch th {
+  text-align: right;
+  color: #9aa2ad;
+  font-weight: 500;
+  padding: 4px 0;
+  border-bottom: 1px solid #eceff3;
+}
+
+.watch th:first-child,
+.watch td:first-child {
+  text-align: left;
+}
+
+.watch td {
+  padding: 7px 0;
+  border-bottom: 1px solid #f4f6f9;
+  text-align: right;
+  color: #4a5563;
+}
+
+.watch td:first-child {
+  color: #2b8fc4;
+}
+
+/* invoices/bills */
+.owedHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.newBtn {
+  border: 1px solid #cdd3da;
+  border-radius: 3px;
+  padding: 5px 12px;
+  font-size: 11px;
+  color: #4a5563;
+  cursor: default;
+}
+
+.owedRows {
+  display: grid;
+  gap: 7px;
+  margin: 4px 0 12px;
+}
+
+.owedRows p {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #4a5563;
+}
+
+.owedRows b {
+  color: #2b3138;
+  font-weight: 600;
+}
+
+.overdueLabel {
+  color: #d9534f;
+}
+
+.owedChart {
+  width: 100%;
+  height: 56px;
+}
+
+/* ghost cursor → Reconcile */
+.cursor {
+  top: 34%;
+  left: 60%;
+  animation: x-cursor-path 8s infinite;
+}
+
+@keyframes x-cursor-path {
+  0%, 20% {
+    top: 34%;
+    left: 60%;
+    transform: scale(1);
+  }
+  45%, 60% {
+    top: 24%;
+    left: 12%;
+    transform: scale(1);
+  }
+  63% {
+    transform: scale(0.78);
+  }
+  66%, 78% {
+    top: 24%;
+    left: 12%;
+    transform: scale(1);
+  }
+  100% {
+    top: 34%;
+    left: 60%;
+    transform: scale(1);
+  }
+}

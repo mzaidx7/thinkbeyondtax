@@ -1,0 +1,235 @@
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  background: rgba(3, 3, 4, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--charcoal-2);
+  transition: border-color 0.4s var(--ease-out);
+}
+
+.scrolled {
+  border-bottom-color: var(--gold-30);
+}
+
+.inner {
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.logoLink img {
+  height: 2.35rem;
+  width: auto;
+}
+
+.navDesktop {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  font-size: var(--text-small);
+  font-weight: 500;
+}
+
+.navDesktop > a:not(.cta),
+.dropBtn {
+  color: var(--silver);
+  position: relative;
+  padding-block: 0.4rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  letter-spacing: 0.02em;
+  transition: color 0.3s var(--ease-out);
+}
+
+.navDesktop > a:not(.cta)::after,
+.dropBtn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.navDesktop > a:not(.cta):hover,
+.dropBtn:hover,
+.dropBtn[aria-expanded="true"] {
+  color: var(--gold-hi);
+}
+
+.navDesktop > a:not(.cta):hover::after,
+.dropBtn:hover::after {
+  transform: scaleX(1);
+}
+
+.cta {
+  padding: 0.6rem 1.25rem;
+}
+
+/* dropdown */
+.drop {
+  position: relative;
+}
+
+.dropPanel {
+  position: absolute;
+  top: calc(100% + 0.9rem);
+  left: 50%;
+  translate: -50% 0;
+  min-width: 13.5rem;
+  background: var(--charcoal);
+  border: 1px solid var(--charcoal-3);
+  border-top: 2px solid var(--gold);
+  border-radius: var(--radius);
+  padding: 0.6rem 0;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.28s var(--ease-out),
+    transform 0.28s var(--ease-out),
+    visibility 0.28s;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.8);
+}
+
+.drop:hover .dropPanel,
+.drop:focus-within .dropPanel,
+.dropOpen .dropPanel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropPanel a {
+  padding: 0.55rem 1.2rem;
+  color: var(--silver);
+  transition: color 0.2s, background 0.2s;
+}
+
+.dropPanel a:hover {
+  color: var(--gold-hi);
+  background: var(--gold-08);
+}
+
+.dropGroup {
+  padding: 0.7rem 1.2rem 0.2rem;
+  font-size: var(--text-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--grey);
+}
+
+.dropSub {
+  padding-left: 1.9rem !important;
+}
+
+.dropAll {
+  margin-top: 0.4rem;
+  border-top: 1px solid var(--charcoal-3);
+  color: var(--gold) !important;
+  font-size: var(--text-micro);
+  letter-spacing: 0.06em;
+}
+
+/* burger + mobile */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+}
+
+.burger span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--silver);
+  transition: transform 0.3s var(--ease-out), opacity 0.3s;
+}
+
+.burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: var(--header-h) 0 0 0;
+  background: rgba(3, 3, 4, 0.97);
+  backdrop-filter: blur(10px);
+  overflow-y: auto;
+}
+
+.mobileMenu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.mobileMenu nav > a,
+.mobServicesBtn {
+  padding: 0.9rem 0.2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--silver);
+  border-bottom: 1px solid var(--charcoal-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.mobileMenu nav > a:global(.btn) {
+  justify-content: center;
+  margin-top: 1.4rem;
+  border-bottom: none;
+  color: #171004;
+}
+
+.mobServicesBtn svg {
+  transition: rotate 0.3s var(--ease-out);
+}
+
+.mobServicesBtn[aria-expanded="true"] svg {
+  rotate: 180deg;
+}
+
+.mobServices {
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0 0.6rem 1rem;
+}
+
+.mobServices a {
+  padding: 0.55rem 0.2rem;
+  color: var(--grey);
+}
+
+.mobServices a:hover {
+  color: var(--gold-hi);
+}
+
+@media (max-width: 900px) {
+  .navDesktop {
+    display: none;
+  }
+  .burger {
+    display: flex;
+  }
+}

@@ -1,0 +1,21 @@
+.nf {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-h);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  gap: 1.1rem;
+  justify-items: start;
+}
+
+.h1 {
+  font-size: var(--text-h2);
+}
+
+.copy {
+  color: var(--grey);
+}

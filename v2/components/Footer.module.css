@@ -1,0 +1,76 @@
+.footer {
+  border-top: 1px solid var(--charcoal-2);
+  background: var(--charcoal);
+  padding: clamp(3rem, 6vw, 5rem) 0 2rem;
+  font-size: var(--text-small);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.4fr;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.brand img {
+  height: 8.5rem;
+  width: auto;
+  margin-bottom: 1rem;
+  margin-left: -0.5rem;
+}
+
+.brand p {
+  color: var(--grey);
+  max-width: 26rem;
+}
+
+.head {
+  font-size: var(--text-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.col a {
+  color: var(--silver);
+  transition: color 0.25s;
+}
+
+.col a:hover {
+  color: var(--gold-hi);
+}
+
+.loc {
+  color: var(--grey);
+}
+
+.legal {
+  display: grid;
+  gap: 0.7rem;
+  padding-block: 1.8rem;
+  color: var(--grey);
+  font-size: var(--text-micro);
+  line-height: 1.7;
+  max-width: 60rem;
+}
+
+.copy {
+  color: var(--grey);
+  font-size: var(--text-micro);
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .brand {
+    grid-column: 1 / -1;
+  }
+}
