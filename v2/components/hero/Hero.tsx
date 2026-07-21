@@ -165,7 +165,9 @@ export default function Hero() {
                   Explore Our Services
                 </a>
               </div>
+            </div>
 
+            <div className={s.dockArea}>
               <PlatformDock
                 current={current}
                 onSelect={selectState}

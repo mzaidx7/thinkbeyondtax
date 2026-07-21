@@ -93,6 +93,27 @@ h4 {
   border-radius: 2px;
 }
 
+/* skip-to-content: visually hidden until keyboard-focused */
+.skip-link {
+  position: fixed;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 200;
+  transform: translateY(-160%);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-pill);
+  background: var(--gold);
+  color: #171004;
+  font-size: var(--text-small);
+  font-weight: 600;
+  transition: transform 0.2s var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-offset: 2px;
+}
+
 ::selection {
   background: var(--gold-30);
   color: #fff;

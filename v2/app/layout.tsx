@@ -47,8 +47,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${inter.variable}`}>
       <body>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <Header />
-        <main>{children}</main>
+        <main id="main">{children}</main>
         <Footer />
       </body>
     </html>

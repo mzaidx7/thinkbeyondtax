@@ -17,14 +17,26 @@
 .grid {
   display: grid;
   grid-template-columns: 44fr 56fr;
-  gap: clamp(2rem, 4vw, 4.5rem);
+  grid-template-areas:
+    "copy stage"
+    "dock stage";
+  grid-template-rows: auto auto;
+  column-gap: clamp(2rem, 4vw, 4.5rem);
+  row-gap: 1.6rem;
   align-items: center;
   width: min(var(--container), 100% - 3rem);
 }
 
 .copyCol {
+  grid-area: copy;
+  align-self: center;
   display: flex;
   flex-direction: column;
+}
+
+.dockArea {
+  grid-area: dock;
+  align-self: start;
 }
 
 .overline {
@@ -35,10 +47,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
-  margin: 1.8rem 0 2rem;
+  margin: 1.8rem 0 0;
 }
 
 .stage {
+  grid-area: stage;
+  align-self: center;
   position: relative;
 }
 
@@ -50,7 +64,6 @@
 .disclaimer {
   font-size: var(--text-micro);
   color: var(--grey);
-  opacity: 0.75;
   line-height: 1.6;
   max-width: 56rem;
   padding-block: 1.2rem 0;
@@ -75,12 +88,18 @@
     height: auto;
     padding-top: calc(var(--header-h) + 2.5rem);
     padding-bottom: 2rem;
-    overflow: visible;
+    /* keep overflow clipped so the device glow/glare don't cause
+       horizontal scroll when the monitor is full-width on mobile */
+    overflow: clip;
   }
 
   .grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-areas:
+      "copy"
+      "stage"
+      "dock";
+    row-gap: 2.5rem;
   }
 
   .stage {
