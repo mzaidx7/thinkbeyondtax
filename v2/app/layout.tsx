@@ -3,6 +3,7 @@ import { Lato, Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/site";
 
 const lato = Lato({
@@ -47,6 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${inter.variable}`}>
       <body>
+        <SmoothScroll />
         <a href="#main" className="skip-link">
           Skip to content
         </a>

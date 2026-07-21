@@ -21,6 +21,29 @@
   --glass-blur: 16px;
   --glass-highlight: rgba(255, 246, 225, 0.14);
 
+  /* Liquid metal (brushed gold-chrome) */
+  --metal-hi: #f6dc8a;
+  --metal-mid: #cf982f;
+  --metal-lo: #7a5410;
+  --metal-text-grad: linear-gradient(
+    168deg,
+    #f6dc8a 0%,
+    #efc451 20%,
+    #cf982f 46%,
+    #a06a0f 68%,
+    #f0d27f 100%
+  );
+  --metal-edge: conic-gradient(
+    from 210deg,
+    #37373b,
+    #6b6455,
+    rgba(239, 196, 81, 0.5),
+    #2a2a2e 38%,
+    #1a1a1d 60%,
+    #5c523c 82%,
+    #37373b
+  );
+
   /* Type scale (font families injected by next/font in layout.tsx as
      --font-display / --font-body) */
   --text-hero: clamp(2.1rem, 4.2vw, 3.4rem);
@@ -170,9 +193,13 @@ h4 {
 }
 
 .btn-gold {
-  background: linear-gradient(180deg, var(--gold-hi), var(--gold) 55%, var(--gold-lo));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 42%),
+    linear-gradient(168deg, #f6dc8a 0%, #efc451 30%, #cf982f 62%, #a06a0f 100%);
   color: #171004;
-  box-shadow: 0 0 0 1px rgba(239, 196, 81, 0.35) inset;
+  box-shadow:
+    0 0 0 1px rgba(239, 196, 81, 0.45) inset,
+    0 1px 0 rgba(255, 255, 255, 0.5) inset;
 }
 
 .btn-gold:hover {
@@ -256,6 +283,49 @@ h4 {
   66% {
     border-radius: 38% 62% 55% 45% / 40% 58% 42% 60%;
   }
+}
+
+/* ---------- liquid-metal text (brushed gold-chrome) ---------- */
+.metal-text {
+  background: var(--metal-text-grad);
+  background-size: 220% 100%;
+  background-position: 0% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* one sheen pass, triggered by adding .metal-sheen (removed after) */
+.metal-text.metal-sheen {
+  animation: metal-sweep 1.1s var(--ease-out);
+}
+
+@keyframes metal-sweep {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
+
+@supports not ((background-clip: text) or (-webkit-background-clip: text)) {
+  .metal-text {
+    color: var(--gold-hi);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+/* tiny brushed-metal sphere ("mercury orb") — set --orb to the accent */
+.orb {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.9), transparent 42%),
+    radial-gradient(circle at 70% 78%, var(--orb, var(--gold)), #1a1712 96%);
+  box-shadow:
+    0 0 6px color-mix(in srgb, var(--orb, var(--gold)) 60%, transparent),
+    inset 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 .section-head {

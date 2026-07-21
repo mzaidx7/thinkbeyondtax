@@ -1,0 +1,36 @@
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* on mobile the sticky wrapper is static/tall — hide the backdrop so its
+   fixed-viewport scrim doesn't stretch over the whole stacked hero */
+@media (max-width: 1023px) {
+  .backdrop {
+    display: none;
+  }
+}
+
+/* static fallback — layered molten-gold gradients (reduced-motion / mobile / no-WebGL) */
+.poster {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(60% 55% at 68% 32%, rgba(239, 196, 81, 0.22), transparent 62%),
+    radial-gradient(70% 60% at 30% 72%, rgba(160, 106, 15, 0.2), transparent 66%),
+    conic-gradient(from 210deg at 60% 40%, #14100a, #050505 30%, #1a1305 60%, #050505 82%, #14100a);
+  filter: saturate(120%);
+}
+
+/* contrast scrim: darkens toward the copy column + edges so text stays >= 4.5:1 */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 65% 60% at 68% 42%, transparent 24%, rgba(3, 3, 4, 0.72) 78%),
+    linear-gradient(90deg, rgba(3, 3, 4, 0.92) 0%, rgba(3, 3, 4, 0.55) 34%, transparent 60%),
+    linear-gradient(0deg, var(--charcoal) 0%, rgba(3, 3, 4, 0.4) 12%, transparent 30%);
+}

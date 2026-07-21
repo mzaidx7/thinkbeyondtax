@@ -45,19 +45,23 @@
 
 .tabActive {
   color: var(--silver);
-  border-color: var(--gold);
-  background: linear-gradient(180deg, rgba(239, 196, 81, 0.16), var(--glass-bg-strong));
+  border-color: transparent;
+  background:
+    linear-gradient(180deg, rgba(239, 196, 81, 0.16), var(--glass-bg-strong)) padding-box,
+    var(--metal-edge) border-box;
   box-shadow:
     inset 0 1px 0 var(--glass-highlight),
-    0 0 0 1px var(--gold-30),
-    0 8px 24px -10px rgba(207, 152, 47, 0.5);
+    0 8px 24px -10px rgba(207, 152, 47, 0.55);
 }
 
+/* mercury-orb tick */
 .tick {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--accent);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.85), transparent 44%),
+    radial-gradient(circle at 70% 78%, var(--accent), #1a1712 96%);
   opacity: 0.55;
   flex: none;
   transition: opacity 0.3s;
@@ -65,7 +69,9 @@
 
 .tabActive .tick {
   opacity: 1;
-  box-shadow: 0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);
+  box-shadow:
+    0 0 8px color-mix(in srgb, var(--accent) 70%, transparent),
+    inset 0 0 2px rgba(255, 255, 255, 0.4);
 }
 
 .progress {

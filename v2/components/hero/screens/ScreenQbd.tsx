@@ -2,38 +2,48 @@ import Chrome from "./Chrome";
 import s from "./ScreenQbd.module.css";
 
 const menuRow = [
-  "File", "Edit", "View", "Lists", "Favorites", "Company",
-  "Customers", "Vendors", "Employees", "Banking", "Reports", "Window", "Help",
+  "File", "Edit", "View", "Lists", "Favorites", "Company", "Customers",
+  "Vendors", "Employees", "Banking", "Reports", "Window", "Help", "Special Offers",
 ];
 
 const sideItems = [
   { label: "Home", active: true },
   { label: "My Company" },
-  { label: "Income Tracker" },
-  { label: "Bill Tracker" },
   { label: "Calendar" },
   { label: "Snapshots" },
   { label: "Customers" },
   { label: "Vendors" },
-  { label: "Employees" },
-  { label: "Bank Feeds" },
-  { label: "Docs" },
-  { label: "Reports" },
 ];
 
-function Arrow({ className }: { className?: string }) {
+const bottomTabs = ["My Shortcuts", "View Balances", "Run Favorite Reports", "Open Windows"];
+
+function Arrow({ className, dir = "right" }: { className?: string; dir?: "right" | "down" }) {
   return (
-    <svg className={`${s.arrow} ${className ?? ""}`} viewBox="0 0 44 12">
-      <path d="M2 6h34" />
-      <path d="m32 1 8 5-8 5" className={s.arrHead} />
+    <svg
+      className={`${s.arrow} ${dir === "down" ? s.arrowDown : ""} ${className ?? ""}`}
+      viewBox={dir === "down" ? "0 0 12 40" : "0 0 44 12"}
+    >
+      {dir === "down" ? (
+        <>
+          <path d="M6 2v30" />
+          <path d="m1 28 5 8 5-8" className={s.arrHead} />
+        </>
+      ) : (
+        <>
+          <path d="M2 6h34" />
+          <path d="m32 1 8 5-8 5" className={s.arrHead} />
+        </>
+      )}
     </svg>
   );
 }
 
-function Step({ icon, label, small }: { icon: string; label: string; small?: boolean }) {
+function Step({ icon, label, small, critical }: { icon: string; label: string; small?: boolean; critical?: boolean }) {
   return (
     <div className={`${s.step} ${small ? s.stepSm : ""}`}>
-      <span className={`${s.icon} ${s[icon]}`} />
+      <span className={`${s.icon} ${s[icon]} ${critical ? s.iconCrit : ""}`}>
+        {critical && <b className={s.bang}>!</b>}
+      </span>
       <span className={s.stepLabel}>{label}</span>
     </div>
   );
@@ -44,8 +54,8 @@ export default function ScreenQbd({ active }: { active: boolean }) {
     <div className={`screen ${s.root} ${active ? "is-active" : ""}`} data-screen="qbd">
       <Chrome
         variant="windows"
-        title="Al Sarh Trading LLC — QuickBooks Desktop Enterprise"
-        accent="#5588a3"
+        title="Al Sarh Trading LLC — Intuit QuickBooks Enterprise Solutions 21.0"
+        accent="#2e5c8a"
       />
 
       <div className={s.menubar} data-depth="1.1">
@@ -56,16 +66,29 @@ export default function ScreenQbd({ active }: { active: boolean }) {
 
       <div className="screen-body">
         <aside className={s.side} data-depth="1.15">
+          <div className={s.search}>
+            <span>Search Company or Help</span>
+            <i className={s.mag} />
+          </div>
           <p className={s.sideHead}>My Shortcuts</p>
           {sideItems.map((item) => (
             <span key={item.label} className={`${s.sideItem} ${item.active ? s.sideActive : ""}`}>
-              <i />
+              <i className={s.sideIco} />
               {item.label}
             </span>
           ))}
+          <div className={s.sideBottom}>
+            {bottomTabs.map((t) => (
+              <span key={t} className={s.bottomTab}>
+                <i />
+                {t}
+              </span>
+            ))}
+          </div>
         </aside>
 
         <div className={s.main}>
+          <div className={s.winbar} data-depth="1.1">Home</div>
           <div className={s.tabs} data-depth="1.1">
             <span className={s.tabActive}>Home Page</span>
             <span>Insights</span>
@@ -75,45 +98,33 @@ export default function ScreenQbd({ active }: { active: boolean }) {
             <div className={s.flow}>
               <div className={s.zone} data-depth="1.4">
                 <p className={s.zoneTitle}>Vendors</p>
-                <div className={s.row}>
-                  <Step icon="iPo" label="Purchase Orders" />
+                <div className={s.vendorRow}>
+                  <Step icon="iEb" label="Enter Bills" />
                   <Arrow className={s.a1} />
-                  <Step icon="iRi" label="Receive Inventory" />
-                  <Arrow className={s.a2} />
-                  <Step icon="iEb" label="Enter Bills Against Inventory" />
-                  <Arrow className={s.a3} />
                   <Step icon="iPb" label="Pay Bills" />
+                  <Step icon="iBl" label="New: Business Loans" small />
                 </div>
               </div>
 
               <div className={s.zone} data-depth="1.5">
                 <p className={s.zoneTitle}>Customers</p>
-                <div className={s.row}>
-                  <Step icon="iEs" label="Sales Orders" />
-                  <Arrow />
-                  <Step icon="iCi" label="Create Invoices" />
-                  <Arrow />
-                  <Step icon="iRp" label="Receive Payments" />
-                  <Arrow />
-                  <Step icon="iRd" label="Record Deposits" />
-                </div>
-                <div className={s.rowSecondary}>
-                  <Step icon="iCc" label="Accept Credit Cards" small />
-                  <Step icon="iSt" label="Statements" small />
-                  <Step icon="iRc" label="Refunds & Credits" small />
-                </div>
-              </div>
-
-              <div className={s.zone} data-depth="1.35">
-                <p className={s.zoneTitle}>Employees</p>
-                <div className={s.row}>
-                  <Step icon="iPc" label="Payroll Center" />
-                  <Arrow />
-                  <Step icon="iPe" label="Pay Employees" />
-                  <Arrow />
-                  <Step icon="iPl" label="Pay Liabilities" />
-                  <Arrow />
-                  <Step icon="iPf" label="Process Payroll Forms" />
+                <div className={s.custGrid}>
+                  <div className={s.custDrop}>
+                    <Arrow dir="down" className={s.a2} />
+                  </div>
+                  <div className={s.salesRcpt}>
+                    <Step icon="iCsr" label="Create Sales Receipts" />
+                  </div>
+                  <div className={s.custMain}>
+                    <Step icon="iCi" label="Create Invoices" />
+                    <Arrow className={s.a3} />
+                    <Step icon="iRp" label="Receive Payments" />
+                    <Arrow className={s.a4} />
+                    <span className={s.toBank} />
+                  </div>
+                  <div className={s.refunds}>
+                    <Step icon="iRc" label="Refunds & Credits" small />
+                  </div>
                 </div>
               </div>
             </div>
@@ -123,8 +134,9 @@ export default function ScreenQbd({ active }: { active: boolean }) {
                 <p className={s.zoneTitle}>Company</p>
                 <div className={s.col}>
                   <Step icon="iCoa" label="Chart of Accounts" small />
-                  <Step icon="iInv" label="Inventory Activities" small />
                   <Step icon="iItems" label="Items & Services" small />
+                  <Step icon="iOrder" label="Order Checks" small />
+                  <Step icon="iCrit" label="Critical Notice" small critical />
                   <Step icon="iCal" label="Calendar" small />
                 </div>
               </div>
@@ -137,6 +149,7 @@ export default function ScreenQbd({ active }: { active: boolean }) {
                   </div>
                   <Step icon="iWc" label="Write Checks" small />
                   <Step icon="iCr" label="Check Register" small />
+                  <Step icon="iPc" label="Print Checks" small />
                 </div>
               </div>
             </div>

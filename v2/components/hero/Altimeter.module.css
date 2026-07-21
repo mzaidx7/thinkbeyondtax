@@ -1,0 +1,94 @@
+.rail {
+  position: absolute;
+  top: 50%;
+  right: 1.4rem;
+  translate: 0 -50%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  pointer-events: auto;
+}
+
+.label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+  min-height: 6.5rem;
+  text-align: center;
+}
+
+.track {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0;
+  border-radius: 999px;
+  position: relative;
+}
+
+.track::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 1px;
+  background: var(--charcoal-3);
+}
+
+.node {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.tick {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--charcoal-3);
+  transition:
+    background 0.3s var(--ease-out),
+    box-shadow 0.3s var(--ease-out),
+    transform 0.3s var(--ease-out);
+}
+
+.node.past .tick {
+  background: var(--gold-lo);
+}
+
+.node.active .tick {
+  background: var(--metal-hi);
+  transform: scale(1.9);
+  box-shadow:
+    0 0 0 3px rgba(239, 196, 81, 0.18),
+    0 0 10px color-mix(in srgb, var(--accent) 70%, var(--gold));
+}
+
+.count {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+.count i {
+  font-style: normal;
+  color: var(--grey);
+}
+
+@media (max-width: 1279px) {
+  .rail {
+    display: none;
+  }
+}

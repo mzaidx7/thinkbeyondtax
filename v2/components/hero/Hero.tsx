@@ -1,10 +1,21 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useScroll, useMotionValueEvent, useReducedMotion } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useMotionValueEvent,
+  useReducedMotion,
+  useVelocity,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import DeviceFrame from "./DeviceFrame";
 import PlatformDock from "./PlatformDock";
 import HeroCopy from "./HeroCopy";
+import Altimeter from "./Altimeter";
+import GoldDust from "./GoldDust";
+import LiquidMetalBackdrop from "./LiquidMetalBackdrop";
 import ScreenIntro from "./screens/ScreenIntro";
 import ScreenTally from "./screens/ScreenTally";
 import ScreenQbo from "./screens/ScreenQbo";
@@ -30,6 +41,7 @@ const screenComponents = [
 export default function Hero() {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const progressRef = useRef(0);
   const [current, setCurrent] = useState(0);
   const [hintHidden, setHintHidden] = useState(false);
   const [desktop, setDesktop] = useState(true);
@@ -40,6 +52,12 @@ export default function Hero() {
     target: sectionRef,
     offset: ["start start", "end end"],
   });
+
+  // scroll-velocity skew on the monitor (settles to 0 when scrolling stops)
+  const scrollVel = useVelocity(scrollYProgress);
+  const smoothVel = useSpring(scrollVel, { stiffness: 200, damping: 40, mass: 0.6 });
+  const skewY = useTransform(smoothVel, [-4, 0, 4], [1.3, 0, -1.3], { clamp: true });
+  const scaleY = useTransform(smoothVel, [-4, 0, 4], [0.98, 1, 0.98], { clamp: true });
 
   // detect desktop (drives scroll-story vs swipe-deck behaviour)
   useEffect(() => {
@@ -64,6 +82,7 @@ export default function Hero() {
 
   // desktop: scroll progress → state index, with snap-on-idle
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    progressRef.current = p;
     if (!desktop) return;
     if (p > 0.01) setHintHidden(true);
     const idx = Math.min(SEGMENTS, Math.max(0, Math.round(p * SEGMENTS)));
@@ -79,7 +98,7 @@ export default function Hero() {
     }, 170);
   });
 
-  // dock / swipe select
+  // dock / swipe / altimeter select
   const selectState = useCallback(
     (i: number) => {
       setHintHidden(true);
@@ -89,6 +108,30 @@ export default function Hero() {
     },
     [desktop, scrollToState],
   );
+
+  // dev contract: ?jump=<y> lands pre-scrolled + settled; __ready gates the harness
+  useEffect(() => {
+    const jump = new URLSearchParams(window.location.search).get("jump");
+    const finish = () => {
+      (window as unknown as { __ready?: boolean }).__ready = true;
+    };
+    if (jump !== null) {
+      history.scrollRestoration = "manual";
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (y: number, o?: object) => void } }).__lenis;
+      const y = parseInt(jump, 10) || 0;
+      requestAnimationFrame(() => {
+        if (lenis) lenis.scrollTo(y, { immediate: true });
+        else window.scrollTo(0, y);
+        const idx = Math.min(SEGMENTS, Math.max(0, Math.round((progressRef.current || 0) * SEGMENTS)));
+        setCurrent(idx);
+        requestAnimationFrame(finish);
+      });
+    } else {
+      const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts;
+      if (fonts?.ready) fonts.ready.then(finish);
+      else finish();
+    }
+  }, []);
 
   // mobile: auto-advance + swipe
   useEffect(() => {
@@ -150,11 +193,15 @@ export default function Hero() {
     <>
       <section className={`hex-bg ${s.section}`} ref={sectionRef}>
         <div className={s.sticky}>
+          <LiquidMetalBackdrop />
+          <GoldDust progressRef={progressRef} />
+
           <div className={`container ${s.grid}`}>
             <div className={s.copyCol}>
-              <p className={`overline ${s.overline}`}>
+              <span className={s.badge}>
+                <span className={s.badgeDot} />
                 Think Beyond Tax · Independent UAE accounting &amp; tax professionals
-              </p>
+              </span>
 
               <HeroCopy current={current} />
 
@@ -186,24 +233,31 @@ export default function Hero() {
             </div>
 
             <div className={s.stage} id="hero-stage">
-              <DeviceFrame facts={state.floatFacts} accent={state.accent}>
-                {screenComponents.map((Screen, i) => (
-                  <motion.div
-                    key={i}
-                    className={s.slot}
-                    animate={{
-                      opacity: current === i ? 1 : 0,
-                      scale: current === i ? 1 : 0.985,
-                    }}
-                    transition={{ duration: reduce ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    style={{ pointerEvents: current === i ? "auto" : "none", zIndex: current === i ? 2 : 1 }}
-                  >
-                    <Screen active={current === i} />
-                  </motion.div>
-                ))}
-              </DeviceFrame>
+              <motion.div
+                className={s.skewer}
+                style={reduce ? undefined : { skewY, scale: scaleY }}
+              >
+                <DeviceFrame facts={state.floatFacts} accent={state.accent}>
+                  {screenComponents.map((Screen, i) => (
+                    <motion.div
+                      key={i}
+                      className={s.slot}
+                      animate={{
+                        opacity: current === i ? 1 : 0,
+                        scale: current === i ? 1 : 0.985,
+                      }}
+                      transition={{ duration: reduce ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ pointerEvents: current === i ? "auto" : "none", zIndex: current === i ? 2 : 1 }}
+                    >
+                      <Screen active={current === i} />
+                    </motion.div>
+                  ))}
+                </DeviceFrame>
+              </motion.div>
             </div>
           </div>
+
+          <Altimeter current={current} onSelect={selectState} />
         </div>
       </section>
 

@@ -17,21 +17,6 @@
   pointer-events: none;
 }
 
-/* ambient morphing "liquid glass" blob behind the monitor */
-.blob {
-  position: absolute;
-  inset: 4% 6% 8%;
-  z-index: 0;
-  translate: var(--glow-x, 0) 0;
-  background:
-    radial-gradient(60% 60% at 30% 30%, rgba(239, 196, 81, 0.22), transparent 70%),
-    radial-gradient(55% 55% at 72% 68%, rgba(160, 106, 15, 0.18), transparent 72%);
-  filter: blur(34px) saturate(150%);
-  border-radius: 42% 58% 63% 37% / 45% 42% 58% 55%;
-  animation: glass-morph 14s ease-in-out infinite;
-  pointer-events: none;
-}
-
 .tilt {
   position: relative;
   transform-style: preserve-3d;
@@ -44,13 +29,51 @@
 .frame {
   position: relative;
   background: linear-gradient(180deg, #17171a, #0c0c0e);
-  border: 1px solid #232326;
   border-radius: 14px;
-  padding: 10px;
+  padding: 11px;
+  /* brushed-metal bezel edge */
+  border: 1.5px solid transparent;
+  background-image:
+    linear-gradient(180deg, #17171a, #0c0c0e),
+    var(--metal-edge);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
+    0 1px 0 rgba(255, 255, 255, 0.08) inset,
     0 40px 80px -24px rgba(0, 0, 0, 0.85),
-    0 0 90px -30px rgba(207, 152, 47, 0.25);
+    0 0 90px -30px rgba(207, 152, 47, 0.28);
+}
+
+/* cursor-tracked glint riding the metal bezel */
+.glint {
+  position: absolute;
+  inset: -1.5px;
+  z-index: 2;
+  border-radius: 14px;
+  padding: 1.5px;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--glint-angle, 90deg),
+    transparent 0deg,
+    rgba(255, 246, 225, 0.85) 14deg,
+    rgba(239, 196, 81, 0.4) 26deg,
+    transparent 44deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out);
+}
+
+.device:hover .glint {
+  opacity: 1;
 }
 
 .screen {
@@ -231,11 +254,9 @@
 }
 
 .chipDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
+  width: 9px;
+  height: 9px;
   flex: none;
-  box-shadow: 0 0 8px currentColor;
 }
 
 .chip1 {

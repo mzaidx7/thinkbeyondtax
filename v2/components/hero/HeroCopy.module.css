@@ -11,6 +11,7 @@
   color: var(--silver);
   letter-spacing: -0.01em;
   min-height: 8.2rem;
+  perspective: 700px;
 }
 
 .wordMask {
@@ -19,10 +20,13 @@
   vertical-align: top;
   padding: 0 0.14em 0.12em 0;
   margin: 0 -0.02em;
+  perspective: 700px;
 }
 
 .word {
   display: inline-block;
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
 }
 
 .support {

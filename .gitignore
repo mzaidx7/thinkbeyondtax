@@ -4,3 +4,5 @@ dist/
 
 # Local MCP config — contains a secret API key, never commit
 .mcp.json
+
+graphify-out/

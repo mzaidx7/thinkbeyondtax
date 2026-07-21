@@ -39,7 +39,7 @@ function FloatChip({
   const y = useTransform(sy, (v) => v * mult * 0.7);
   return (
     <motion.div className={`${s.chip} ${className}`} style={{ x, y }}>
-      <span className={s.chipDot} style={{ background: accent }} />
+      <span className={`${s.chipDot} orb`} style={{ "--orb": accent } as React.CSSProperties} />
       {label}
     </motion.div>
   );
@@ -94,6 +94,8 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
       // specular light position (%) tracks the cursor across the glass
       el.style.setProperty("--spec-x", (x * 42 + 50).toFixed(1) + "%");
       el.style.setProperty("--spec-y", (y * 42 + 40).toFixed(1) + "%");
+      // brushed-metal bezel glint follows the cursor around the frame
+      el.style.setProperty("--glint-angle", (Math.atan2(y, x) * 57.2958 + 90).toFixed(1) + "deg");
     };
     const unsubs = [sx.on("change", write), sy.on("change", write), sz.on("change", write)];
     write();
@@ -132,10 +134,10 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
   return (
     <div className={s.device} ref={rootRef} aria-hidden="true">
       <div className={s.glow} />
-      {!reduce && <div className={s.blob} />}
 
       <div className={s.tilt}>
         <div className={s.frame}>
+          <span className={s.glint} />
           <div className={s.screen} ref={screenRef}>
             <div className={`${s.stack} screen-stack`}>{children}</div>
             <div className={s.specular} />

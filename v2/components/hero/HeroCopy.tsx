@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { heroStates } from "@/lib/platforms";
 import s from "./HeroCopy.module.css";
@@ -10,12 +11,26 @@ export default function HeroCopy({ current }: { current: number }) {
   const words = state.headline.split(" ");
   const isIntro = current === 0;
 
+  // one metallic sheen sweep ~260ms after the headline settles
+  const [sheen, setSheen] = useState(false);
+  useEffect(() => {
+    if (reduce) return;
+    setSheen(false);
+    const t1 = window.setTimeout(() => setSheen(true), 260);
+    const t2 = window.setTimeout(() => setSheen(false), 260 + 1200);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, [current, reduce]);
+
   const wordVariants = {
-    hidden: { y: "105%", opacity: 0 },
+    hidden: { y: "105%", opacity: 0, rotateX: reduce ? 0 : -55 },
     show: (i: number) => ({
       y: "0%",
       opacity: 1,
-      transition: { delay: reduce ? 0 : i * 0.035, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+      rotateX: 0,
+      transition: { delay: reduce ? 0 : i * 0.035, duration: 0.55, ease: [0.22, 1, 0.36, 1] as const },
     }),
     exit: { y: "-60%", opacity: 0, transition: { duration: 0.25 } },
   };
@@ -27,6 +42,7 @@ export default function HeroCopy({ current }: { current: number }) {
   };
 
   const Headline = isIntro ? motion.h1 : motion.p;
+  const wordClass = `${s.word} metal-text ${sheen ? "metal-sheen" : ""}`;
 
   return (
     <div className={s.copy}>
@@ -42,7 +58,7 @@ export default function HeroCopy({ current }: { current: number }) {
         >
           {words.map((w, i) => (
             <span key={i} className={s.wordMask}>
-              <motion.span className={s.word} custom={i} variants={wordVariants}>
+              <motion.span className={wordClass} custom={i} variants={wordVariants}>
                 {w}
               </motion.span>
             </span>
