@@ -12,6 +12,7 @@ import ScreenQbd from "./screens/ScreenQbd";
 import ScreenZoho from "./screens/ScreenZoho";
 import ScreenXero from "./screens/ScreenXero";
 import ScreenEmaraTax from "./screens/ScreenEmaraTax";
+import MagneticButton from "@/components/MagneticButton";
 import { heroStates, SEGMENTS } from "@/lib/platforms";
 import { WHATSAPP_URL, TRADEMARK_DISCLAIMER } from "@/lib/site";
 import s from "./Hero.module.css";
@@ -158,9 +159,14 @@ export default function Hero() {
               <HeroCopy current={current} />
 
               <div className={s.ctas}>
-                <a className="btn btn-gold" href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <MagneticButton
+                  className="btn btn-gold"
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Discuss Your Requirements
-                </a>
+                </MagneticButton>
                 <a className="btn btn-ghost" href="/services">
                   Explore Our Services
                 </a>

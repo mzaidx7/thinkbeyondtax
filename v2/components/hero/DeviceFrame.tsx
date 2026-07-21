@@ -88,7 +88,12 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
       el.style.setProperty("--drift-x", (x * 10).toFixed(2) + "px");
       el.style.setProperty("--drift-y", (y * 8).toFixed(2) + "px");
       el.style.setProperty("--glow-x", (-x * 18).toFixed(2) + "px");
-      el.style.setProperty("--tilt", (x * 1.2).toFixed(2) + "deg");
+      // dual-axis glass tilt (kept gentle so pan stays the star)
+      el.style.setProperty("--ry", (x * 2.6).toFixed(2) + "deg");
+      el.style.setProperty("--rx", (-y * 2).toFixed(2) + "deg");
+      // specular light position (%) tracks the cursor across the glass
+      el.style.setProperty("--spec-x", (x * 42 + 50).toFixed(1) + "%");
+      el.style.setProperty("--spec-y", (y * 42 + 40).toFixed(1) + "%");
     };
     const unsubs = [sx.on("change", write), sy.on("change", write), sz.on("change", write)];
     write();
@@ -127,11 +132,13 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
   return (
     <div className={s.device} ref={rootRef} aria-hidden="true">
       <div className={s.glow} />
+      {!reduce && <div className={s.blob} />}
 
       <div className={s.tilt}>
         <div className={s.frame}>
           <div className={s.screen} ref={screenRef}>
             <div className={`${s.stack} screen-stack`}>{children}</div>
+            <div className={s.specular} />
             <div className={s.glare} />
           </div>
           <span className={s.led} />

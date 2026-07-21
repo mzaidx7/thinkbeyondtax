@@ -17,13 +17,28 @@
   pointer-events: none;
 }
 
+/* ambient morphing "liquid glass" blob behind the monitor */
+.blob {
+  position: absolute;
+  inset: 4% 6% 8%;
+  z-index: 0;
+  translate: var(--glow-x, 0) 0;
+  background:
+    radial-gradient(60% 60% at 30% 30%, rgba(239, 196, 81, 0.22), transparent 70%),
+    radial-gradient(55% 55% at 72% 68%, rgba(160, 106, 15, 0.18), transparent 72%);
+  filter: blur(34px) saturate(150%);
+  border-radius: 42% 58% 63% 37% / 45% 42% 58% 55%;
+  animation: glass-morph 14s ease-in-out infinite;
+  pointer-events: none;
+}
+
 .tilt {
   position: relative;
   transform-style: preserve-3d;
   translate: var(--drift-x, 0) var(--drift-y, 0);
-  rotate: y var(--tilt, 0deg);
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: translate 0.1s linear;
-  will-change: translate, rotate;
+  will-change: translate, transform;
 }
 
 .frame {
@@ -44,7 +59,31 @@
   border-radius: 7px;
   overflow: hidden;
   background: #0b0b0b;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.9),
+    inset 0 0 0 1px rgba(255, 246, 225, 0.06);
+}
+
+/* cursor-tracked specular light — the glass "responds" to the pointer */
+.specular {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(
+    38% 46% at var(--spec-x, 50%) var(--spec-y, 40%),
+    rgba(255, 244, 214, 0.16),
+    rgba(255, 244, 214, 0.05) 40%,
+    transparent 66%
+  );
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease-out);
+  will-change: opacity;
+}
+
+.device:hover .specular {
+  opacity: 1;
 }
 
 /* pan-to-explore: the whole screen content zooms + pans within the bezel */
@@ -60,16 +99,19 @@
 .glare {
   position: absolute;
   inset: -40%;
-  translate: calc(var(--drift-x, 0) * -2) 0;
+  z-index: 4;
+  translate: calc(var(--drift-x, 0) * -2.4) 0;
   background: linear-gradient(
     115deg,
-    transparent 42%,
-    rgba(239, 196, 81, 0.1) 50%,
-    rgba(255, 255, 255, 0.08) 54%,
-    transparent 62%
+    transparent 40%,
+    rgba(239, 196, 81, 0.08) 48%,
+    rgba(255, 255, 255, 0.1) 53%,
+    rgba(120, 200, 255, 0.05) 57%,
+    transparent 64%
   );
   opacity: 0;
   pointer-events: none;
+  mix-blend-mode: screen;
   transition: opacity 0.4s var(--ease-out);
 }
 
@@ -135,18 +177,57 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.85rem;
+  padding: 0.5rem 0.9rem;
   border-radius: var(--radius-pill);
-  background: rgba(10, 10, 12, 0.72);
-  border: 1px solid rgba(207, 152, 47, 0.25);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--silver);
   white-space: nowrap;
-  box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.7);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    0 14px 34px -14px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
   will-change: transform;
+}
+
+/* slow sheen drifting across each glass chip */
+.chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    rgba(255, 246, 225, 0.14) 50%,
+    transparent 65%
+  );
+  transform: translateX(-100%);
+  animation: chip-sheen 6s ease-in-out infinite;
+}
+
+.chip1::before {
+  animation-delay: 0s;
+}
+.chip2::before {
+  animation-delay: 2s;
+}
+.chip3::before {
+  animation-delay: 4s;
+}
+
+@keyframes chip-sheen {
+  0%,
+  60%,
+  100% {
+    transform: translateX(-100%);
+  }
+  80% {
+    transform: translateX(100%);
+  }
 }
 
 .chipDot {
@@ -154,6 +235,7 @@
   height: 7px;
   border-radius: 50%;
   flex: none;
+  box-shadow: 0 0 8px currentColor;
 }
 
 .chip1 {
