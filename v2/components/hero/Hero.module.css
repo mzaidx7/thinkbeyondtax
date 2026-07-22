@@ -10,7 +10,12 @@
   height: 100vh;
   display: flex;
   align-items: center;
-  padding-top: var(--header-h);
+  /* progressive enhancement: browsers that understand `safe` never let a
+     too-tall content block center past the top of its box (which used to
+     ride the badge up under the fixed header on shorter viewports) —
+     unsupported engines just keep the plain `center` above */
+  align-items: safe center;
+  padding-top: calc(var(--header-h) + 1rem);
   overflow: hidden;
 }
 

@@ -57,7 +57,7 @@ export default function Header() {
       <div className={`container ${s.inner}`}>
         <Link href="/" className={s.logoLink} aria-label={`${SITE_NAME} — home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/tbt-horizontal-white.png" alt={SITE_NAME} width={150} height={38} />
+          <img src="/brand/tbt-horizontal-color.png" alt={SITE_NAME} width={150} height={38} />
         </Link>
 
         <nav className={s.navDesktop} aria-label="Main">
