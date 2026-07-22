@@ -25,18 +25,41 @@ class ShaderBoundary extends Component<{ onError: () => void; children: ReactNod
   }
 }
 
-export default function LiquidMetalBackdrop() {
+/**
+ * `onSettle` fires once — either immediately (shader will never mount here:
+ * reduced motion / mobile / WebGL failed) or ~2 frames after the shader mounts,
+ * which is enough for its one-time GL program compile (a genuine ~1s stall on
+ * modest iGPUs, confirmed via the jank harness) to have already happened.
+ * Hero uses this to hold `window.__ready` until the compile is done, so that
+ * cost lands during initial page settle instead of colliding with the user's
+ * first scroll input.
+ */
+export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => void }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [allowed, setAllowed] = useState(false); // desktop + motion-ok
   const [failed, setFailed] = useState(false);
+  const settledRef = useRef(false);
+
+  const settle = () => {
+    if (settledRef.current) return;
+    settledRef.current = true;
+    onSettle?.();
+  };
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce) {
+      settle(); // reduced motion — shader never mounts
+      return;
+    }
     const mq = window.matchMedia("(min-width: 1024px)");
-    setAllowed(mq.matches);
-    const onChange = () => setAllowed(mq.matches);
+    const applyAllowed = (matches: boolean) => {
+      setAllowed(matches);
+      if (!matches) settle(); // below 1024px the shader never mounts (display:none), independent of IO
+    };
+    applyAllowed(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => applyAllowed(e.matches);
     mq.addEventListener("change", onChange);
     const el = ref.current;
     let io: IntersectionObserver | undefined;
@@ -52,9 +75,39 @@ export default function LiquidMetalBackdrop() {
 
   const showShader = allowed && inView && !failed && !reduce;
 
+  useEffect(() => {
+    if (!showShader) {
+      if (failed) settle(); // WebGL threw — shader never paints
+      return;
+    }
+    // the GL context/program setup can span a handful of frames, not just one —
+    // poll frame time and settle once it's actually back to normal, instead of
+    // guessing a fixed frame count (capped so a persistently slow GPU still settles)
+    let raf = 0;
+    let last = performance.now();
+    let stableStreak = 0;
+    let frames = 0;
+    const MAX_FRAMES = 90;
+    const tick = () => {
+      const now = performance.now();
+      const delta = now - last;
+      last = now;
+      frames++;
+      stableStreak = delta < 18 ? stableStreak + 1 : 0;
+      if (stableStreak >= 5 || frames >= MAX_FRAMES) {
+        settle();
+        return;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [showShader, failed]);
+
   return (
     <div className={s.backdrop} ref={ref} aria-hidden="true">
-      {showShader ? (
+      <div className={s.poster} />
+      {showShader && (
         <ShaderBoundary onError={() => setFailed(true)}>
           <LiquidMetal
             colorBack="#050505"
@@ -71,10 +124,9 @@ export default function LiquidMetalBackdrop() {
             maxPixelCount={900_000}
             minPixelRatio={1}
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+            className={s.shaderFade}
           />
         </ShaderBoundary>
-      ) : (
-        <div className={s.poster} />
       )}
       <div className={s.scrim} />
     </div>

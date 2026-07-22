@@ -14,7 +14,8 @@
   }
 }
 
-/* static fallback — layered molten-gold gradients (reduced-motion / mobile / no-WebGL) */
+/* static fallback — layered molten-gold gradients (reduced-motion / mobile / no-WebGL /
+   also the base layer while the shader warms up on idle, so the swap is a crossfade) */
 .poster {
   position: absolute;
   inset: 0;
@@ -23,6 +24,19 @@
     radial-gradient(70% 60% at 30% 72%, rgba(160, 106, 15, 0.2), transparent 66%),
     conic-gradient(from 210deg at 60% 40%, #14100a, #050505 30%, #1a1305 60%, #050505 82%, #14100a);
   filter: saturate(120%);
+}
+
+.shaderFade {
+  animation: shaderIn 500ms ease both;
+}
+
+@keyframes shaderIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* contrast scrim: darkens toward the copy column + edges so text stays >= 4.5:1 */

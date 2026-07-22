@@ -109,8 +109,17 @@ export default function Hero() {
     [desktop, scrollToState],
   );
 
-  // dev contract: ?jump=<y> lands pre-scrolled + settled; __ready gates the harness
-  useEffect(() => {
+  // dev contract: ?jump=<y> lands pre-scrolled + settled; __ready gates the harness.
+  // __ready also waits on the liquid-metal shader's one-time GL compile (a genuine
+  // ~1s main-thread stall on modest iGPUs, confirmed via the jank harness) so that
+  // cost lands during initial settle instead of colliding with the first scroll input.
+  const shaderDoneRef = useRef(false);
+  const fontsDoneRef = useRef(false);
+  const readyFiredRef = useRef(false);
+
+  const tryFireReady = useCallback(() => {
+    if (readyFiredRef.current || !shaderDoneRef.current || !fontsDoneRef.current) return;
+    readyFiredRef.current = true;
     const jump = new URLSearchParams(window.location.search).get("jump");
     const finish = () => {
       (window as unknown as { __ready?: boolean }).__ready = true;
@@ -127,11 +136,38 @@ export default function Hero() {
         requestAnimationFrame(finish);
       });
     } else {
-      const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts;
-      if (fonts?.ready) fonts.ready.then(finish);
-      else finish();
+      finish();
     }
   }, []);
+
+  const handleShaderSettle = useCallback(() => {
+    shaderDoneRef.current = true;
+    tryFireReady();
+  }, [tryFireReady]);
+
+  useEffect(() => {
+    const jump = new URLSearchParams(window.location.search).get("jump");
+    if (jump !== null) {
+      fontsDoneRef.current = true; // jump path doesn't wait on fonts (matches prior behavior)
+    } else {
+      const fonts = (document as unknown as { fonts?: { ready?: Promise<unknown> } }).fonts;
+      if (fonts?.ready) {
+        fonts.ready.then(() => {
+          fontsDoneRef.current = true;
+          tryFireReady();
+        });
+      } else {
+        fontsDoneRef.current = true;
+      }
+    }
+    tryFireReady();
+    // safety net: never block __ready forever if the shader never mounts/settles
+    const safety = window.setTimeout(() => {
+      shaderDoneRef.current = true;
+      tryFireReady();
+    }, 2500);
+    return () => window.clearTimeout(safety);
+  }, [tryFireReady]);
 
   // mobile: auto-advance + swipe
   useEffect(() => {
@@ -193,7 +229,7 @@ export default function Hero() {
     <>
       <section className={`hex-bg ${s.section}`} ref={sectionRef}>
         <div className={s.sticky}>
-          <LiquidMetalBackdrop />
+          <LiquidMetalBackdrop onSettle={handleShaderSettle} />
           <GoldDust progressRef={progressRef} />
 
           <div className={`container ${s.grid}`}>
