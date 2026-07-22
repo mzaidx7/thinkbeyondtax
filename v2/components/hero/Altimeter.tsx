@@ -1,6 +1,6 @@
 "use client";
 
-import { heroStates } from "@/lib/platforms";
+import { heroStates, SEGMENTS } from "@/lib/platforms";
 import s from "./Altimeter.module.css";
 
 /**
@@ -21,7 +21,7 @@ export default function Altimeter({
   return (
     <div className={s.rail} aria-hidden="true">
       <span className={s.label}>{label}</span>
-      <div className={s.track}>
+      <div className={s.track} style={{ "--progress": current / SEGMENTS } as React.CSSProperties}>
         {heroStates.map((state, i) => (
           <button
             key={state.id}
