@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useReducedMotion } from "motion/react";
 import s from "./LiquidMetalBackdrop.module.css";
 
-// shader is client-only + WebGL — never SSR it
+// shader is client-only + WebGL, never SSR it
 const LiquidMetal = dynamic(
   () => import("@paper-design/shaders-react").then((m) => m.LiquidMetal),
   { ssr: false },
@@ -26,7 +26,7 @@ class ShaderBoundary extends Component<{ onError: () => void; children: ReactNod
 }
 
 /**
- * `onSettle` fires once — either immediately (shader will never mount here:
+ * `onSettle` fires once: either immediately (shader will never mount here:
  * reduced motion / mobile / WebGL failed) or ~2 frames after the shader mounts,
  * which is enough for its one-time GL program compile (a genuine ~1s stall on
  * modest iGPUs, confirmed via the jank harness) to have already happened.
@@ -50,7 +50,7 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
 
   useEffect(() => {
     if (reduce) {
-      settle(); // reduced motion — shader never mounts
+      settle(); // reduced motion: shader never mounts
       return;
     }
     const mq = window.matchMedia("(min-width: 1024px)");
@@ -77,10 +77,10 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
 
   useEffect(() => {
     if (!showShader) {
-      if (failed) settle(); // WebGL threw — shader never paints
+      if (failed) settle(); // WebGL threw: shader never paints
       return;
     }
-    // the GL context/program setup can span a handful of frames, not just one —
+    // the GL context/program setup can span a handful of frames, not just one,
     // poll frame time and settle once it's actually back to normal, instead of
     // guessing a fixed frame count (capped so a persistently slow GPU still settles)
     let raf = 0;

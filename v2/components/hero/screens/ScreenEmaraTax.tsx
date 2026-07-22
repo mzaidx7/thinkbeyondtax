@@ -21,7 +21,7 @@ const mostUsed = [
   "VAT – New Registration",
 ];
 
-/** All data below is fictional — layout reference only. */
+/** All data below is fictional, layout reference only. */
 const registrations = [
   { type: "Corporate Tax", status: "Active", trn: "100 0000 0000 002", giban: "AE00 0000 0000 0000 002", date: "01/06/2024" },
   { type: "Value Added Tax", status: "Active", trn: "100 0000 0000 001", giban: "AE00 0000 0000 0000 001", date: "01/12/2022" },

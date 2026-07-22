@@ -22,10 +22,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://thinkbeyondtax.com"),
   title: {
-    default: `${SITE_NAME} — Accounting, Bookkeeping & UAE Tax Support`,
-    template: `%s — ${SITE_NAME}`,
+    default: `${SITE_NAME} | Accounting, Bookkeeping & UAE Tax Support`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description: `${SITE_TAGLINE}. Practical support with bookkeeping, accounting, financial reporting, VAT and Corporate Tax — inside TallyPrime, QuickBooks, Zoho Books, Xero and EmaraTax.`,
+  description: `${SITE_TAGLINE}. Practical support with bookkeeping, accounting, financial reporting, VAT and Corporate Tax, inside TallyPrime, QuickBooks, Zoho Books, Xero and EmaraTax.`,
   icons: {
     icon: [
       { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },

@@ -1,5 +1,5 @@
 :root {
-  /* Brand palette — Think Beyond Tax Quick Brand Spec */
+  /* Brand palette: Think Beyond Tax Quick Brand Spec */
   --ink: #030304;
   --charcoal: #0b0b0b;
   --charcoal-2: #141414;
@@ -338,7 +338,7 @@ h4 {
   }
 }
 
-/* tiny brushed-metal sphere ("mercury orb") — set --orb to the accent */
+/* tiny brushed-metal sphere ("mercury orb"): set --orb to the accent */
 .orb {
   border-radius: 50%;
   background:

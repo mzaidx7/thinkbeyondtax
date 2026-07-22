@@ -6,7 +6,7 @@
   overflow: hidden;
 }
 
-/* on mobile the sticky wrapper is static/tall — hide the backdrop so its
+/* on mobile the sticky wrapper is static/tall, so hide the backdrop so its
    fixed-viewport scrim doesn't stretch over the whole stacked hero */
 @media (max-width: 1023px) {
   .backdrop {
@@ -14,7 +14,7 @@
   }
 }
 
-/* static fallback — layered molten-gold gradients (reduced-motion / mobile / no-WebGL /
+/* static fallback: layered molten-gold gradients (reduced-motion / mobile / no-WebGL /
    also the base layer while the shader warms up on idle, so the swap is a crossfade) */
 .poster {
   position: absolute;

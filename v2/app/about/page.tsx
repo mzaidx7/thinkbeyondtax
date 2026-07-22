@@ -30,7 +30,7 @@ export default function AboutPage() {
             <p className={s.copy}>
               Small and medium businesses in the UAE often face an awkward choice: large firms that
               feel distant and expensive, or individual freelancers whose availability and
-              consistency can vary. Think Beyond Tax exists in the space between — experienced
+              consistency can vary. Think Beyond Tax exists in the space between: experienced
               independent professionals working under one shared brand, with common working standards
               and a consistent way of engaging.
             </p>
@@ -38,13 +38,13 @@ export default function AboutPage() {
             <p className={s.copy}>
               The brand coordinates enquiries and connects you with the right member of the
               collective. Before any paid engagement begins, the responsible professional or licensed
-              provider is identified by name — in your proposal, your engagement letter and your
+              provider is identified by name, in your proposal, your engagement letter and your
               invoices. That person remains accountable for the work throughout.
             </p>
             <h2 className={s.h2}>What we value</h2>
             <p className={s.copy}>
               Clear records over clever shortcuts. Practical explanations over jargon. Transparency
-              about who does the work and what it costs. And software-first delivery — we work inside
+              about who does the work and what it costs. And software-first delivery: we work inside
               the systems your business already uses rather than forcing you into ours.
             </p>
           </div>

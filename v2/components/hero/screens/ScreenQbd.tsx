@@ -54,7 +54,7 @@ export default function ScreenQbd({ active }: { active: boolean }) {
     <div className={`screen ${s.root} ${active ? "is-active" : ""}`} data-screen="qbd">
       <Chrome
         variant="windows"
-        title="Al Sarh Trading LLC — Intuit QuickBooks Enterprise Solutions 21.0"
+        title="Al Sarh Trading LLC - Intuit QuickBooks Enterprise Solutions 21.0"
         accent="#2e5c8a"
       />
 

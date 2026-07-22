@@ -21,12 +21,12 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/brand/tbt-full-white.png" alt={SITE_NAME} width={150} height={150} />
             <p>
-              Independent UAE accounting, bookkeeping and tax professionals — working inside the
+              Independent UAE accounting, bookkeeping and tax professionals, working inside the
               systems your business already uses.
             </p>
           </div>
 
-          <nav aria-label="Footer — navigate" className={s.col}>
+          <nav aria-label="Footer navigation" className={s.col}>
             <p className={s.head}>Navigate</p>
             <Link href="/">Home</Link>
             <Link href="/services">Services</Link>
@@ -34,7 +34,7 @@ export default function Footer() {
             <Link href="/contact">Contact</Link>
           </nav>
 
-          <nav aria-label="Footer — services" className={s.col}>
+          <nav aria-label="Footer services" className={s.col}>
             <p className={s.head}>Services</p>
             <Link href="/services/accounting">Accounting</Link>
             <Link href="/services/bookkeeping">Bookkeeping</Link>
@@ -45,7 +45,7 @@ export default function Footer() {
           <div className={s.col}>
             <p className={s.head}>Contact</p>
             <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
-              WhatsApp — {PHONE_DISPLAY}
+              WhatsApp: {PHONE_DISPLAY}
             </a>
             <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             <p className={s.loc}>United Arab Emirates</p>

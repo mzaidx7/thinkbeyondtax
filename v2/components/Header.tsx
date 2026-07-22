@@ -55,7 +55,7 @@ export default function Header() {
   return (
     <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
       <div className={`container ${s.inner}`}>
-        <Link href="/" className={s.logoLink} aria-label={`${SITE_NAME} — home`}>
+        <Link href="/" className={s.logoLink} aria-label={`${SITE_NAME} home`}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/brand/tbt-horizontal-color.png" alt={SITE_NAME} width={150} height={38} />
         </Link>

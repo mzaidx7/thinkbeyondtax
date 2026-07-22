@@ -18,7 +18,7 @@ export default function ContactForm() {
     const form = e.currentTarget;
 
     if (!ACCESS_KEY || ACCESS_KEY === "ACCESS_KEY_PLACEHOLDER") {
-      setStatus("The form isn't connected yet — please reach us on WhatsApp or email instead.");
+      setStatus("The form isn't connected yet, please reach us on WhatsApp or email instead.");
       return;
     }
 
@@ -31,19 +31,19 @@ export default function ContactForm() {
       });
       if (res.ok) {
         form.reset();
-        setStatus("Thank you — we'll get back to you within one working day.");
+        setStatus("Thank you, we'll get back to you within one working day.");
       } else {
         throw new Error(String(res.status));
       }
     } catch {
-      setStatus("Something went wrong — please reach us on WhatsApp or email instead.");
+      setStatus("Something went wrong, please reach us on WhatsApp or email instead.");
     }
   }
 
   return (
     <form className={s.form} onSubmit={onSubmit}>
       <input type="hidden" name="access_key" value={ACCESS_KEY} />
-      <input type="hidden" name="subject" value="New enquiry — thinkbeyondtax.com" />
+      <input type="hidden" name="subject" value="New enquiry: thinkbeyondtax.com" />
       <input type="checkbox" name="botcheck" className={s.hp} tabIndex={-1} autoComplete="off" />
 
       <div className={s.fieldRow}>

@@ -6,7 +6,7 @@ import s from "./contact.module.css";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Tell us how your records are kept and what you need — we'll connect you with the right independent professional.",
+    "Tell us how your records are kept and what you need, and we'll connect you with the right independent professional.",
 };
 
 export default function ContactPage() {
@@ -17,7 +17,7 @@ export default function ContactPage() {
           <p className="overline">Contact</p>
           <h1 className={s.h1}>Discuss your requirements</h1>
           <p className={s.intro}>
-            Tell us how your records are kept and what you need — we'll connect you with the right
+            Tell us how your records are kept and what you need, and we'll connect you with the right
             independent professional. No obligation, no hard sell.
           </p>
         </div>
@@ -39,7 +39,7 @@ export default function ContactPage() {
             <div className={`${s.channel} ${s.channelStatic}`}>
               <p className={s.label}>Location</p>
               <p className={s.value}>United Arab Emirates</p>
-              <p className={s.note}>Remote-first — on-site visits by arrangement</p>
+              <p className={s.note}>Remote-first, on-site visits by arrangement</p>
             </div>
           </div>
 

@@ -21,7 +21,7 @@ const menu = [
 export default function ScreenTally({ active }: { active: boolean }) {
   return (
     <div className={`screen ${s.root} ${active ? "is-active" : ""}`} data-screen="tally">
-      <Chrome variant="windows" title="TallyPrime — Al Sarh Trading LLC" accent="#2f6fc1" />
+      <Chrome variant="windows" title="TallyPrime - Al Sarh Trading LLC" accent="#2f6fc1" />
 
       <div className={s.topbar} data-depth="1.1">
         <span className={s.logotype}>

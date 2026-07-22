@@ -4,7 +4,7 @@ import ServicePage from "@/components/ServicePage";
 export const metadata: Metadata = {
   title: "VAT",
   description:
-    "Support with UAE VAT — from registration through quarterly returns — built on records that are actually ready for filing.",
+    "Support with UAE VAT, from registration through quarterly returns, built on records that are actually ready for filing.",
 };
 
 export default function VatPage() {
@@ -12,7 +12,7 @@ export default function VatPage() {
     <ServicePage
       title="VAT"
       overline="Tax Services"
-      intro="Support with UAE VAT — from registration through quarterly returns — built on records that are actually ready for filing."
+      intro="Support with UAE VAT, from registration through quarterly returns, built on records that are actually ready for filing."
       covers={[
         "VAT registration and deregistration assistance through EmaraTax",
         "VAT-compliant invoicing and record setup in your accounting software",
@@ -23,7 +23,7 @@ export default function VatPage() {
       ]}
     >
       <p className="tax-note">
-        Tax content on this page is general information, not advice. UAE rules change — current
+        Tax content on this page is general information, not advice. UAE rules change, so current
         requirements should always be confirmed against official Federal Tax Authority guidance or
         with the named professional handling your engagement.
       </p>

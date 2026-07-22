@@ -5,7 +5,7 @@ import s from "./Altimeter.module.css";
 
 /**
  * Film-style chapter rail: 7 nodes (intro + 6 platforms) down the hero's right
- * edge, with a live label. Purely a visual/narrative aid — aria-hidden, because
+ * edge, with a live label. Purely a visual/narrative aid, so aria-hidden, because
  * the PlatformDock already provides the accessible tablist (no duplicate tabs).
  * Desktop >= 1280 only.
  */

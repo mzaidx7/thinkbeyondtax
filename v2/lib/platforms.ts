@@ -29,7 +29,7 @@ export const heroStates: HeroState[] = [
     id: "tally",
     dockLabel: "TallyPrime",
     accent: "#2f6fc1",
-    headline: "Bookkeeping that holds up — voucher by voucher.",
+    headline: "Bookkeeping that holds up, voucher by voucher.",
     support:
       "Day-to-day entries, ledgers and day-book review in TallyPrime, kept clean enough to close every month with confidence.",
     chips: ["Voucher entry", "Ledgers & groups", "Day book review", "Monthly closing"],
@@ -41,7 +41,7 @@ export const heroStates: HeroState[] = [
     accent: "#2ca01c",
     headline: "Cloud books that stay reconciled.",
     support:
-      "Bank feeds matched, receivables chased, and management reports that actually reflect your bank balance — inside QuickBooks Online.",
+      "Bank feeds matched, receivables chased, and management reports that actually reflect your bank balance, inside QuickBooks Online.",
     chips: ["Bank feeds", "Reconciliation", "Receivables", "Management reports"],
     floatFacts: ["✓ Bank feed matched", "12 invoices chased", "Reports reflect the bank"],
   },
@@ -51,7 +51,7 @@ export const heroStates: HeroState[] = [
     accent: "#5588a3",
     headline: "An older company file? Still in good hands.",
     support:
-      "Catch-up, cleanup and reconciliations for long-running QuickBooks Desktop files — and a careful migration path to the cloud when you're ready.",
+      "Catch-up, cleanup and reconciliations for long-running QuickBooks Desktop files, plus a careful migration path to the cloud when you're ready.",
     chips: ["Catch-up & cleanup", "Reconciliations", "Reporting", "Cloud migration"],
     floatFacts: ["Backlog cleared", "✓ Accounts reconciled", "Migration-ready file"],
   },
@@ -81,7 +81,7 @@ export const heroStates: HeroState[] = [
     accent: "#b68a35",
     headline: "From your books to the FTA portal.",
     support:
-      "Support with VAT and Corporate Tax registrations, return preparation and filings, and payments through EmaraTax — with a named responsible professional on every engagement.",
+      "Support with VAT and Corporate Tax registrations, return preparation and filings, and payments through EmaraTax, with a named responsible professional on every engagement.",
     chips: ["VAT returns", "Corporate Tax", "Registrations", "Payments & deadlines"],
     floatFacts: ["VAT return filed ✓", "CT registration active", "No outstanding liabilities"],
   },

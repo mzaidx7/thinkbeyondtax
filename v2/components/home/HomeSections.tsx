@@ -15,7 +15,7 @@ const services = [
   {
     title: "Bookkeeping",
     href: "/services/bookkeeping",
-    desc: "Day-to-day entries, reconciliations and clean books — in the software you already run.",
+    desc: "Day-to-day entries, reconciliations and clean books, in the software you already run.",
     icon: "book",
   },
   {
@@ -35,7 +35,7 @@ const services = [
 const values = [
   {
     title: "Senior attention",
-    desc: "Your work is handled by the experienced professional you speak with — not passed down a chain of juniors.",
+    desc: "Your work is handled by the experienced professional you speak with, not passed down a chain of juniors.",
   },
   {
     title: "Named accountability",
@@ -129,7 +129,7 @@ export default function HomeSections() {
             </motion.p>
             <motion.h2 {...item}>Practical support, end to end</motion.h2>
             <motion.p {...item}>
-              From the first voucher entry to the final tax return — support that fits how your
+              From the first voucher entry to the final tax return, support that fits how your
               business already operates.
             </motion.p>
           </motion.div>
@@ -161,7 +161,7 @@ export default function HomeSections() {
             <motion.p className={s.aboutCopy} {...item}>
               Think Beyond Tax is a shared professional identity for a small group of independent,
               UAE-based accounting, bookkeeping and tax professionals. More organised and consistent
-              than a lone freelancer — more personal and accessible than a large firm.
+              than a lone freelancer, more personal and accessible than a large firm.
             </motion.p>
             <motion.p className={s.aboutCopy} {...item}>
               We deliberately stay transparent about how this works: the brand coordinates, but every

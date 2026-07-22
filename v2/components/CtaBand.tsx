@@ -8,7 +8,7 @@ interface Props {
 
 export default function CtaBand({
   heading = "Tell us how your business runs. We'll meet you there.",
-  sub = "An initial discussion is free and without obligation — we'll listen to how your records are kept today and suggest a practical way forward.",
+  sub = "An initial discussion is free and without obligation. We'll listen to how your records are kept today and suggest a practical way forward.",
 }: Props) {
   return (
     <section className={s.band}>

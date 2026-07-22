@@ -1,7 +1,7 @@
 import s from "./ScreenIntro.module.css";
 
 /**
- * State 0 — the "desk" mosaic: six mini window-cards, one per platform,
+ * State 0: the "desk" mosaic. Six mini window-cards, one per platform,
  * floating in a loose scatter. The hero scatters them apart when the story
  * dives into the first platform (handled by Motion in Hero.tsx via the
  * .m-card selector).

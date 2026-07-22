@@ -35,7 +35,7 @@ export default function ServicesHub() {
           <h1 className={s.h1}>Support that fits how your business already operates</h1>
           <p className={s.intro}>
             Independent UAE professionals supporting businesses with bookkeeping, accounting,
-            financial reporting, VAT and Corporate Tax — inside TallyPrime, QuickBooks, Zoho Books,
+            financial reporting, VAT and Corporate Tax, inside TallyPrime, QuickBooks, Zoho Books,
             Xero and EmaraTax.
           </p>
         </div>

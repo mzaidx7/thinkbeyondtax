@@ -4,14 +4,14 @@ import ServicePage from "@/components/ServicePage";
 export const metadata: Metadata = {
   title: "Bookkeeping",
   description:
-    "Day-to-day bookkeeping that keeps your records current, reconciled and ready — inside your own accounting system.",
+    "Day-to-day bookkeeping that keeps your records current, reconciled and ready, inside your own accounting system.",
 };
 
 export default function BookkeepingPage() {
   return (
     <ServicePage
       title="Bookkeeping"
-      intro="Day-to-day bookkeeping that keeps your records current, reconciled and ready — handled inside your own accounting system, not a parallel one."
+      intro="Day-to-day bookkeeping that keeps your records current, reconciled and ready, handled inside your own accounting system, not a parallel one."
       covers={[
         "Voucher and transaction entry, kept up to date",
         "Bank and credit card reconciliations",

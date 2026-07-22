@@ -4,7 +4,7 @@ import ServicePage from "@/components/ServicePage";
 export const metadata: Metadata = {
   title: "Corporate Tax",
   description:
-    "Practical support for UAE Corporate Tax — registration, readiness and return preparation — grounded in clean records.",
+    "Practical support for UAE Corporate Tax: registration, readiness and return preparation, grounded in clean records.",
 };
 
 export default function CorporateTaxPage() {
@@ -12,18 +12,18 @@ export default function CorporateTaxPage() {
     <ServicePage
       title="Corporate Tax"
       overline="Tax Services"
-      intro="Practical support for UAE Corporate Tax — registration, readiness and return preparation — grounded in clean, well-kept accounting records."
+      intro="Practical support for UAE Corporate Tax: registration, readiness and return preparation, grounded in clean, well-kept accounting records."
       covers={[
         "Corporate Tax registration assistance through EmaraTax",
         "Assessment of readiness: records, chart of accounts and documentation",
         "Taxable income computation support based on your accounts",
         "Corporate Tax return preparation and filing support",
-        "Small business relief and free zone considerations — explained clearly",
+        "Small business relief and free zone considerations, explained clearly",
         "Coordination with licensed tax specialists for complex positions",
       ]}
     >
       <p className="tax-note">
-        Tax content on this page is general information, not advice. UAE rules change — current
+        Tax content on this page is general information, not advice. UAE rules change, so current
         requirements should always be confirmed against official Federal Tax Authority guidance or
         with the named professional handling your engagement.
       </p>

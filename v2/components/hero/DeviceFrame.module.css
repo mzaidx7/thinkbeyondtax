@@ -87,7 +87,7 @@
     inset 0 0 0 1px rgba(255, 246, 225, 0.06);
 }
 
-/* cursor-tracked specular light — the glass "responds" to the pointer */
+/* cursor-tracked specular light: the glass "responds" to the pointer */
 .specular {
   position: absolute;
   inset: 0;
