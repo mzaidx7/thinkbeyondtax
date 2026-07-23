@@ -260,16 +260,7 @@
   border: 1px solid #e2e4e6;
   border-radius: 4px;
   overflow: hidden;
-  animation: e-focus 9s infinite;
-}
-
-@keyframes e-focus {
-  0%, 32%, 100% {
-    box-shadow: 0 1px 2px rgba(60, 50, 20, 0.04);
-  }
-  54%, 76% {
-    box-shadow: 0 8px 26px -8px rgba(140, 105, 40, 0.28);
-  }
+  box-shadow: 0 1px 2px rgba(60, 50, 20, 0.04);
 }
 
 .regTable {
@@ -297,16 +288,7 @@
 }
 
 .regHighlight {
-  animation: e-row-sweep 9s infinite;
-}
-
-@keyframes e-row-sweep {
-  0%, 40%, 100% {
-    background: #fff;
-  }
-  58%, 72% {
-    background: #f7ecd4;
-  }
+  background: #fbf6ea;
 }
 
 .regType {
@@ -348,33 +330,10 @@
 
 /* ghost cursor → Most Used Services (Corporate Tax Return) */
 .cursor {
-  top: 46%;
-  left: 40%;
-  animation: e-cursor-path 9s infinite;
+  display: none;
 }
 
-@keyframes e-cursor-path {
-  0%, 26% {
-    top: 46%;
-    left: 40%;
-    transform: scale(1);
-  }
-  50%, 66% {
-    top: 24%;
-    left: 82%;
-    transform: scale(1);
-  }
-  69% {
-    transform: scale(0.78);
-  }
-  72%, 84% {
-    top: 24%;
-    left: 82%;
-    transform: scale(1);
-  }
-  100% {
-    top: 46%;
-    left: 40%;
-    transform: scale(1);
-  }
+.root [data-depth] {
+  animation: none !important;
+  translate: none !important;
 }

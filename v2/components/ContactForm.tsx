@@ -67,6 +67,8 @@ export default function ContactForm() {
           <option>Accounting</option>
           <option>VAT</option>
           <option>Corporate Tax</option>
+          <option>E-Invoicing readiness</option>
+          <option>EmaraTax support</option>
           <option>Not sure yet</option>
         </select>
       </label>

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { platformStates } from "@/lib/platforms";
 import s from "./HomeSections.module.css";
 
@@ -29,6 +29,18 @@ const services = [
     href: "/services/tax/corporate-tax",
     desc: "UAE Corporate Tax registration, readiness and return support for your first periods and beyond.",
     icon: "hex",
+  },
+  {
+    title: "E-Invoicing",
+    href: "/services/e-invoicing",
+    desc: "Data readiness, system mapping and a clear bridge to the Accredited Service Provider you select.",
+    icon: "invoice",
+  },
+  {
+    title: "EmaraTax Support",
+    href: "/services/tax/emaratax-support",
+    desc: "Amendments, access recovery guidance, penalty applications, inquiries and tracked follow-up.",
+    icon: "portal",
   },
 ];
 
@@ -77,18 +89,22 @@ const icons: Record<string, React.ReactNode> = {
       <path d="M12 14h8M16 10v8" />
     </svg>
   ),
+  invoice: (
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <path d="M8 4h13l4 4v20H8z" />
+      <path d="M21 4v5h5M12 14h9M12 19h9M12 24h5" />
+    </svg>
+  ),
+  portal: (
+    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5">
+      <rect x="5" y="5" width="22" height="22" rx="3" />
+      <path d="M5 11h22M11 16h10M11 21h6" />
+      <circle cx="9" cy="8" r=".7" fill="currentColor" stroke="none" />
+    </svg>
+  ),
 };
 
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.07, delayChildren: 0.04 } },
-};
-const rise: Variants = {
-  hidden: { opacity: 0, y: 22 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
-};
 
 const MotionLink = motion.create(Link);
 
@@ -99,12 +115,12 @@ export default function HomeSections() {
   const group = reduce
     ? {}
     : ({
-        variants: container,
-        initial: "hidden",
-        whileInView: "show",
+        initial: { opacity: 0, y: 18 },
+        whileInView: { opacity: 1, y: 0 },
+        transition: { duration: 0.5, ease: EASE },
         viewport: { once: true, margin: "-70px" },
       } as const);
-  const item = reduce ? {} : ({ variants: rise } as const);
+  const item = {};
 
   return (
     <>

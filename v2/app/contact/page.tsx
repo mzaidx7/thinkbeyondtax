@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm";
+import InternalHero from "@/components/InternalHero";
 import { EMAIL, PHONE_DISPLAY, WHATSAPP_URL } from "@/lib/site";
 import s from "./contact.module.css";
 
@@ -12,16 +13,11 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className={`hex-bg ${s.hero}`}>
-        <div className="container">
-          <p className="overline">Contact</p>
-          <h1 className={s.h1}>Discuss your requirements</h1>
-          <p className={s.intro}>
-            Tell us how your records are kept and what you need, and we'll connect you with the right
-            independent professional. No obligation, no hard sell.
-          </p>
-        </div>
-      </section>
+      <InternalHero
+        overline="Contact"
+        title="Discuss your requirements"
+        intro="Tell us how your records are kept and what you need, and we'll connect you with the right independent professional. No obligation, no hard sell."
+      />
 
       <section className="section">
         <div className={`container ${s.grid}`}>

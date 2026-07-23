@@ -19,7 +19,7 @@ export default function Footer() {
         <div className={s.grid}>
           <div className={s.brand}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/tbt-full-white.png" alt={SITE_NAME} width={150} height={150} />
+            <img src="/brand/tbt-horizontal-color.png" alt={SITE_NAME} width={220} height={56} />
             <p>
               Independent UAE accounting, bookkeeping and tax professionals, working inside the
               systems your business already uses.
@@ -38,8 +38,10 @@ export default function Footer() {
             <p className={s.head}>Services</p>
             <Link href="/services/accounting">Accounting</Link>
             <Link href="/services/bookkeeping">Bookkeeping</Link>
+            <Link href="/services/e-invoicing">E-Invoicing</Link>
             <Link href="/services/tax/vat">VAT</Link>
             <Link href="/services/tax/corporate-tax">Corporate Tax</Link>
+            <Link href="/services/tax/emaratax-support">EmaraTax Support</Link>
           </nav>
 
           <div className={s.col}>

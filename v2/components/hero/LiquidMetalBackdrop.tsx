@@ -1,6 +1,6 @@
 "use client";
 
-import { Component, useEffect, useRef, useState, type ReactNode } from "react";
+import { Component, useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import { useReducedMotion } from "motion/react";
 import s from "./LiquidMetalBackdrop.module.css";
@@ -38,15 +38,16 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
+  const [hasEntered, setHasEntered] = useState(false);
   const [allowed, setAllowed] = useState(false); // desktop + motion-ok
   const [failed, setFailed] = useState(false);
   const settledRef = useRef(false);
 
-  const settle = () => {
+  const settle = useCallback(() => {
     if (settledRef.current) return;
     settledRef.current = true;
     onSettle?.();
-  };
+  }, [onSettle]);
 
   useEffect(() => {
     if (reduce) {
@@ -64,37 +65,65 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
     const el = ref.current;
     let io: IntersectionObserver | undefined;
     if (el) {
-      io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { threshold: 0.01 });
+      io = new IntersectionObserver(([entry]) => {
+        const visible = entry.isIntersecting;
+        setInView(visible);
+        if (visible) setHasEntered(true);
+      }, { threshold: 0.01 });
       io.observe(el);
     }
     return () => {
       mq.removeEventListener("change", onChange);
       io?.disconnect();
     };
-  }, [reduce]);
+  }, [reduce, settle]);
 
-  const showShader = allowed && inView && !failed && !reduce;
+  // Keep the GL context mounted after first entry so leaving the long hero does
+  // not dispose a large canvas during active scrolling. A zero speed pauses its
+  // render loop while the backdrop is offscreen.
+  const showShader = allowed && hasEntered && !failed && !reduce;
 
   useEffect(() => {
     if (!showShader) {
       if (failed) settle(); // WebGL threw: shader never paints
       return;
     }
-    // the GL context/program setup can span a handful of frames, not just one,
-    // poll frame time and settle once it's actually back to normal, instead of
-    // guessing a fixed frame count (capped so a persistently slow GPU still settles)
+    // The dynamic component can mount several frames after this wrapper. Wait
+    // for its real canvas, flush the first submitted GL work, then require a
+    // stable frame streak before releasing the homepage verification contract.
     let raf = 0;
     let last = performance.now();
     let stableStreak = 0;
     let frames = 0;
-    const MAX_FRAMES = 90;
+    let canvasFrames = 0;
+    let glFlushed = false;
+    let glFlushedAt = 0;
+    const MAX_FRAMES = 180;
     const tick = () => {
       const now = performance.now();
       const delta = now - last;
       last = now;
       frames++;
-      stableStreak = delta < 18 ? stableStreak + 1 : 0;
-      if (stableStreak >= 5 || frames >= MAX_FRAMES) {
+      const canvas = ref.current?.querySelector("canvas");
+
+      if (!canvas) {
+        canvasFrames = 0;
+        stableStreak = 0;
+      } else if (!glFlushed) {
+        canvasFrames++;
+        if (canvasFrames >= 2) {
+          const gl = canvas.getContext("webgl2");
+          gl?.finish();
+          glFlushed = true;
+          glFlushedAt = performance.now();
+          last = performance.now();
+        }
+      } else {
+        stableStreak = delta < 22 ? stableStreak + 1 : 0;
+      }
+
+      const warm = glFlushed && now - glFlushedAt >= 1200;
+      if ((warm && stableStreak >= 8) || frames >= MAX_FRAMES) {
         settle();
         return;
       }
@@ -102,7 +131,7 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [showShader, failed]);
+  }, [showShader, failed, settle]);
 
   return (
     <div className={s.backdrop} ref={ref} aria-hidden="true">
@@ -112,7 +141,7 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
           <LiquidMetal
             colorBack="#050505"
             colorTint="#cf982f"
-            speed={0.38}
+            speed={inView ? 0.38 : 0}
             scale={1.05}
             softness={0.85}
             contour={0.68}

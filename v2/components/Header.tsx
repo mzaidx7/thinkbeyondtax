@@ -8,10 +8,13 @@ import s from "./Header.module.css";
 const services = [
   { label: "Accounting", href: "/services/accounting" },
   { label: "Bookkeeping", href: "/services/bookkeeping" },
+  { label: "E-Invoicing", href: "/services/e-invoicing" },
 ];
+
 const taxServices = [
   { label: "VAT", href: "/services/tax/vat" },
   { label: "Corporate Tax", href: "/services/tax/corporate-tax" },
+  { label: "EmaraTax Support", href: "/services/tax/emaratax-support" },
 ];
 
 export default function Header() {
@@ -29,11 +32,14 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const onDocClick = (e: MouseEvent) => {
-      if (!dropRef.current?.contains(e.target as Node)) setDropOpen(false);
+    const onDocClick = (event: MouseEvent) => {
+      if (!dropRef.current?.contains(event.target as Node)) setDropOpen(false);
     };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDropOpen(false);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setDropOpen(false);
+        setMobileOpen(false);
+      }
     };
     document.addEventListener("click", onDocClick);
     document.addEventListener("keydown", onKey);
@@ -50,7 +56,12 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
-  const closeMobile = () => setMobileOpen(false);
+  const closeMobile = () => {
+    setMobileOpen(false);
+    setMobServicesOpen(false);
+  };
+
+  const closeDesktop = () => setDropOpen(false);
 
   return (
     <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
@@ -69,7 +80,7 @@ export default function Header() {
               className={s.dropBtn}
               aria-expanded={dropOpen}
               aria-controls="services-menu"
-              onClick={() => setDropOpen((v) => !v)}
+              onClick={() => setDropOpen((value) => !value)}
             >
               Services
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
@@ -78,18 +89,18 @@ export default function Header() {
             </button>
             <div className={s.dropPanel} id="services-menu">
               {services.map((item) => (
-                <Link key={item.href} href={item.href}>
+                <Link key={item.href} href={item.href} onClick={closeDesktop}>
                   {item.label}
                 </Link>
               ))}
-              <p className={s.dropGroup}>Tax Services</p>
+              <p className={s.dropGroup}>Tax and compliance</p>
               {taxServices.map((item) => (
-                <Link key={item.href} className={s.dropSub} href={item.href}>
+                <Link key={item.href} className={s.dropSub} href={item.href} onClick={closeDesktop}>
                   {item.label}
                 </Link>
               ))}
-              <Link className={s.dropAll} href="/services">
-                All services →
+              <Link className={s.dropAll} href="/services" onClick={closeDesktop}>
+                View all services
               </Link>
             </div>
           </div>
@@ -107,7 +118,7 @@ export default function Header() {
           aria-expanded={mobileOpen}
           aria-controls="mobile-menu"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMobileOpen((v) => !v)}
+          onClick={() => setMobileOpen((value) => !value)}
         >
           <span />
           <span />
@@ -115,7 +126,7 @@ export default function Header() {
         </button>
       </div>
 
-      {mobileOpen && (
+      {mobileOpen ? (
         <div className={s.mobileMenu} id="mobile-menu">
           <nav aria-label="Mobile">
             <Link href="/" onClick={closeMobile}>
@@ -125,31 +136,31 @@ export default function Header() {
               type="button"
               className={s.mobServicesBtn}
               aria-expanded={mobServicesOpen}
-              onClick={() => setMobServicesOpen((v) => !v)}
+              onClick={() => setMobServicesOpen((value) => !value)}
             >
               Services
               <svg width="12" height="7" viewBox="0 0 10 6" fill="none" aria-hidden="true">
                 <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" />
               </svg>
             </button>
-            {mobServicesOpen && (
+            {mobServicesOpen ? (
               <div className={s.mobServices}>
                 {services.map((item) => (
                   <Link key={item.href} href={item.href} onClick={closeMobile}>
                     {item.label}
                   </Link>
                 ))}
-                <p className={s.dropGroup}>Tax Services</p>
+                <p className={s.dropGroup}>Tax and compliance</p>
                 {taxServices.map((item) => (
                   <Link key={item.href} className={s.dropSub} href={item.href} onClick={closeMobile}>
                     {item.label}
                   </Link>
                 ))}
                 <Link href="/services" onClick={closeMobile}>
-                  All services →
+                  View all services
                 </Link>
               </div>
-            )}
+            ) : null}
             <Link href="/about" onClick={closeMobile}>
               About
             </Link>
@@ -161,7 +172,7 @@ export default function Header() {
             </Link>
           </nav>
         </div>
-      )}
+      ) : null}
     </header>
   );
 }

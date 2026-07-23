@@ -30,12 +30,12 @@ import s from "./Hero.module.css";
 
 const screenComponents = [
   ScreenIntro,
+  ScreenEmaraTax,
   ScreenTally,
   ScreenQbo,
   ScreenQbd,
   ScreenZoho,
   ScreenXero,
-  ScreenEmaraTax,
 ];
 
 export default function Hero() {
@@ -75,7 +75,11 @@ export default function Hero() {
       if (!sec) return;
       const dist = sec.offsetHeight - window.innerHeight;
       const y = sec.offsetTop + (i / SEGMENTS) * dist;
-      window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
+      const lenis = (window as unknown as {
+        __lenis?: { scrollTo: (target: number, options?: { duration?: number }) => void };
+      }).__lenis;
+      if (lenis && !reduce) lenis.scrollTo(y, { duration: 1.05 });
+      else window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
     },
     [reduce],
   );
@@ -161,12 +165,20 @@ export default function Hero() {
       }
     }
     tryFireReady();
-    // safety net: never block __ready forever if the shader never mounts/settles
-    const safety = window.setTimeout(() => {
+    // Safety nets keep the visual-test contract deterministic when either a
+    // browser's font set or the WebGL callback does not settle as expected.
+    const shaderSafety = window.setTimeout(() => {
       shaderDoneRef.current = true;
       tryFireReady();
-    }, 2500);
-    return () => window.clearTimeout(safety);
+    }, 6000);
+    const fontSafety = window.setTimeout(() => {
+      fontsDoneRef.current = true;
+      tryFireReady();
+    }, 4000);
+    return () => {
+      window.clearTimeout(shaderSafety);
+      window.clearTimeout(fontSafety);
+    };
   }, [tryFireReady]);
 
   // mobile: auto-advance + swipe
@@ -234,11 +246,6 @@ export default function Hero() {
 
           <div className={`container ${s.grid}`}>
             <div className={s.copyCol}>
-              <span className={s.badge}>
-                <span className={s.badgeDot} />
-                Think Beyond Tax · Independent UAE accounting &amp; tax professionals
-              </span>
-
               <HeroCopy current={current} />
 
               <div className={s.ctas}>
@@ -273,17 +280,25 @@ export default function Hero() {
                 className={s.skewer}
                 style={reduce ? undefined : { skewY, scale: scaleY }}
               >
-                <DeviceFrame facts={state.floatFacts} accent={state.accent}>
+                <DeviceFrame
+                  facts={state.floatFacts}
+                  accent={state.accent}
+                  interactive={current !== 1}
+                >
                   {screenComponents.map((Screen, i) => (
                     <motion.div
                       key={i}
                       className={s.slot}
-                      animate={{
+                      animate={reduce ? undefined : {
                         opacity: current === i ? 1 : 0,
                         scale: current === i ? 1 : 0.985,
                       }}
-                      transition={{ duration: reduce ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ pointerEvents: current === i ? "auto" : "none", zIndex: current === i ? 2 : 1 }}
+                      transition={reduce ? undefined : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      style={{
+                        opacity: reduce ? (current === i ? 1 : 0) : undefined,
+                        pointerEvents: current === i ? "auto" : "none",
+                        zIndex: current === i ? 2 : 1,
+                      }}
                     >
                       <Screen active={current === i} />
                     </motion.div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CtaBand from "@/components/CtaBand";
+import InternalHero from "@/components/InternalHero";
 import { COLLECTIVE_DISCLAIMER } from "@/lib/site";
 import s from "./about.module.css";
 
@@ -12,16 +13,11 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <section className={`hex-bg ${s.hero}`}>
-        <div className="container">
-          <p className="overline">About</p>
-          <h1 className={s.h1}>Independent professionals, one shared standard</h1>
-          <p className={s.intro}>
-            Think Beyond Tax is a collaborative identity for a small group of independent, UAE-based
-            accounting, bookkeeping and tax professionals.
-          </p>
-        </div>
-      </section>
+      <InternalHero
+        overline="About"
+        title="Independent professionals, one shared standard"
+        intro="Think Beyond Tax is a collaborative identity for a small group of independent, UAE-based accounting, bookkeeping and tax professionals."
+      />
 
       <section className="section">
         <div className={`container ${s.cols}`}>

@@ -57,41 +57,6 @@
   align-self: start;
 }
 
-/* overline with a live pulse dot */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  align-self: flex-start;
-  margin-bottom: 1.4rem;
-  font-size: var(--text-micro);
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold);
-}
-
-.badgeDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 0 0 rgba(207, 152, 47, 0.5);
-  animation: badge-pulse 2.6s ease-out infinite;
-}
-
-@keyframes badge-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(207, 152, 47, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 7px rgba(207, 152, 47, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(207, 152, 47, 0);
-  }
-}
-
 .ctas {
   display: flex;
   flex-wrap: wrap;
@@ -158,5 +123,31 @@
 
   .stage {
     touch-action: pan-y;
+  }
+}
+
+@media (min-width: 1024px) and (max-height: 900px) {
+  .sticky {
+    padding-top: var(--header-h);
+  }
+
+  .grid {
+    width: min(var(--container), calc(100% - 7rem), 100rem);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    row-gap: 0.75rem;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 57.5rem;
+    justify-self: center;
+  }
+
+  .ctas {
+    margin-top: 1.25rem;
+  }
+
+  .dockArea {
+    align-self: start;
   }
 }

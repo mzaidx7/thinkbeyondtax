@@ -63,12 +63,13 @@ export default function GoldDust({ progressRef }: { progressRef: React.RefObject
 
     let raf = 0;
     let t = 0;
+    let running = true;
     const render = () => {
       const p = progressRef.current ?? 0;
       const fade = 1 - Math.min(1, p / 0.07); // gone by 7% of story
       if (fade <= 0) {
         ctx.clearRect(0, 0, w, h);
-        raf = requestAnimationFrame(render);
+        running = false;
         return;
       }
       t += 0.016;
@@ -90,11 +91,18 @@ export default function GoldDust({ progressRef }: { progressRef: React.RefObject
       ctx.globalCompositeOperation = "source-over";
       raf = requestAnimationFrame(render);
     };
+    const wake = () => {
+      if (running || (progressRef.current ?? 0) >= 0.07) return;
+      running = true;
+      raf = requestAnimationFrame(render);
+    };
     raf = requestAnimationFrame(render);
+    window.addEventListener("scroll", wake, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
       ro.disconnect();
+      window.removeEventListener("scroll", wake);
     };
   }, [reduce, progressRef]);
 

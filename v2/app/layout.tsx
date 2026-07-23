@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Lato, Inter } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     default: `${SITE_NAME} | Accounting, Bookkeeping & UAE Tax Support`,
     template: `%s | ${SITE_NAME}`,
   },
-  description: `${SITE_TAGLINE}. Practical support with bookkeeping, accounting, financial reporting, VAT and Corporate Tax, inside TallyPrime, QuickBooks, Zoho Books, Xero and EmaraTax.`,
+  description: `${SITE_TAGLINE}. Practical support with bookkeeping, accounting, financial reporting, VAT, Corporate Tax, e-invoicing readiness and EmaraTax administration.`,
   icons: {
     icon: [
       { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },

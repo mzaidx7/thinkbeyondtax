@@ -2,12 +2,12 @@
 
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 /**
- * Site-wide inertia-smoothed scrolling (the scroll-film "butter").
- * Skipped entirely under reduced-motion or on coarse-pointer (touch) devices,
- * where native scroll is better. Lenis animates the real window scroll, so
- * Motion's useScroll continues to track normally.
+ * Lenis and ScrollTrigger share GSAP's single animation loop on fine pointers.
+ * Touch and reduced-motion users keep native scrolling. Lenis still animates
+ * the real window position, so the existing Motion homepage remains isolated.
  */
 export default function SmoothScroll() {
   useEffect(() => {
@@ -15,19 +15,27 @@ export default function SmoothScroll() {
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     if (reduce || coarse) return;
 
-    const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
-    let raf = 0;
-    const loop = (time: number) => {
-      lenis.raf(time);
-      raf = requestAnimationFrame(loop);
-    };
-    raf = requestAnimationFrame(loop);
+    const lenis = new Lenis({
+      lerp: 0.09,
+      smoothWheel: true,
+      autoRaf: false,
+      anchors: { offset: -96 },
+    });
+
+    const updateScrollTrigger = () => ScrollTrigger.update();
+    const tick = (time: number) => lenis.raf(time * 1000);
+
+    lenis.on("scroll", updateScrollTrigger);
+    gsap.ticker.add(tick);
+    gsap.ticker.lagSmoothing(0);
+    ScrollTrigger.refresh();
 
     // let other code opt out of smoothing (e.g. the ?jump dev contract)
     (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
 
     return () => {
-      cancelAnimationFrame(raf);
+      lenis.off("scroll", updateScrollTrigger);
+      gsap.ticker.remove(tick);
       lenis.destroy();
       delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };

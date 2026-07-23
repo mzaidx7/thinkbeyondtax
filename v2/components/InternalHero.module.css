@@ -1,0 +1,119 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(27rem, 54vw, 39rem);
+  display: grid;
+  align-items: end;
+  padding: calc(var(--header-h) + clamp(4.5rem, 10vw, 8rem)) 0 clamp(4rem, 8vw, 6.5rem);
+  border-bottom: 1px solid rgba(239, 196, 81, 0.12);
+  background:
+    linear-gradient(180deg, rgba(3, 3, 4, 0.16), rgba(3, 3, 4, 0.95)),
+    var(--charcoal);
+}
+
+.field {
+  position: absolute;
+  z-index: -1;
+  inset: -15% -8% -22%;
+  overflow: hidden;
+  transform-origin: 50% 50%;
+}
+
+.orbit {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(10px);
+  will-change: transform;
+}
+
+.orbitOne {
+  width: min(58vw, 48rem);
+  aspect-ratio: 1.5;
+  top: 15%;
+  right: 2%;
+  background:
+    radial-gradient(ellipse at 54% 48%, rgba(246, 220, 138, 0.28), rgba(207, 152, 47, 0.13) 36%, transparent 69%);
+  transform: rotate(-12deg);
+}
+
+.orbitTwo {
+  width: min(44vw, 36rem);
+  aspect-ratio: 1.2;
+  left: 23%;
+  bottom: 0;
+  background:
+    radial-gradient(ellipse at 48% 50%, rgba(160, 106, 15, 0.24), rgba(207, 152, 47, 0.08) 42%, transparent 72%);
+  transform: rotate(18deg);
+}
+
+.horizon {
+  position: absolute;
+  width: 94%;
+  height: 1px;
+  left: 3%;
+  top: 64%;
+  background: linear-gradient(90deg, transparent, rgba(246, 220, 138, 0.42), transparent);
+  box-shadow: 0 0 52px 12px rgba(207, 152, 47, 0.12);
+}
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.55;
+  background-image:
+    linear-gradient(rgba(239, 196, 81, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239, 196, 81, 0.035) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 68%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 24%, #000 68%, transparent);
+}
+
+.inner {
+  position: relative;
+}
+
+.inner h1 {
+  max-width: 24ch;
+  margin-top: 1rem;
+  font-size: clamp(2.35rem, 5vw, 4.7rem);
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.intro {
+  max-width: 68ch;
+  margin-top: 1.25rem;
+  color: #aaa9a5;
+  font-size: clamp(1rem, 1.6vw, 1.16rem);
+  line-height: 1.75;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 31rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .orbitOne {
+    width: 34rem;
+    right: -15rem;
+  }
+
+  .orbitTwo {
+    width: 26rem;
+    left: -10rem;
+  }
+
+  .grid {
+    background-size: 3rem 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .field {
+    will-change: auto;
+  }
+}

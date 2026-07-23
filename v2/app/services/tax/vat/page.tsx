@@ -1,32 +1,13 @@
 import type { Metadata } from "next";
 import ServicePage from "@/components/ServicePage";
+import { vatService } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "VAT",
+  title: "VAT Registration, Filing and Refund Support",
   description:
-    "Support with UAE VAT, from registration through quarterly returns, built on records that are actually ready for filing.",
+    "UAE VAT support for registration, return filing, VAT311 refunds, tax groups, ledger reconciliation and correction coordination.",
 };
 
 export default function VatPage() {
-  return (
-    <ServicePage
-      title="VAT"
-      overline="Tax Services"
-      intro="Support with UAE VAT, from registration through quarterly returns, built on records that are actually ready for filing."
-      covers={[
-        "VAT registration and deregistration assistance through EmaraTax",
-        "VAT-compliant invoicing and record setup in your accounting software",
-        "Quarterly VAT return preparation and filing support",
-        "Reconciliation of VAT accounts against your books",
-        "Voluntary disclosure and correction support where needed",
-        "Guidance on VAT treatment of everyday transactions",
-      ]}
-    >
-      <p className="tax-note">
-        Tax content on this page is general information, not advice. UAE rules change, so current
-        requirements should always be confirmed against official Federal Tax Authority guidance or
-        with the named professional handling your engagement.
-      </p>
-    </ServicePage>
-  );
+  return <ServicePage config={vatService} />;
 }

@@ -15,6 +15,7 @@ interface Props {
   children: React.ReactNode;
   facts: string[];
   accent: string;
+  interactive?: boolean;
 }
 
 const SPRING = { stiffness: 120, damping: 22, mass: 0.8 };
@@ -45,7 +46,7 @@ function FloatChip({
   );
 }
 
-export default function DeviceFrame({ children, facts, accent }: Props) {
+export default function DeviceFrame({ children, facts, accent, interactive = true }: Props) {
   const rootRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -71,6 +72,13 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
   const sx = useSpring(px, SPRING);
   const sy = useSpring(py, SPRING);
   const sz = useSpring(zoom, { stiffness: 140, damping: 24 });
+
+  useEffect(() => {
+    if (interactive) return;
+    px.set(0);
+    py.set(0);
+    zoom.set(1);
+  }, [interactive, px, py, zoom]);
 
   // write pan/zoom/drift as CSS vars on the device root so the screen stack
   // and depth layers can read them (composes on GPU-friendly properties)
@@ -104,7 +112,7 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
 
   // pointer handlers (desktop pointer only)
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !interactive) return;
     const el = rootRef.current;
     if (!el) return;
     const mq = window.matchMedia("(min-width: 1024px) and (pointer: fine)");
@@ -129,7 +137,7 @@ export default function DeviceFrame({ children, facts, accent }: Props) {
       el.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerleave", onLeave);
     };
-  }, [px, py, zoom, reduce]);
+  }, [interactive, px, py, zoom, reduce]);
 
   return (
     <div className={s.device} ref={rootRef} aria-hidden="true">

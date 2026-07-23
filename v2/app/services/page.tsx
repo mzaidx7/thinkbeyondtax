@@ -1,62 +1,61 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CtaBand from "@/components/CtaBand";
+import InternalHero from "@/components/InternalHero";
+import { serviceNavigation } from "@/lib/services";
 import s from "./services.module.css";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Independent UAE professionals supporting businesses with bookkeeping, accounting, financial reporting, VAT and Corporate Tax.",
+    "Independent UAE professional support for accounting, bookkeeping, VAT, Corporate Tax, e-invoicing readiness and EmaraTax administration.",
 };
 
-const groups = [
-  {
-    label: "Core",
-    items: [
-      { title: "Accounting", href: "/services/accounting", desc: "Accurate records, closings and management reporting." },
-      { title: "Bookkeeping", href: "/services/bookkeeping", desc: "Day-to-day entries, reconciliations and clean books." },
-    ],
-  },
-  {
-    label: "Tax Services",
-    items: [
-      { title: "VAT", href: "/services/tax/vat", desc: "Registration, VAT-ready records and return support." },
-      { title: "Corporate Tax", href: "/services/tax/corporate-tax", desc: "Registration, readiness and return preparation support." },
-    ],
-  },
-];
+const groups = ["Core", "Tax and compliance"] as const;
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 18 18" aria-hidden="true">
+      <path d="M4 9h10M10 5l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.4" />
+    </svg>
+  );
+}
 
 export default function ServicesHub() {
   return (
     <>
-      <section className={`hex-bg ${s.hero}`}>
-        <div className="container">
-          <p className="overline">Services</p>
-          <h1 className={s.h1}>Support that fits how your business already operates</h1>
-          <p className={s.intro}>
-            Independent UAE professionals supporting businesses with bookkeeping, accounting,
-            financial reporting, VAT and Corporate Tax, inside TallyPrime, QuickBooks, Zoho Books,
-            Xero and EmaraTax.
-          </p>
-        </div>
-      </section>
+      <InternalHero
+        overline="Services"
+        title="Support that fits how your business already operates"
+        intro="Independent UAE professionals helping businesses keep records current, close difficult periods, prepare tax work, navigate EmaraTax and get ready for structured e-invoicing."
+      />
 
-      <section className="section">
+      <section className={`section ${s.index}`}>
         <div className="container">
-          {groups.map((g) => (
-            <div key={g.label} className={s.group}>
-              <p className="overline">{g.label}</p>
-              <div className={s.grid}>
-                {g.items.map((item) => (
-                  <Link key={item.href} className={s.card} href={item.href}>
-                    <h2>{item.title}</h2>
-                    <p>{item.desc}</p>
-                    <span>Learn more →</span>
-                  </Link>
-                ))}
+          {groups.map((group) => {
+            const items = serviceNavigation.filter((item) => item.group === group);
+            return (
+              <div key={group} className={s.group}>
+                <div className={s.groupHead}>
+                  <p className="overline">{group}</p>
+                  <p>{group === "Core" ? "Records, systems and recurring delivery" : "Tax preparation and portal administration"}</p>
+                </div>
+                <div className={s.grid}>
+                  {items.map((item, index) => (
+                    <Link key={item.href} className={s.card} href={item.href}>
+                      <span className={s.number}>{String(index + 1).padStart(2, "0")}</span>
+                      <h2>{item.title}</h2>
+                      <p>{item.description}</p>
+                      <span className={s.linkLabel}>
+                        View full scope
+                        <Arrow />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

@@ -13,10 +13,9 @@
 }
 
 .brand img {
-  height: 8.5rem;
-  width: auto;
-  margin-bottom: 1rem;
-  margin-left: -0.5rem;
+  width: min(15rem, 100%);
+  height: auto;
+  margin-bottom: 1.25rem;
 }
 
 .brand p {
