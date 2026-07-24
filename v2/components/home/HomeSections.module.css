@@ -1,7 +1,16 @@
+.deferred {
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto 30rem;
+}
+
 .strip {
   border-block: 1px solid var(--charcoal-2);
   background: var(--charcoal);
   padding-block: 1.1rem;
+}
+
+.strip.deferred {
+  contain-intrinsic-block-size: auto 4rem;
 }
 
 .stripInner {

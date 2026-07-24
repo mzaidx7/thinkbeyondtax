@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   SITE_NAME,
@@ -18,8 +19,14 @@ export default function Footer() {
       <div className="container">
         <div className={s.grid}>
           <div className={s.brand}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/tbt-horizontal-color.png" alt={SITE_NAME} width={220} height={56} />
+            <Image
+              src="/brand/tbt-horizontal-color.png"
+              alt={SITE_NAME}
+              width={220}
+              height={56}
+              sizes="220px"
+              quality={82}
+            />
             <p>
               Independent UAE accounting, bookkeeping and tax professionals, working inside the
               systems your business already uses.

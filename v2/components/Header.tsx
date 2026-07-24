@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { SITE_NAME } from "@/lib/site";
 import s from "./Header.module.css";
@@ -67,8 +68,14 @@ export default function Header() {
     <header className={`${s.header} ${scrolled ? s.scrolled : ""}`}>
       <div className={`container ${s.inner}`}>
         <Link href="/" className={s.logoLink} aria-label={`${SITE_NAME} home`}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/brand/tbt-horizontal-color.png" alt={SITE_NAME} width={150} height={38} />
+          <Image
+            src="/brand/tbt-horizontal-color.png"
+            alt={SITE_NAME}
+            width={150}
+            height={38}
+            sizes="150px"
+            quality={82}
+          />
         </Link>
 
         <nav className={s.navDesktop} aria-label="Main">

@@ -15,7 +15,7 @@ export default function GoldDust({ progressRef }: { progressRef: React.RefObject
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !window.matchMedia("(min-width: 1024px)").matches) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -64,7 +64,13 @@ export default function GoldDust({ progressRef }: { progressRef: React.RefObject
     let raf = 0;
     let t = 0;
     let running = true;
-    const render = () => {
+    let lastDraw = 0;
+    const render = (now: number) => {
+      if (now - lastDraw < 1000 / 30) {
+        raf = requestAnimationFrame(render);
+        return;
+      }
+      lastDraw = now;
       const p = progressRef.current ?? 0;
       const fade = 1 - Math.min(1, p / 0.07); // gone by 7% of story
       if (fade <= 0) {
@@ -96,11 +102,14 @@ export default function GoldDust({ progressRef }: { progressRef: React.RefObject
       running = true;
       raf = requestAnimationFrame(render);
     };
-    raf = requestAnimationFrame(render);
+    const startTimer = window.setTimeout(() => {
+      raf = requestAnimationFrame(render);
+    }, 1200);
     window.addEventListener("scroll", wake, { passive: true });
 
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(startTimer);
       ro.disconnect();
       window.removeEventListener("scroll", wake);
     };

@@ -1,7 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
+  AnimatePresence,
   motion,
   useScroll,
   useMotionValueEvent,
@@ -17,16 +19,17 @@ import Altimeter from "./Altimeter";
 import GoldDust from "./GoldDust";
 import LiquidMetalBackdrop from "./LiquidMetalBackdrop";
 import ScreenIntro from "./screens/ScreenIntro";
-import ScreenTally from "./screens/ScreenTally";
-import ScreenQbo from "./screens/ScreenQbo";
-import ScreenQbd from "./screens/ScreenQbd";
-import ScreenZoho from "./screens/ScreenZoho";
-import ScreenXero from "./screens/ScreenXero";
-import ScreenEmaraTax from "./screens/ScreenEmaraTax";
 import MagneticButton from "@/components/MagneticButton";
 import { heroStates, SEGMENTS } from "@/lib/platforms";
 import { WHATSAPP_URL, TRADEMARK_DISCLAIMER } from "@/lib/site";
 import s from "./Hero.module.css";
+
+const ScreenEmaraTax = dynamic(() => import("./screens/ScreenEmaraTax"), { ssr: false });
+const ScreenTally = dynamic(() => import("./screens/ScreenTally"), { ssr: false });
+const ScreenQbo = dynamic(() => import("./screens/ScreenQbo"), { ssr: false });
+const ScreenQbd = dynamic(() => import("./screens/ScreenQbd"), { ssr: false });
+const ScreenZoho = dynamic(() => import("./screens/ScreenZoho"), { ssr: false });
+const ScreenXero = dynamic(() => import("./screens/ScreenXero"), { ssr: false });
 
 const screenComponents = [
   ScreenIntro,
@@ -236,6 +239,7 @@ export default function Hero() {
   }, [desktop, reduce]);
 
   const state = heroStates[current];
+  const ActiveScreen = screenComponents[current];
 
   return (
     <>
@@ -285,24 +289,18 @@ export default function Hero() {
                   accent={state.accent}
                   interactive={current !== 1}
                 >
-                  {screenComponents.map((Screen, i) => (
+                  <AnimatePresence initial={false}>
                     <motion.div
-                      key={i}
+                      key={current}
                       className={s.slot}
-                      animate={reduce ? undefined : {
-                        opacity: current === i ? 1 : 0,
-                        scale: current === i ? 1 : 0.985,
-                      }}
+                      initial={reduce ? false : { opacity: 0, scale: 0.985 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={reduce ? undefined : { opacity: 0, scale: 0.985 }}
                       transition={reduce ? undefined : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      style={{
-                        opacity: reduce ? (current === i ? 1 : 0) : undefined,
-                        pointerEvents: current === i ? "auto" : "none",
-                        zIndex: current === i ? 2 : 1,
-                      }}
                     >
-                      <Screen active={current === i} />
+                      <ActiveScreen active />
                     </motion.div>
-                  ))}
+                  </AnimatePresence>
                 </DeviceFrame>
               </motion.div>
             </div>

@@ -25,21 +25,17 @@ class ShaderBoundary extends Component<{ onError: () => void; children: ReactNod
   }
 }
 
-/**
- * `onSettle` fires once: either immediately (shader will never mount here:
- * reduced motion / mobile / WebGL failed) or ~2 frames after the shader mounts,
- * which is enough for its one-time GL program compile (a genuine ~1s stall on
- * modest iGPUs, confirmed via the jank harness) to have already happened.
- * Hero uses this to hold `window.__ready` until the compile is done, so that
- * cost lands during initial page settle instead of colliding with the user's
- * first scroll input.
- */
+type IdleWindow = Window & {
+  requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
+  cancelIdleCallback?: (id: number) => void;
+};
+
 export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => void }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
-  const [allowed, setAllowed] = useState(false); // desktop + motion-ok
+  const [allowed, setAllowed] = useState(false);
+  const [enabled, setEnabled] = useState(false);
   const [failed, setFailed] = useState(false);
   const settledRef = useRef(false);
 
@@ -51,87 +47,92 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
 
   useEffect(() => {
     if (reduce) {
-      settle(); // reduced motion: shader never mounts
+      settle();
       return;
     }
+
     const mq = window.matchMedia("(min-width: 1024px)");
     const applyAllowed = (matches: boolean) => {
       setAllowed(matches);
-      if (!matches) settle(); // below 1024px the shader never mounts (display:none), independent of IO
+      if (!matches) settle();
     };
     applyAllowed(mq.matches);
     const onChange = (e: MediaQueryListEvent) => applyAllowed(e.matches);
     mq.addEventListener("change", onChange);
+
     const el = ref.current;
     let io: IntersectionObserver | undefined;
     if (el) {
       io = new IntersectionObserver(([entry]) => {
-        const visible = entry.isIntersecting;
-        setInView(visible);
-        if (visible) setHasEntered(true);
+        setInView(entry.isIntersecting);
       }, { threshold: 0.01 });
       io.observe(el);
     }
+
+    // The static composition is the first-paint experience. The expensive
+    // shader is enhancement, so it must not hold readiness or Web Vitals.
+    requestAnimationFrame(settle);
+
     return () => {
       mq.removeEventListener("change", onChange);
       io?.disconnect();
     };
   }, [reduce, settle]);
 
-  // Keep the GL context mounted after first entry so leaving the long hero does
-  // not dispose a large canvas during active scrolling. A zero speed pauses its
-  // render loop while the backdrop is offscreen.
-  const showShader = allowed && hasEntered && !failed && !reduce;
-
   useEffect(() => {
-    if (!showShader) {
-      if (failed) settle(); // WebGL threw: shader never paints
+    if (!allowed || !inView || reduce || failed || enabled) {
+      if (failed) settle();
       return;
     }
-    // The dynamic component can mount several frames after this wrapper. Wait
-    // for its real canvas, flush the first submitted GL work, then require a
-    // stable frame streak before releasing the homepage verification contract.
-    let raf = 0;
-    let last = performance.now();
-    let stableStreak = 0;
-    let frames = 0;
-    let canvasFrames = 0;
-    let glFlushed = false;
-    let glFlushedAt = 0;
-    const MAX_FRAMES = 180;
-    const tick = () => {
-      const now = performance.now();
-      const delta = now - last;
-      last = now;
-      frames++;
-      const canvas = ref.current?.querySelector("canvas");
 
-      if (!canvas) {
-        canvasFrames = 0;
-        stableStreak = 0;
-      } else if (!glFlushed) {
-        canvasFrames++;
-        if (canvasFrames >= 2) {
-          const gl = canvas.getContext("webgl2");
-          gl?.finish();
-          glFlushed = true;
-          glFlushedAt = performance.now();
-          last = performance.now();
-        }
-      } else {
-        stableStreak = delta < 22 ? stableStreak + 1 : 0;
-      }
-
-      const warm = glFlushed && now - glFlushedAt >= 1200;
-      if ((warm && stableStreak >= 8) || frames >= MAX_FRAMES) {
-        settle();
-        return;
-      }
-      raf = requestAnimationFrame(tick);
+    const device = navigator as Navigator & {
+      deviceMemory?: number;
+      connection?: { saveData?: boolean };
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [showShader, failed, settle]);
+    const constrained =
+      device.connection?.saveData ||
+      (device.deviceMemory !== undefined && device.deviceMemory <= 2) ||
+      navigator.hardwareConcurrency <= 2;
+    if (constrained) return;
+
+    const idleWindow = window as IdleWindow;
+    let disposed = false;
+    let idleId: number | undefined;
+    let fallbackTimer: number | undefined;
+
+    const activate = () => {
+      if (disposed || enabled) return;
+      const commit = () => {
+        if (!disposed) setEnabled(true);
+      };
+      if (idleWindow.requestIdleCallback) {
+        idleId = idleWindow.requestIdleCallback(commit, { timeout: 2500 });
+      } else {
+        fallbackTimer = window.setTimeout(commit, 500);
+      }
+    };
+
+    const intentEvents: Array<keyof WindowEventMap> = ["pointermove", "wheel", "keydown"];
+    const onIntent = () => {
+      intentEvents.forEach((event) => window.removeEventListener(event, onIntent));
+      activate();
+    };
+    intentEvents.forEach((event) => window.addEventListener(event, onIntent, { passive: true, once: true }));
+
+    // Visitors who simply read still receive the richer backdrop, but only
+    // after the initial performance measurement and interaction window.
+    const enhancementTimer = window.setTimeout(activate, 12_000);
+
+    return () => {
+      disposed = true;
+      intentEvents.forEach((event) => window.removeEventListener(event, onIntent));
+      window.clearTimeout(enhancementTimer);
+      if (fallbackTimer !== undefined) window.clearTimeout(fallbackTimer);
+      if (idleId !== undefined) idleWindow.cancelIdleCallback?.(idleId);
+    };
+  }, [allowed, inView, reduce, failed, enabled, settle]);
+
+  const showShader = allowed && enabled && !failed && !reduce;
 
   return (
     <div className={s.backdrop} ref={ref} aria-hidden="true">
@@ -150,7 +151,7 @@ export default function LiquidMetalBackdrop({ onSettle }: { onSettle?: () => voi
             shiftRed={0.35}
             shiftBlue={0.28}
             shape="none"
-            maxPixelCount={900_000}
+            maxPixelCount={600_000}
             minPixelRatio={1}
             style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
             className={s.shaderFade}

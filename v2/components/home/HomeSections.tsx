@@ -125,7 +125,7 @@ export default function HomeSections() {
   return (
     <>
       {/* platform strip */}
-      <section className={s.strip}>
+      <section className={`${s.strip} ${s.deferred}`}>
         <div className={`container ${s.stripInner}`}>
           {platformStates.map((p) => (
             <span key={p.id} className={s.stripChip}>
@@ -137,7 +137,7 @@ export default function HomeSections() {
       </section>
 
       {/* services overview */}
-      <section className="section" id="services">
+      <section className={`section ${s.deferred}`} id="services">
         <div className="container">
           <motion.div className="section-head" {...group}>
             <motion.p className="overline" {...item}>
@@ -165,7 +165,7 @@ export default function HomeSections() {
       </section>
 
       {/* about */}
-      <section className="section hex-bg" id="about">
+      <section className={`section hex-bg ${s.deferred}`} id="about">
         <div className={`container ${s.aboutGrid}`}>
           <motion.div {...group}>
             <motion.p className="overline" {...item}>
@@ -211,7 +211,7 @@ export default function HomeSections() {
       </section>
 
       {/* why independent professionals */}
-      <section className="section">
+      <section className={`section ${s.deferred}`}>
         <div className="container">
           <motion.div className="section-head" {...group}>
             <motion.p className="overline" {...item}>
