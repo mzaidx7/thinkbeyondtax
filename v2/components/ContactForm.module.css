@@ -40,6 +40,12 @@
   resize: vertical;
 }
 
+.hint {
+  color: var(--grey);
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
 .hp {
   display: none;
 }

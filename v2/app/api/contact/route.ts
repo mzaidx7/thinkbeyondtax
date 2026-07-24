@@ -85,17 +85,37 @@ export async function POST(request: NextRequest) {
   const topic = clean(body.topic);
   const message = clean(body.message);
 
-  if (
-    name.length < 2 ||
-    name.length > 120 ||
-    company.length > 160 ||
-    !isEmail(email) ||
-    !allowedTopics.has(topic) ||
-    message.length < 10 ||
-    message.length > 5000
-  ) {
+  if (name.length < 2 || name.length > 120) {
     return NextResponse.json(
-      { message: "Please check the form fields and try again." },
+      { message: "Please enter your name using between 2 and 120 characters." },
+      { status: 400 },
+    );
+  }
+
+  if (company.length > 160) {
+    return NextResponse.json(
+      { message: "Please shorten the company name to 160 characters or fewer." },
+      { status: 400 },
+    );
+  }
+
+  if (!isEmail(email)) {
+    return NextResponse.json(
+      { message: "Please enter a valid email address." },
+      { status: 400 },
+    );
+  }
+
+  if (!allowedTopics.has(topic)) {
+    return NextResponse.json(
+      { message: "Please choose one of the available enquiry topics." },
+      { status: 400 },
+    );
+  }
+
+  if (message.length < 10 || message.length > 5000) {
+    return NextResponse.json(
+      { message: "Please enter a message using between 10 and 5,000 characters." },
       { status: 400 },
     );
   }

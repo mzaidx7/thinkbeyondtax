@@ -32,9 +32,13 @@ export default function ContactForm() {
       form.reset();
       setStatus("success");
       setMessage(result.message ?? "Thank you, we'll get back to you within one working day.");
-    } catch {
+    } catch (error) {
       setStatus("error");
-      setMessage("Something went wrong. Please email info@thinkbeyondtax.com or reach us on WhatsApp.");
+      setMessage(
+        error instanceof Error && error.message
+          ? error.message
+          : "We couldn't send your enquiry. Please email info@thinkbeyondtax.com or reach us on WhatsApp.",
+      );
     }
   }
 
@@ -45,16 +49,16 @@ export default function ContactForm() {
       <div className={s.fieldRow}>
         <label>
           Name
-          <input type="text" name="name" required autoComplete="name" />
+          <input type="text" name="name" required minLength={2} maxLength={120} autoComplete="name" />
         </label>
         <label>
           Company
-          <input type="text" name="company" autoComplete="organization" />
+          <input type="text" name="company" maxLength={160} autoComplete="organization" />
         </label>
       </div>
       <label>
         Email
-        <input type="email" name="email" required autoComplete="email" />
+        <input type="email" name="email" required maxLength={254} autoComplete="email" />
       </label>
       <label>
         What do you need help with?
@@ -74,8 +78,14 @@ export default function ContactForm() {
           name="message"
           rows={5}
           required
+          minLength={10}
+          maxLength={5000}
+          aria-describedby="message-requirement"
           placeholder="Tell us about your business, the software you use, and what you need."
         />
+        <span id="message-requirement" className={s.hint}>
+          Please enter at least 10 characters.
+        </span>
       </label>
       <button className="btn btn-gold" type="submit" disabled={status === "sending"}>
         {status === "sending" ? "Sending..." : "Send Enquiry"}
